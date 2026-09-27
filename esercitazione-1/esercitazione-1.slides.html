@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esercitazione 1 - 28/09 - Slides</title>
+<style>
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body { font-family: "Avenir Next", "Segoe UI", Arial, sans-serif; background:
+radial-gradient(circle at top left, #f4ead8 0%, #efe3d0 28%, #d9d7dd 58%, #bcc9d1 100%);
+color: #17212b; }
+.deck { position: relative; width: 100vw; height: 100vh; }
+.slide { display: none; width: 100vw; height: 100vh; padding: 40px; }
+.slide.active { display: block; }
+.slide:focus { outline: none; }
+.slide:focus-visible { outline: 3px solid #7a9aaa; outline-offset: -3px; }
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.slide-inner {
+  width: min(1180px, calc(100vw - 80px));
+  height: calc(100vh - 110px);
+  margin: 0 auto;
+  overflow: auto;
+  background: rgba(255,255,255,0.86);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(23, 33, 43, 0.12);
+  border-radius: 28px;
+  box-shadow: 0 24px 80px rgba(35, 40, 46, 0.16);
+  padding: 38px 46px 44px;
+}
+.title-slide .slide-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background:
+  linear-gradient(135deg, rgba(255,255,255,0.9), rgba(250,245,238,0.86)),
+  radial-gradient(circle at right top, rgba(201,127,49,0.14), transparent 35%);
+}
+.eyebrow { text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.82rem; color: #8b3f1d; margin: 0 0 1rem; }
+.instructions { color: #5d6770; margin-top: 1.5rem; font-size: 1rem; }
+h1, h2, h3, h4 { line-height: 1.08; color: #1a2834; margin: 0 0 0.8rem; }
+h1 { font-size: clamp(2.4rem, 4.6vw, 4.8rem); max-width: 12ch; }
+h2 { font-size: clamp(2rem, 3.4vw, 3.4rem); border-bottom: 2px solid rgba(139,63,29,0.2); padding-bottom: 0.5rem; margin-bottom: 1.4rem; }
+h3 { font-size: clamp(1.4rem, 2.2vw, 2.1rem); margin-top: 1.8rem; margin-bottom: 0.6rem; }
+p, ul, ol, blockquote, table, pre { margin: 0 0 1.1rem; font-size: clamp(1.08rem, 1.6vw, 1.32rem); line-height: 1.55; }
+img { max-width: 100%; height: auto; display: block; margin: 1rem auto; border-radius: 18px; box-shadow: 0 14px 42px rgba(35, 40, 46, 0.18); }
+ul, ol { padding-left: 1.35rem; }
+li { margin: 0.38rem 0; }
+blockquote { border-top: 4px solid #c97f31; border-bottom: 4px solid #c97f31; padding: 0.8rem 1.5rem; background: #fff6ea; border-radius: 14px; text-align: center; max-width: 80%; margin-left: auto; margin-right: auto; }
+details { margin: 0 0 1rem; border: 1px solid rgba(23, 33, 43, 0.12); border-radius: 14px; background: rgba(255,255,255,0.72); overflow: hidden; }
+summary { cursor: pointer; font-weight: 700; padding: 0.75rem 0.95rem; background: rgba(23, 33, 43, 0.06); }
+details > :not(summary) { padding-left: 0.95rem; padding-right: 0.95rem; }
+pre { background: #1f2430; color: #f3f4f6; padding: 1rem; border-radius: 16px; overflow-x: auto; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; }
+p code, li code, td code, th code, blockquote code { background: rgba(23, 33, 43, 0.07); padding: 0.08rem 0.35rem; border-radius: 4px; }
+table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.92); border-radius: 14px; overflow: hidden; }
+th, td { border: 1px solid rgba(23, 33, 43, 0.12); padding: 0.55rem 0.7rem; vertical-align: top; text-align: left; }
+th { background: #f2e7d7; }
+hr { border: 0; border-top: 1px solid rgba(23, 33, 43, 0.12); margin: 1.2rem 0; }
+a { color: #8b3f1d; }
+ol.exercise-list { list-style: none; padding-left: 0; }
+ol.exercise-list > li { display: flex; align-items: baseline; gap: 0.5em; flex-wrap: wrap; }
+a.ex-id { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.78em; font-weight: 600; background: rgba(139,63,29,0.1); border: 1px solid rgba(139,63,29,0.25); color: #8b3f1d; padding: 0.05rem 0.4rem; border-radius: 5px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+a.ex-id:hover { background: rgba(139,63,29,0.18); }
+.controls {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px 18px;
+  color: #213242;
+}
+.progress {
+  flex: 1;
+  height: 6px;
+  background: rgba(23, 33, 43, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, #c97f31, #7a9aaa); }
+.counter { min-width: 70px; text-align: right; font-size: 0.95rem; }
+.nav button {
+  border: 0;
+  background: rgba(255,255,255,0.82);
+  color: #213242;
+  border-radius: 999px;
+  padding: 0.72rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(35, 40, 46, 0.12);
+}
+.nav { display: flex; gap: 10px; }
+@media (max-width: 820px) {
+  .slide { padding: 18px 14px 78px; }
+  .slide-inner { width: 100%; height: calc(100vh - 96px); padding: 24px 22px 30px; border-radius: 20px; }
+  p, ul, ol, blockquote, table, pre { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+<div class="deck" role="region" aria-label="Diapositive">
+  
+<section class="slide title-slide active" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <p class="eyebrow">Fondamenti Teorici e Programmazione</p>
+    <h1>Esercitazione 1 - 28/09</h1>
+    <p class="instructions">Freccia destra o spazio per avanzare, freccia sinistra per tornare indietro — oppure i pulsanti "Indietro" e "Avanti" in fondo alla pagina.</p>
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <p>Fondamenti teorici e programmazione · Informatica Umanistica</p><p>Argomenti:</p><ul><li>editor e interprete</li><li>input e output (<code>console.log</code> e <code>prompt</code>)</li><li>tipi</li><li>variabili e costanti</li><li>operatori aritmetici e di confronto</li></ul>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="come-si-lavora">Come si lavora</h2><ul><li>Facciamo un breve riepilogo della teoria</li><li>Svolgiamo alcuni esercizi insieme (io scrivo il codice live, voi fate lo stesso sui vostri computer)</li><li>Esercizi svolti da voi in autonomia</li><li>Domande</li></ul><p>Importante: confrontate poi il <em>ragionamento</em>, non solo il codice. Esistono più soluzioni corrette, se la vostra non corrisponde alla mia non è detto che sia sbagliata.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="regole-anche-per-le-prossime-volte">Regole anche per le prossime volte:</h2><ul><li><strong>provare</strong> prima di rinunciare</li><li><strong>commenti</strong> dove il codice non parla da solo</li><li>prima di gridare vittoria, eseguite <strong>sempre</strong> il programma con più valori, compresi i casi &quot;strani&quot; (0, numeri negativi, decimali).</li></ul>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="programiz-i-tre-componenti">Programiz: i tre componenti</h2><p><img src="imgs/screenshot-programiz.png" alt="Interfaccia di Programiz: a sinistra il pannello &quot;main.js&quot; con l&#x27;editor e il codice `console.log(&quot;Try clicking the Run button.&quot;);`, in alto il pulsante blu &quot;Run&quot;; a destra il pannello &quot;Output&quot;, vuoto perché il programma non è ancora stato eseguito."></p><p>La pagina è fatta di <strong>tre componenti</strong>, ognuno con un compito preciso:</p><table><thead><tr><th>Componente</th><th>Dove</th><th>Cosa fa</th></tr></thead><tbody><tr><td><strong>Editor</strong></td><td>pannello di sinistra</td><td>qui <strong>scrivete</strong> il programma (testo, come in un blocco note)</td></tr><tr><td><strong>Interprete</strong></td><td>si attiva col pulsante <strong>Run</strong></td><td><strong>legge</strong> il programma e lo <strong>esegue</strong> istruzione per istruzione</td></tr><tr><td><strong>Console</strong></td><td>pannello di destra</td><td>qui <strong>compaiono</strong> i risultati: output ed errori</td></tr></tbody></table><p>Il programma non è &quot;fatto&quot; di nessuno dei tre: è solo <strong>testo</strong>.</p><p>L&#x27;editor serve a scrivere il codice sorgente, l&#x27;interprete lo fa vivere, la console mostra cosa è successo.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="programiz-cosa-succede-premendo-run">Programiz: cosa succede premendo Run?</h2><ol><li><strong>scrivete</strong> il codice nell&#x27;editor;</li><li><strong>premete Run</strong>: è la &quot;chiamata&quot; all&#x27;interprete, che riceve tutto il testo dell&#x27;editor;</li><li>l&#x27;interprete esegue le istruzioni <strong>dall&#x27;alto verso il basso</strong>, una alla volta;</li><li>tutto ciò che il programma <strong>stampa</strong> compare nella console; se c&#x27;è un errore, l&#x27;interprete <strong>si ferma</strong> e lo scrive lì.</li></ol><p>Ogni <strong>Run</strong> riparte da zero: nulla si conserva da una esecuzione all&#x27;altra.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="programiz-il-primo-programma">Programiz: il primo programma</h2><p>Scrivete questo nell&#x27;<strong>editor</strong> e premete <strong>Run</strong>:</p><pre><code class="language-js">console.log(&quot;Ciao, mondo!&quot;);</code></pre><p>Nella <strong>console</strong> compare:</p><pre><code class="language-text">Ciao, mondo!</code></pre><p>Attenzione al nome: <code>console.log(...)</code> è l&#x27;istruzione con cui il <strong>programma</strong> dice all&#x27;interprete &quot;scrivi questo nella console&quot;. Non è la console in sé, ma il modo di usarla.</p><p>Provate ora a <strong>rompere</strong> il programma: togliete una parentesi e premete Run. Cosa compare nella console? L&#x27;interprete non riesce a leggere il testo e ve lo dice: leggete sempre il messaggio.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-1-tipi-e-valori">Recap 1 · Tipi e valori</h2><p>Ogni valore che Javascript può manipolare ha un <strong>tipo</strong>.</p><p>I quattro tipi fondamentali :</p><table><thead><tr><th>Tipo</th><th>Esempi</th><th>Note</th></tr></thead><tbody><tr><td><code>number</code></td><td><code>42</code>, <code>3.14</code>, <code>-7</code></td><td>numeri interi e decimali</td></tr><tr><td><code>string</code></td><td><code>&quot;ciao&quot;</code>, <code>&quot;42&quot;</code>, <code>&quot;&quot;</code></td><td>testo tra apici</td></tr><tr><td><code>boolean</code></td><td><code>true</code>, <code>false</code></td><td>valori che rappresentano condizioni di verità</td></tr><tr><td><code>undefined</code></td><td><code>undefined</code></td><td>&quot;nessun valore assegnato&quot;</td></tr></tbody></table><pre><code class="language-js">console.log(42);       // number
+console.log(&quot;42&quot;);     // string: le virgolette cambiano il tipo!
+console.log(true);     // boolean</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-2-operatori-aritmetici">Recap 2 · Operatori aritmetici</h2><p><strong>Aritmetici</strong>: operano su valori di tipo <code>number</code>:</p><table><thead><tr><th>Operatore</th><th>Significato</th><th>Esempio</th></tr></thead><tbody><tr><td><code>+</code> <code>-</code></td><td>somma, differenza</td><td><code>7 - 2</code> → <code>5</code></td></tr><tr><td><code>*</code> <code>/</code></td><td>prodotto, divisione <strong>reale</strong></td><td><code>7 / 2</code> → <code>3.5</code></td></tr><tr><td><code>%</code></td><td>resto</td><td><code>7 % 2</code> → <code>1</code></td></tr><tr><td><code>**</code></td><td>potenza</td><td><code>2 ** 3</code> → <code>8</code></td></tr></tbody></table><p>Precedenza: prima <code>**</code>, poi <code>*</code> <code>/</code> <code>%</code>, poi <code>+</code> <code>-</code>. Le parentesi comandano sempre (come a scuola).</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-2-operatori-su-string">Recap 2 · Operatori su <code>string</code></h2><table><thead><tr><th>Operatore</th><th>Significato</th><th>Esempio</th></tr></thead><tbody><tr><td><code>+</code></td><td>concatenazione</td><td><code>&quot;cia&quot;+&quot;o&quot;</code> → <code>&quot;ciao&quot;</code></td></tr></tbody></table><p>Attenzione! Il tipo decide <strong>cosa fa l&#x27;operatore +</strong>: <code>&quot;3&quot; + &quot;4&quot;</code> è <code>&quot;34&quot;</code>, ma <code>3 + 4</code> è <code>7</code>.</p><p>Possiamo convertire un tipo in un altro; As esempio, per convertire una stringa in numero: <code>Number(&quot;42&quot;)</code>. Se non è convertibile il risultato è <code>NaN</code> (<em>Not a Number</em>).</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-3-variabili">Recap 3 · Variabili</h2><p>Una <strong>variabile</strong> è un nome a cui è associato un valore.</p><pre><code class="language-js">let eta = 23;            // dichiara e assegna
+eta = eta + 1;
+const PI_GRECO = 3.14;   // const: non si può riassegnare</code></pre><ul><li><code>let</code> per valori che cambiano, <code>const</code> per valori che restano fissi;</li><li><code>=</code> <strong>non</strong> significa &quot;uguale a&quot;: significa &quot;valuta l&#x27;espressione a destra, assegnala al nome a sinistra&quot;;</li></ul>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-4-input-e-output">Recap 4 · Input e output</h2><p><strong>Output</strong>: <code>console.log(...)</code> stampa i suoi argomenti separati da uno spazio.</p><pre><code class="language-js">console.log(&quot;Somma:&quot;, 3 + 4);   // Somma: 7</code></pre><p><strong>Input</strong>: <code>prompt(&lt;string&gt;)</code> mostra una stringa e restituisce <strong>sempre una stringa</strong>.</p><pre><code class="language-js">let eta_input = prompt(&quot;Inserisci la tua età:&quot;);    // &quot;20&quot;  (stringa!)
+let eta = Number(eta_input);                            // 20    (number)
+console.log(eta);</code></pre><ul><li><code>prompt(...)</code> <strong>ferma</strong> l&#x27;esecuzione e chiede un valore all&#x27;utente;</li><li>il valore digitato torna al programma come <strong>stringa</strong> e viene assegnato a <code>eta_input</code>;</li><li>il valore di <code>eta_input</code> viene trasformato in intero e assegnato ad una seconda variabile <code>eta</code></li><li><code>console.log(...)</code> lo stampa nella console.</li></ul><p>In generale è bene tenere a mente uno schema generale: <strong>leggo l&#x27;input → elaboro e calcolo → stampo</strong>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-5-bool-e-operatori-di-confronto">Recap 5 · <code>bool</code> e operatori di confronto</h2><p>Con i tipi <code>number</code> e <code>string</code> possiamo descrivere la maggior parte degli oggetti che ci interessano.</p><table><thead><tr><th>Esempio</th><th></th></tr></thead><tbody><tr><td>Chilometri percorsi nello scorso anno</td><td><code>number</code> - numero intero</td></tr><tr><td>Media dei voti</td><td><code>number</code> - decimale</td></tr><tr><td>Nome e cognome</td><td><code>string</code></td></tr><tr><td>Anno di nascita</td><td><code>number</code> - numero intero</td></tr></tbody></table><p>Nel mondo reale però esiste anche un altro tipo di valore che vogliamo poter rappresentare in un linguaggio di programmazione. Ad esempio noi sappiamo valutare le seguenti espressioni:</p><ul><li>&quot;il numero 3 è minore del numero 5&quot;</li><li>&quot;Andrea è più alto di Marta&quot;</li></ul><p>Questi valori (vero o falso) sono rappresentati nei linguaggi di programmazione dal tipo <code>boolean</code></p><p>Possiamo ottenerli effettuando operazioni <strong>di confronto</strong> su altri valori:</p><table><thead><tr><th>Operatore</th><th>Significato</th></tr></thead><tbody><tr><td><code>&lt;</code> <code>&gt;</code></td><td>minore, maggiore</td></tr><tr><td><code>&lt;=</code> <code>&gt;=</code></td><td>minore o uguale, ecc.</td></tr><tr><td><code>==</code> <code>!=</code></td><td>uguale, diverso</td></tr></tbody></table><ul><li>l&#x27;espressione <code>3 &lt; 5</code> vale <code>true</code></li><li>l&#x27;espressione <code>&quot;casa&quot; == &quot;gatto&quot;</code> vale <code>false</code></li></ul>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-1">Esercizio 1</h2><p>Scrivere un programma con tre istruzioni. La prima che visualizzi un numero, la seconda che visualizzi una stringa, la terza che visualizzi un valore booleano. ​</p><p>Note: ​</p><ul><li>Le istruzioni vanno terminate con ;​</li><li>Si aggiungano al programma tutti i commenti ritenuti necessari ​</li></ul>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-21-ciao-x">Esercizio 2.1 · Ciao, X!</h2><p>Scrivete un programma che legge il vostro nome dall&#x27;input e poi stampa la stringa <code>Ciao &lt;nome&gt;!</code> in output.</p><p>Nel mio caso ad esempio stamperà la stringa <code>&quot;Ciao Ludovica!&quot;</code></p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-22-ciao-x">Esercizio 2.2 · Ciao, X!</h2><p>Modificare l&#x27;esercizio precedente leggendo anche il <strong>cognome</strong> e stampate <code>Ciao, Nome Cognome!</code>.</p><p>Esempio:</p><pre><code class="language-javascript">Nome: Ada
+Cognome: Lovelace
+Ciao, Ada Lovelace!</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-3">Esercizio 3</h2><p>Scrivere un programma che visualizzi il cubo del numero reale inserito in input dall’utente. Si aggiungano tutti i commenti ritenuti necessari. ​</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-4">Esercizio 4</h2><p>Scrivere un programma che calcoli e visualizzi il resto che si ottiene dividendo il proprio numero di matricola per 2. Si aggiungano poi tutti i commenti ritenuti necessari. ​</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-5">Esercizio 5</h2><p>Scrivere un programma che, leggendo il valore del raggio di un cerchio in input, calcoli e visualizzi il valore del perimetro e dell’area del cerchio. Si aggiungano al programma tutti i commenti ritenuti necessari.​</p><blockquote><p><strong>Promemoria:</strong> dato il raggio <code>r</code>, perimetro = <code>2 · π · r</code>, area = <code>π · r²</code>.</p></blockquote>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-6">Esercizio 6</h2><p>Scrivere un programma che stampi il valore delle unità, decine e centinaia che compongono un numero naturale a tre cifre (scelto a piacere in input). Si utilizzino gli operatori visti nel Capitolo 1. Si aggiungano al programma tutti i commenti ritenuti necessari. ​</p><blockquote><p>Suggerimento:<br>Si parta da questa considerazione per poi procedere.<br>Se si considera ad esempio il numero 234, il numero di unità (cioè 4) si può ottenere dividendo il numero per 10 e considerando il resto (infatti, 234 diviso 10 fa 23 con resto 4).​</p></blockquote>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-7">Esercizio 7</h2><p>Creare un programma JS che estragga 3 numeri naturali casuali compresi tra 1 e 100 e li mostri a schermo.​</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-8">Esercizio 8</h2><p>Creare un programma JS che legge l&#x27;<strong>età</strong> dell&#x27;utente e stampa due righe:</p><pre><code class="language-text">Età: 20
+Tra un anno avrai 21 anni
+Un anno fa avevi 19 anni</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-9">Esercizio 9</h2><p>Leggete un <strong>nome</strong> e un <strong>anno di nascita</strong> dall&#x27;input, poi stampate una frase come:</p><pre><code class="language-text">Ciao Anna, potresti avere 20 o 21 anni</code></pre><p>(Non conosciamo la data di nascita completa, quindi la differenza tra anni vale solo se il compleanno è già passato; altrimenti l&#x27;età è di uno in meno.)</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-10">Esercizio 10</h2><p>Leggete una temperatura in gradi <strong>Celsius</strong> e stampate l&#x27;equivalente in <strong>Fahrenheit</strong> e in <strong>Kelvin</strong>.</p><p>Formule: <code>F = C · 9/5 + 32</code> e <code>K = C + 273.15</code>.</p><p>Esempio con <code>23</code>:</p><pre><code class="language-text">23 °C = 73.4 °F = 296.15 K</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-11">Esercizio 11</h2><p>Leggete due numeri <code>a</code> e <code>b</code> e stampate, <strong>ognuna su una riga</strong>, il valore booleano di queste affermazioni:</p><pre><code class="language-text">a è maggiore di b: ...
+a è uguale a b: ...
+a è diverso da b: ...
+a è pari: ...
+b è multiplo di a: ...</code></pre><p>Esempio con <code>a = 6</code> e <code>b = 12</code>:</p><pre><code class="language-text">a è maggiore di b: false
+a è uguale a b: false
+a è diverso da b: true
+a è pari: true
+b è multiplo di a: true</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-12">Esercizio 12</h2><p>Simulate il lancio di <strong>due dadi</strong> a 6 facce: stampate i due valori, la loro somma e se è uscito un <strong>doppio</strong> (valore booleano).</p><p>Esempio:</p><pre><code class="language-text">Dado 1: 4
+Dado 2: 4
+Somma: 8
+Doppio: true</code></pre>
+    
+  </div>
+</section>
+
+</div>
+<div class="sr-only" id="slide-announcer" aria-live="polite" aria-atomic="true"></div>
+<div class="controls">
+  <div class="nav">
+    <button type="button" id="prev">Indietro</button>
+    <button type="button" id="next">Avanti</button>
+  </div>
+  <div class="progress"><div class="progress-bar" id="progress"></div></div>
+  <div class="counter" id="counter" aria-hidden="true">1 / 26</div>
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license" style="display:flex;align-items:center;opacity:0.6;">
+    <img src="https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png" alt="CC BY-NC-SA 4.0" style="height:15px;border-radius:0;margin:0;">
+  </a>
+</div>
+<script>
+const slides = Array.from(document.querySelectorAll(".slide"));
+const counter = document.getElementById("counter");
+const progress = document.getElementById("progress");
+const announcer = document.getElementById("slide-announcer");
+let current = 0;
+
+function slideLabel(slide, index) {
+  const heading = slide.querySelector("h1, h2, h3");
+  const title = heading ? heading.textContent.trim() : "";
+  const position = `Diapositiva ${index + 1} di ${slides.length}`;
+  return title ? `${position}: ${title}` : position;
+}
+
+function updateSlide(index, options) {
+  const opts = options || {};
+  current = Math.max(0, Math.min(index, slides.length - 1));
+  slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+  counter.textContent = `${current + 1} / ${slides.length}`;
+  progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+
+  const activeSlide = slides[current];
+  const label = slideLabel(activeSlide, current);
+  activeSlide.setAttribute("aria-label", label);
+  announcer.textContent = label;
+
+  if (opts.moveFocus) {
+    activeSlide.focus({ preventScroll: true });
+  }
+
+  const anchor = activeSlide.querySelector("[id]");
+  if (anchor) {
+    history.replaceState(null, "", `#${anchor.id}`);
+  }
+}
+
+document.getElementById("prev").addEventListener("click", () => updateSlide(current - 1, { moveFocus: true }));
+document.getElementById("next").addEventListener("click", () => updateSlide(current + 1, { moveFocus: true }));
+
+document.addEventListener("keydown", (event) => {
+  if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+    event.preventDefault();
+    updateSlide(current + 1, { moveFocus: true });
+  }
+  if (["ArrowLeft", "PageUp"].includes(event.key)) {
+    event.preventDefault();
+    updateSlide(current - 1, { moveFocus: true });
+  }
+  if (event.key === "Home") updateSlide(0, { moveFocus: true });
+  if (event.key === "End") updateSlide(slides.length - 1, { moveFocus: true });
+});
+
+updateSlide(0);
+</script>
+</body>
+</html>
