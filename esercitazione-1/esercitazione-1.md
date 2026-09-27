@@ -17,7 +17,7 @@ Argomenti:
 - Esercizi svolti da voi in autonomia
 - Domande
 
-Importante: confrontate poi il *ragionamento*, non solo il codice. Esistono più soluzioni corrette, se la vostra non corrisponde alla mia non è detto che sia sbagliata.
+Importante: confrontate il *ragionamento*, non solo il codice. Esistono più soluzioni corrette, se la vostra non corrisponde alla mia non è detto che sia sbagliata.
 
 ## Regole anche per le prossime volte:
 

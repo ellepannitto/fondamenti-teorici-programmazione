@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fondamenti Teorici e Programmazione — Esercitazioni</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Avenir Next", "Segoe UI", Arial, sans-serif;
+    background: #f6f3ee;
+    color: #1f1f1f;
+    line-height: 1.6;
+  }
+  .page { max-width: 720px; margin: 0 auto; padding: 48px 20px 72px; }
+  header { margin-bottom: 2.5rem; }
+  p.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.82rem;
+    color: #8b3f1d;
+    margin: 0 0 0.6rem;
+  }
+  h1 { font-size: 2rem; color: #1c2a39; margin: 0; line-height: 1.2; }
+  ol.lezioni {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  ol.lezioni > li {
+    background: #fffdfa;
+    border: 1px solid #ddd5ca;
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  ol.lezioni > li.tbd {
+    color: #8a8a8a;
+    border-style: dashed;
+    background: transparent;
+  }
+  .titolo { display: flex; flex-direction: column; gap: 4px; }
+  .titolo strong { color: #1c2a39; font-size: 1.05rem; }
+  .data { font-size: 0.88rem; color: #6b6b6b; }
+  .link-group { display: flex; gap: 10px; flex-wrap: wrap; }
+  a.bottone {
+    display: inline-block;
+    text-decoration: none;
+    color: #8b3f1d;
+    border: 1px solid #d8b79a;
+    background: #fbeee2;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  a.bottone:hover { background: #f3ddc8; }
+  a.bottone:focus-visible, a:focus-visible {
+    outline: 3px solid #7a9aaa;
+    outline-offset: 2px;
+  }
+  a.secondario {
+    color: #5d6770;
+    border-color: #d8d1c7;
+    background: transparent;
+    font-weight: 500;
+  }
+  a.secondario:hover { background: #efe7db; }
+  footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid #d8d1c7;
+    font-size: 0.82rem;
+    color: #595959;
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <header>
+    <p class="eyebrow">Fondamenti Teorici e Programmazione</p>
+    <h1>Esercitazioni</h1>
+  </header>
+
+  <ol class="lezioni">
+    <li>
+      <div class="titolo">
+        <strong>Esercitazione 1 — Primi passi in JavaScript</strong>
+        <span class="data">28 settembre</span>
+      </div>
+      <div class="link-group">
+        <a class="bottone" href="esercitazione-1/esercitazione-1.slides.html">Slide</a>
+        <a class="bottone secondario" href="esercitazione-1/esercitazione-1.html">Testo</a>
+      </div>
+    </li>
+    <li class="tbd" aria-hidden="true">
+      <div class="titolo">
+        <strong>Esercitazione 2</strong>
+        <span class="data">da aggiungere</span>
+      </div>
+    </li>
+  </ol>
+
+  <footer>
+    Aggiornato via via con le esercitazioni successive.
+  </footer>
+</main>
+</body>
+</html>
