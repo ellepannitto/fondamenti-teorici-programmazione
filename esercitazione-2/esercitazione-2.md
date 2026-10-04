@@ -314,11 +314,11 @@ Con `n = 3` e numeri `4`, `5`, `6` la somma è 15. Con `i < n` l'utente verrebbe
 
 </details>
 
-## Esercizio 8 · Somma dei primi *n* numeri
+## Esercizio 8 · Somma e prodotto dei primi *n* numeri pari
 
-Leggere un numero naturale `n` e calcolare la somma `1 + 2 + ... + n` usando un ciclo `for`.
+Leggere un numero naturale `n` e calcolare la **somma** e il **prodotto** dei primi `n` numeri pari positivi. Stampare i due risultati alla fine.
 
-Esempio: con `n = 5` il risultato è `15`.
+Esempio: con `n = 4` i numeri sono `2, 4, 6, 8`, quindi la somma è `20` e il prodotto è `384`.
 
 <details>
 <summary>Soluzione</summary>
@@ -326,41 +326,26 @@ Esempio: con `n = 5` il risultato è `15`.
 ```js
 let n_input = prompt("n:");
 let n = Number(n_input);
-let somma = 0;                       // accumulatore, parte da 0
+let somma = 0;                       // accumulatore della somma: parte da 0
+let prodotto = 1;                    // accumulatore del prodotto: parte da 1 (non da 0!)
 for (let i = 1; i <= n; i++) {
-  somma = somma + i;
+  let pari = 2 * i;
+  somma = somma + pari;
+  prodotto = prodotto * pari;
 }
 console.log("Somma:", somma);
+console.log("Prodotto:", prodotto);
 ```
 
-Cosa succede con `n = 0`? E con `n = -3`? Il ciclo non viene mai eseguito e il risultato resta `0`.
+Due accumulatori nello stesso ciclo: ognuno parte dall'elemento neutro della sua operazione (`0` per la somma, `1` per il prodotto). Se partisse da `0`, il prodotto resterebbe sempre `0`.
+
+Alternativa: far partire `pari` da `2` e incrementarlo di `2` a ogni giro (`pari = pari + 2`).
+
+Cosa succede con `n = 0`? Il ciclo non viene mai eseguito: somma `0` e prodotto `1`.
 
 </details>
 
-## Esercizio 9 · Prodotto dei primi *n* numeri
-
-Leggere un numero naturale `n` e calcolare il prodotto `1 · 2 · ... · n` (il *fattoriale* di `n`) con un ciclo `for`.
-
-Esempio: con `n = 5` il risultato è `120`.
-
-<details>
-<summary>Soluzione</summary>
-
-```js
-let n_input = prompt("n:");
-let n = Number(n_input);
-let prodotto = 1;                    // accumulatore, parte da 1 (non da 0!)
-for (let i = 1; i <= n; i++) {
-  prodotto = prodotto * i;
-}
-console.log(n + "! =", prodotto);
-```
-
-Con `n = 0` il risultato è `1`: è proprio la definizione di `0!`.
-
-</details>
-
-## Esercizio 10 · Media di *n* numeri
+## Esercizio 9 · Media di *n* numeri
 
 Leggere un numero `n` e poi `n` numeri, uno alla volta. Stampare la loro **media**.
 
@@ -383,7 +368,7 @@ Il numero di ripetizioni è noto (`n`), quindi è un caso da `for`. Cosa succede
 
 </details>
 
-## Esercizio 11 · Una riga di asterischi
+## Esercizio 10 · Una riga di asterischi
 
 Leggere un numero `n` e stampare **una sola riga** composta da `n` asterischi. Con `n = 5`:
 
@@ -422,7 +407,7 @@ Come per la somma, ma con le stringhe: `riga` parte da `""` e a ogni giro divent
 
 </details>
 
-## Esercizio 12 · I numeri da 1 a *n* su una riga
+## Esercizio 11 · I numeri da 1 a *n* su una riga
 
 Leggere un numero `n` e stampare **su una sola riga** i numeri da 1 a `n`, separati da uno spazio. Con `n = 5`:
 
@@ -430,7 +415,7 @@ Leggere un numero `n` e stampare **su una sola riga** i numeri da 1 a `n`, separ
 1 2 3 4 5
 ```
 
-Suggerimento: partite dall'esercizio precedente, ma ora serve aggiungere a `riga` il valore di `i` **e** uno spazio.
+Suggerimento: partite dall'esercizio precedente!
 
 <details>
 <summary>Soluzione</summary>
@@ -457,9 +442,9 @@ Passo per passo, con `n = 3`:
 
 </details>
 
-## Esercizio 13 · Conto alla rovescia
+## Esercizio 12 · Conto alla rovescia
 
-Stesso schema del `for`, ma con il `while`: i tre pezzi (inizializzazione, condizione, aggiornamento) sono **sparsi**. Completate (al posto di `______`) in modo che il programma stampi `5`, `4`, `3`, `2`, `1` e infine `Via!`.
+Completate (al posto di `______`) in modo che il programma stampi `5`, `4`, `3`, `2`, `1` e infine `Via!`.
 
 ```js
 let i = 5;                              // inizializzazione
@@ -486,34 +471,8 @@ Se dimenticate l'aggiornamento, `i` resta sempre `5` e il ciclo non finisce mai.
 
 </details>
 
-## Esercizio 14 · Somma con `while` e verifica
 
-Scrivere un programma che, ricevuto il valore di un numero naturale `n` in input, calcoli e visualizzi la somma dei numeri naturali compresi tra 1 ed `n`.
-
-Per esempio, se `n = 5`, il risultato è `1+2+3+4+5 = 15`. Si usi il ciclo `while`.
-
-Verificare infine che la somma così calcolata risulti uguale a quella trovata dalla formula `S = n · (n + 1) / 2`, ottenendo `true` se vi è uguaglianza e `false` in caso contrario.
-
-<details>
-<summary>Soluzione</summary>
-
-```js
-let n_input = prompt("n:");
-let n = Number(n_input);
-let somma = 0;
-let i = 1;                           // inizializzazione, fuori dal ciclo
-while (i <= n) {                     // condizione
-  somma = somma + i;
-  i++;                               // aggiornamento: senza, ciclo infinito
-}
-let formula = n * (n + 1) / 2;
-console.log("Somma:", somma);
-console.log("Uguale alla formula:", somma == formula);
-```
-
-</details>
-
-## Esercizio 15 · Completa l'input valido
+## Esercizio 13 · Completa l'input valido
 
 Il programma chiede un numero **positivo** e ripete la domanda finché il valore non è valido. Completate la **condizione** e la riga che **rilegge** il valore (al posto di `______`).
 
@@ -544,63 +503,8 @@ La condizione descrive il caso **sbagliato** (`x <= 0`), non quello giusto. Il v
 
 </details>
 
-## Esercizio 16 · Input valido
 
-Chiedere all'utente un numero **positivo**, ripetendo la domanda finché il valore inserito non è valido. Poi stampare `Hai inserito: <numero>`.
-
-<details>
-<summary>Soluzione</summary>
-
-```js
-let x_input = prompt("Inserisci un numero positivo:");
-let x = Number(x_input);
-while (x <= 0) {                                       // finché NON è valido
-  x_input = prompt("Non valido. Inserisci un numero positivo:");
-  x = Number(x_input);
-}
-console.log("Hai inserito:", x);
-```
-
-Qui non sappiamo quante volte l'utente sbaglierà: è un caso tipico da `while`. Notate che il valore viene letto **una volta prima** del ciclo e **di nuovo dentro** il ciclo.
-
-</details>
-
-## Esercizio 17 · Completa la somma fino a zero
-
-Il programma somma i numeri inseriti finché l'utente non inserisce `0`. Completate la **condizione** e l'**aggiornamento dell'accumulatore** (al posto di `______`).
-
-```js
-let somma = 0;
-let x_input = prompt("Numero (0 per terminare):");
-let x = Number(x_input);
-while (______) {
-  somma = ______;
-  x_input = prompt("Numero (0 per terminare):");
-  x = Number(x_input);
-}
-console.log("Somma:", somma);
-```
-
-<details>
-<summary>Soluzione</summary>
-
-```js
-let somma = 0;
-let x_input = prompt("Numero (0 per terminare):");
-let x = Number(x_input);
-while (x != 0) {
-  somma = somma + x;
-  x_input = prompt("Numero (0 per terminare):");
-  x = Number(x_input);
-}
-console.log("Somma:", somma);
-```
-
-Il ciclo continua finché `x` è **diverso** da `0`. Lo `0` finale non viene sommato: il corpo non viene eseguito per lui.
-
-</details>
-
-## Esercizio 18 · Somma fino a zero
+## Esercizio 14 · Somma fino a zero
 
 Leggere numeri dall'input e sommarli, finché l'utente non inserisce `0`. Alla fine stampare la somma e quanti numeri sono stati inseriti (lo `0` finale escluso).
 
@@ -626,7 +530,7 @@ Se l'utente inserisce subito `0`, il corpo non viene mai eseguito e il risultato
 
 </details>
 
-## Esercizio 19 · Indovina il numero
+## Esercizio 15 · Indovina il numero
 
 Il programma sceglie un numero casuale tra 1 e 10. L'utente prova a indovinarlo, finché non ci riesce. Alla fine stampare in quanti tentativi ci è riuscito.
 
@@ -676,7 +580,7 @@ if (voto >= 18) {
 }
 ```
 
-## Esercizio 20 · Pari o dispari
+## Esercizio 16 · Pari o dispari
 
 Leggere un numero intero e stampare `"pari"` oppure `"dispari"`.
 
@@ -697,11 +601,11 @@ Con un numero negativo, `-3 % 2` vale `-1`: il confronto con `0` funziona comunq
 
 </details>
 
-## Esercizio 21 · Logaritmi
+## Esercizio 17 · Radice quadrata
 
-Dato un numero reale in input, mostrare il valore del logaritmo naturale e del logaritmo in base due di quel numero.
+Dato un numero reale in input, mostrare il valore della sua radice quadrata.
 
-Fare inizialmente il controllo che il numero sia **positivo**, dato che i logaritmi sono definiti solo per argomenti reali positivi. Altrimenti stampare un messaggio di errore.
+Fare inizialmente il controllo che il numero sia **non negativo**, dato che la radice quadrata è definita solo per argomenti reali maggiori o uguali a zero. Altrimenti stampare un messaggio di errore.
 
 <details>
 <summary>Soluzione</summary>
@@ -709,19 +613,18 @@ Fare inizialmente il controllo che il numero sia **positivo**, dato che i logari
 ```js
 let x_input = prompt("Numero reale:");
 let x = Number(x_input);
-if (x > 0) {
-  console.log("Logaritmo naturale:", Math.log(x));
-  console.log("Logaritmo in base 2:", Math.log2(x));
+if (x >= 0) {
+  console.log("Radice quadrata:", Math.sqrt(x));
 } else {
-  console.log("Errore: il numero deve essere positivo");   // anche 0 va escluso
+  console.log("Errore: il numero non può essere negativo");   // 0 invece è ammesso
 }
 ```
 
-`Math.log` è il logaritmo **naturale** (base *e*), non in base 10. Provate `x = 1`, `x = 8` e `x = 0`.
+`Math.sqrt` calcola la radice quadrata. Provate `x = 9`, `x = 2`, `x = 0` e `x = -4`: attenzione al `>=`, perché `0` è un argomento valido (con `>` verrebbe scartato per errore).
 
 </details>
 
-## Esercizio 22 · Massimo di tre numeri
+## Esercizio 18 · Massimo di tre numeri
 
 Leggere tre numeri e stampare il più grande, **senza** usare `Math.max`.
 
@@ -748,30 +651,7 @@ Provate con numeri uguali (ad esempio `5, 5, 3`): il programma deve funzionare a
 
 </details>
 
-## Esercizio 23 · Anno bisestile
-
-Leggere un anno e stampare se è **bisestile**.
-
-Un anno è bisestile se è divisibile per 4 ma non per 100, oppure se è divisibile per 400. Quindi 2024 e 2000 sono bisestili, 1900 e 2023 no.
-
-<details>
-<summary>Soluzione</summary>
-
-```js
-let anno_input = prompt("Anno:");
-let anno = Number(anno_input);
-if ((anno % 4 == 0 && anno % 100 != 0) || anno % 400 == 0) {
-  console.log(anno, "è bisestile");
-} else {
-  console.log(anno, "non è bisestile");
-}
-```
-
-Le parentesi attorno all'`&&` rendono chiaro come si raggruppano le condizioni. Testate i quattro anni dell'esempio.
-
-</details>
-
-## Esercizio 24 · Voto e giudizio
+## Esercizio 19 · Voto e giudizio
 
 Leggere un voto da 0 a 30 e stampare un giudizio:
 
@@ -806,7 +686,7 @@ Ogni `else if` "eredita" le condizioni false dei precedenti: per questo basta sc
 
 </details>
 
-## Esercizio 25 · Costo di una chiamata
+## Esercizio 20 · Costo di una chiamata
 
 Leggere la durata in minuti (numero reale) di una chiamata telefonica e visualizzare il costo, sapendo che:
 
@@ -835,7 +715,7 @@ Verificate con `0`, `0.5`, `1`, `10.3`, `-2`.
 
 </details>
 
-## Esercizio 26 · Somma di multipli
+## Esercizio 21 · Somma di multipli
 
 Calcolare la somma di tutti i numeri da 1 a `n` che sono multipli di 3 **oppure** di 5.
 
@@ -860,7 +740,7 @@ Un numero come 15 è multiplo di entrambi, ma viene sommato **una sola volta**: 
 
 </details>
 
-## Esercizio 27 · Tabellina
+## Esercizio 22 · Tabellina
 
 Leggere un numero `n` e stampare la sua tabellina (da `n · 1` a `n · 10`) **in un'unica stringa**.
 
@@ -914,7 +794,7 @@ Le parentesi in `(n * i)` non sono obbligatorie, ma rendono chiaro che prima si 
 
 </details>
 
-## Esercizio 28 · Polinomio
+## Esercizio 23 · Polinomio
 
 Leggere un numero reale `x` e un numero naturale `n` (con `n ≥ 1`) e calcolare
 
@@ -943,7 +823,7 @@ Controllo: con `x = 2` e `n = 3` il risultato è `2 + 4 + 8 = 14`.
 
 </details>
 
-## Esercizio 29 · Coppie con somma *n*
+## Esercizio 24 · Coppie con somma *n*
 
 Realizzare un programma che stampi tutte le coppie di numeri interi positivi (diversi tra loro) la cui somma è un numero naturale `n` a scelta, maggiore di 2.
 
@@ -978,7 +858,7 @@ Non servono due cicli: fissato `i`, l'unico `j` possibile è `n - i`. Con `n = 4
 
 </details>
 
-## Esercizio 30 · Primi *N* pari dopo *A*
+## Esercizio 25 · Primi *N* pari dopo *A*
 
 Calcolare la somma e la media dei primi `N` numeri interi positivi **pari** successivi a un numero intero positivo `A`. Sia `N` che `A` devono essere letti da tastiera.
 
