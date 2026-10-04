@@ -1,7 +1,5 @@
 # Esercitazione 1 - 28/09
 
-Fondamenti teorici e programmazione · Informatica Umanistica
-
 Argomenti:
 
 - editor e interprete
