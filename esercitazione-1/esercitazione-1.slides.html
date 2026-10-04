@@ -122,7 +122,7 @@ a.ex-id:hover { background: rgba(139,63,29,0.18); }
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <p>Fondamenti teorici e programmazione · Informatica Umanistica</p><p>Argomenti:</p><ul><li>editor e interprete</li><li>input e output (<code>console.log</code> e <code>prompt</code>)</li><li>tipi</li><li>variabili e costanti</li><li>operatori aritmetici e di confronto</li></ul>
+    <p>Fondamenti teorici e programmazione · Informatica Umanistica</p><p>Argomenti:</p><ul><li>editor e interprete</li><li>input e output (<code>console.log</code> e <code>prompt</code>)</li><li>tipi</li><li>variabili e costanti</li><li>operatori aritmetici</li></ul>
     
   </div>
 </section>
@@ -157,7 +157,10 @@ a.ex-id:hover { background: rgba(139,63,29,0.18); }
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="programiz-il-primo-programma">Programiz: il primo programma</h2><p>Scrivete questo nell&#x27;<strong>editor</strong> e premete <strong>Run</strong>:</p><pre><code class="language-js">console.log(&quot;Ciao, mondo!&quot;);</code></pre><p>Nella <strong>console</strong> compare:</p><pre><code class="language-text">Ciao, mondo!</code></pre><p>Attenzione al nome: <code>console.log(...)</code> è l&#x27;istruzione con cui il <strong>programma</strong> dice all&#x27;interprete &quot;scrivi questo nella console&quot;. Non è la console in sé, ma il modo di usarla.</p><p>Provate ora a <strong>rompere</strong> il programma: togliete una parentesi e premete Run. Cosa compare nella console? L&#x27;interprete non riesce a leggere il testo e ve lo dice: leggete sempre il messaggio.</p>
+    <h2 id="programiz-il-primo-programma">Programiz: il primo programma</h2><p>Scrivete questo nell&#x27;<strong>editor</strong> e premete <strong>Run</strong>:</p><pre><code class="language-js">console.log(&quot;Ciao, mondo!&quot;);</code></pre><p>Nella <strong>console</strong> compare:</p><pre><code class="language-text">Ciao, mondo!</code></pre><p>Attenzione al nome: <code>console.log(...)</code> è l&#x27;istruzione con cui il <strong>programma</strong> dice all&#x27;interprete &quot;scrivi questo nella console&quot;. Non è la console in sé, ma il modo di usarla.</p><p>Provate ora a <strong>rompere</strong> il programma: togliete una parentesi e premete Run. Cosa compare nella console? L&#x27;interprete non riesce a leggere il testo e ve lo dice: leggete sempre il messaggio.</p><pre><code class="language-js">console.log(&quot;Ciao, mondo!&quot;;      // manca la parentesi chiusa</code></pre><p>Nella console compare un messaggio di errore, simile a questo:</p><pre><code class="language-text">console.log(&quot;Ciao, mondo!&quot;;
+            ^^^^^^^^^^^^^^
+
+SyntaxError: missing ) after argument list</code></pre><p>Come leggerlo:</p><ul><li><code>SyntaxError</code> è il <strong>tipo</strong> di errore: l&#x27;interprete non ha capito come è scritto il programma (errore di <em>sintassi</em>);</li><li><code>missing ) after argument list</code> è la <strong>spiegazione</strong>: manca una <code>)</code> dopo gli argomenti di <code>console.log</code>;</li><li>la riga col simbolo <code>^^^^</code> indica <strong>dove</strong> l&#x27;interprete si è accorto del problema (spesso è il punto <em>dopo</em> quello da correggere);</li><li>in caso di errore di sintassi il programma <strong>non parte</strong> nemmeno: non compare nessun output.</li></ul>
     
   </div>
 </section>
@@ -180,7 +183,7 @@ console.log(true);     // boolean</code></pre>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="recap-2-operatori-su-string">Recap 2 · Operatori su <code>string</code></h2><table><thead><tr><th>Operatore</th><th>Significato</th><th>Esempio</th></tr></thead><tbody><tr><td><code>+</code></td><td>concatenazione</td><td><code>&quot;cia&quot;+&quot;o&quot;</code> → <code>&quot;ciao&quot;</code></td></tr></tbody></table><p>Attenzione! Il tipo decide <strong>cosa fa l&#x27;operatore +</strong>: <code>&quot;3&quot; + &quot;4&quot;</code> è <code>&quot;34&quot;</code>, ma <code>3 + 4</code> è <code>7</code>.</p><p>Possiamo convertire un tipo in un altro; As esempio, per convertire una stringa in numero: <code>Number(&quot;42&quot;)</code>. Se non è convertibile il risultato è <code>NaN</code> (<em>Not a Number</em>).</p>
+    <h2 id="recap-2-operatori-su-string">Recap 2 · Operatori su <code>string</code></h2><table><thead><tr><th>Operatore</th><th>Significato</th><th>Esempio</th></tr></thead><tbody><tr><td><code>+</code></td><td>concatenazione</td><td><code>&quot;cia&quot;+&quot;o&quot;</code> → <code>&quot;ciao&quot;</code></td></tr></tbody></table><p>Attenzione! Il tipo decide <strong>cosa fa l&#x27;operatore +</strong>: <code>&quot;3&quot; + &quot;4&quot;</code> è <code>&quot;34&quot;</code>, ma <code>3 + 4</code> è <code>7</code>.</p><p>Possiamo convertire un tipo in un altro; Ad esempio, per convertire una stringa in numero: <code>Number(&quot;42&quot;)</code>. Se non è convertibile il risultato è <code>NaN</code> (<em>Not a Number</em>).</p>
     
   </div>
 </section>
@@ -205,21 +208,20 @@ console.log(eta);</code></pre><ul><li><code>prompt(...)</code> <strong>ferma</st
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="recap-5-bool-e-operatori-di-confronto">Recap 5 · <code>bool</code> e operatori di confronto</h2><p>Con i tipi <code>number</code> e <code>string</code> possiamo descrivere la maggior parte degli oggetti che ci interessano.</p><table><thead><tr><th>Esempio</th><th></th></tr></thead><tbody><tr><td>Chilometri percorsi nello scorso anno</td><td><code>number</code> - numero intero</td></tr><tr><td>Media dei voti</td><td><code>number</code> - decimale</td></tr><tr><td>Nome e cognome</td><td><code>string</code></td></tr><tr><td>Anno di nascita</td><td><code>number</code> - numero intero</td></tr></tbody></table><p>Nel mondo reale però esiste anche un altro tipo di valore che vogliamo poter rappresentare in un linguaggio di programmazione. Ad esempio noi sappiamo valutare le seguenti espressioni:</p><ul><li>&quot;il numero 3 è minore del numero 5&quot;</li><li>&quot;Andrea è più alto di Marta&quot;</li></ul><p>Questi valori (vero o falso) sono rappresentati nei linguaggi di programmazione dal tipo <code>boolean</code></p><p>Possiamo ottenerli effettuando operazioni <strong>di confronto</strong> su altri valori:</p><table><thead><tr><th>Operatore</th><th>Significato</th></tr></thead><tbody><tr><td><code>&lt;</code> <code>&gt;</code></td><td>minore, maggiore</td></tr><tr><td><code>&lt;=</code> <code>&gt;=</code></td><td>minore o uguale, ecc.</td></tr><tr><td><code>==</code> <code>!=</code></td><td>uguale, diverso</td></tr></tbody></table><ul><li>l&#x27;espressione <code>3 &lt; 5</code> vale <code>true</code></li><li>l&#x27;espressione <code>&quot;casa&quot; == &quot;gatto&quot;</code> vale <code>false</code></li></ul>
+    <h2 id="esercizio-1">Esercizio 1</h2><p>Scrivere un programma con tre istruzioni. La prima che visualizzi un numero, la seconda che visualizzi una stringa, la terza che visualizzi un valore booleano. ​</p><p>Note: ​</p><ul><li>Le istruzioni vanno terminate con ;​</li><li>Si aggiungano al programma tutti i commenti ritenuti necessari ​</li></ul><details><summary>Soluzione</summary><pre><code class="language-js">// un numero, una stringa, un booleano
+console.log(42);
+console.log(&quot;ciao&quot;);
+console.log(true);</code></pre><p>Ogni istruzione termina con <code>;</code>. Il tipo del valore dipende da come lo scrivo: <code>&quot;42&quot;</code> sarebbe una stringa.</p></details><details><summary>Soluzione alternativa</summary><p>I valori possono essere anche il risultato di <strong>espressioni</strong>.</p><pre><code class="language-js">console.log(3 + 5);                  // number: l&#x27;espressione vale 8
+console.log(&quot;ciao, &quot; + &quot;mondo!&quot;);    // string: concatenazione, vale &quot;ciao, mondo!&quot;
+console.log(false);                  // boolean</code></pre><p>Conta il tipo del <strong>valore</strong> che l&#x27;espressione produce, non come è scritta: <code>3 + 5</code> è un <code>number</code>, <code>&quot;3&quot; + &quot;5&quot;</code> sarebbe la stringa <code>&quot;35&quot;</code>.</p></details>
     
   </div>
 </section>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-1">Esercizio 1</h2><p>Scrivere un programma con tre istruzioni. La prima che visualizzi un numero, la seconda che visualizzi una stringa, la terza che visualizzi un valore booleano. ​</p><p>Note: ​</p><ul><li>Le istruzioni vanno terminate con ;​</li><li>Si aggiungano al programma tutti i commenti ritenuti necessari ​</li></ul>
-    
-  </div>
-</section>
-
-<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
-  <div class="slide-inner">
-    <h2 id="esercizio-21-ciao-x">Esercizio 2.1 · Ciao, X!</h2><p>Scrivete un programma che legge il vostro nome dall&#x27;input e poi stampa la stringa <code>Ciao &lt;nome&gt;!</code> in output.</p><p>Nel mio caso ad esempio stamperà la stringa <code>&quot;Ciao Ludovica!&quot;</code></p>
+    <h2 id="esercizio-21-ciao-x">Esercizio 2.1 · Ciao, X!</h2><p>Scrivete un programma che legge il vostro nome dall&#x27;input e poi stampa la stringa <code>Ciao &lt;nome&gt;!</code> in output.</p><p>Ad esempio, se il nome è Giulia, stamperà la stringa <code>&quot;Ciao Giulia!&quot;</code></p><details><summary>Soluzione</summary><pre><code class="language-js">let nome = prompt(&quot;Come ti chiami?&quot;);
+console.log(&quot;Ciao &quot; + nome + &quot;!&quot;);</code></pre><p><code>prompt</code> restituisce una stringa: qui va bene così, non serve convertire. In alternativa: <code>console.log(&quot;Ciao&quot;, nome + &quot;!&quot;)</code>.</p></details>
     
   </div>
 </section>
@@ -228,90 +230,148 @@ console.log(eta);</code></pre><ul><li><code>prompt(...)</code> <strong>ferma</st
   <div class="slide-inner">
     <h2 id="esercizio-22-ciao-x">Esercizio 2.2 · Ciao, X!</h2><p>Modificare l&#x27;esercizio precedente leggendo anche il <strong>cognome</strong> e stampate <code>Ciao, Nome Cognome!</code>.</p><p>Esempio:</p><pre><code class="language-javascript">Nome: Ada
 Cognome: Lovelace
-Ciao, Ada Lovelace!</code></pre>
+Ciao, Ada Lovelace!</code></pre><details><summary>Soluzione</summary><pre><code class="language-js">let nome = prompt(&quot;Nome:&quot;);
+let cognome = prompt(&quot;Cognome:&quot;);
+console.log(&quot;Ciao, &quot; + nome + &quot; &quot; + cognome + &quot;!&quot;);</code></pre><p>Attenzione allo spazio tra nome e cognome: va concatenato come stringa <code>&quot; &quot;</code>.</p></details>
     
   </div>
 </section>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-3">Esercizio 3</h2><p>Scrivere un programma che visualizzi il cubo del numero reale inserito in input dall’utente. Si aggiungano tutti i commenti ritenuti necessari. ​</p>
+    <h2 id="esercizio-3-dati-anagrafici">Esercizio 3 · Dati anagrafici</h2><p>Scrivere un programma che visualizzi su 4 righe separate i propri dati anagrafici: nome, cognome, luogo di nascita e data di nascita.</p><p>L&#x27;output deve essere di questo tipo (con i vostri dati):</p><pre><code class="language-text">Nome: Mario
+Cognome: Rossi
+Luogo di nascita: Bologna
+Data di nascita: 01/01/1990</code></pre><details><summary>Soluzione</summary><pre><code class="language-js">let nome = &quot;Mario&quot;;                        // un dato per variabile
+let cognome = &quot;Rossi&quot;;
+let luogo = &quot;Bologna&quot;;
+let data = &quot;01/01/1990&quot;;                     // la data è una stringa, non un numero
+console.log(&quot;Nome: &quot; + nome);
+console.log(&quot;Cognome: &quot; + cognome);
+console.log(&quot;Luogo di nascita: &quot; + luogo);
+console.log(&quot;Data di nascita: &quot; + data);</code></pre><p>Con <code>+</code> unisco etichetta e valore. Alternativa: <code>console.log(&quot;Nome:&quot;, nome)</code>, che inserisce lo spazio da solo.</p></details>
     
   </div>
 </section>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-4">Esercizio 4</h2><p>Scrivere un programma che calcoli e visualizzi il resto che si ottiene dividendo il proprio numero di matricola per 2. Si aggiungano poi tutti i commenti ritenuti necessari. ​</p>
+    <h2 id="esercizio-4">Esercizio 4</h2><p>Scrivere un programma che visualizzi il cubo del numero reale inserito in input dall’utente. Si aggiungano tutti i commenti ritenuti necessari. ​</p><details><summary>Soluzione</summary><pre><code class="language-js">let x_input = prompt(&quot;Inserisci un numero:&quot;);
+let x = Number(x_input);   // prompt dà una stringa: converto
+let cubo = x ** 3;                                  // potenza
+console.log(&quot;Il cubo di&quot;, x, &quot;è&quot;, cubo);</code></pre><p>Funziona anche con decimali e negativi. Alternativa: <code>x * x * x</code>.</p></details>
     
   </div>
 </section>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-5">Esercizio 5</h2><p>Scrivere un programma che, leggendo il valore del raggio di un cerchio in input, calcoli e visualizzi il valore del perimetro e dell’area del cerchio. Si aggiungano al programma tutti i commenti ritenuti necessari.​</p><blockquote><p><strong>Promemoria:</strong> dato il raggio <code>r</code>, perimetro = <code>2 · π · r</code>, area = <code>π · r²</code>.</p></blockquote>
+    <h2 id="esercizio-5">Esercizio 5</h2><p>Scrivere un programma che calcoli e visualizzi il resto che si ottiene dividendo il proprio numero di matricola per 2. Si aggiungano poi tutti i commenti ritenuti necessari. ​</p><details><summary>Soluzione</summary><pre><code class="language-js">let matricola_input = prompt(&quot;Numero di matricola:&quot;);
+let matricola = Number(matricola_input);
+let resto = matricola % 2;                          // % restituisce il resto della divisione
+console.log(&quot;Il resto di&quot;, matricola, &quot;diviso 2 è&quot;, resto);</code></pre><p>Il resto è <code>0</code> se la matricola è pari, <code>1</code> se è dispari.</p></details>
     
   </div>
 </section>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-6">Esercizio 6</h2><p>Scrivere un programma che stampi il valore delle unità, decine e centinaia che compongono un numero naturale a tre cifre (scelto a piacere in input). Si utilizzino gli operatori visti nel Capitolo 1. Si aggiungano al programma tutti i commenti ritenuti necessari. ​</p><blockquote><p>Suggerimento:<br>Si parta da questa considerazione per poi procedere.<br>Se si considera ad esempio il numero 234, il numero di unità (cioè 4) si può ottenere dividendo il numero per 10 e considerando il resto (infatti, 234 diviso 10 fa 23 con resto 4).​</p></blockquote>
-    
-  </div>
-</section>
-
-<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
-  <div class="slide-inner">
-    <h2 id="esercizio-7">Esercizio 7</h2><p>Creare un programma JS che estragga 3 numeri naturali casuali compresi tra 1 e 100 e li mostri a schermo.​</p>
-    
-  </div>
-</section>
-
-<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
-  <div class="slide-inner">
-    <h2 id="esercizio-8">Esercizio 8</h2><p>Creare un programma JS che legge l&#x27;<strong>età</strong> dell&#x27;utente e stampa due righe:</p><pre><code class="language-text">Età: 20
+    <h2 id="esercizio-6">Esercizio 6</h2><p>Creare un programma JS che legge l&#x27;<strong>età</strong> dell&#x27;utente e stampa due righe:</p><pre><code class="language-text">Età: 20
 Tra un anno avrai 21 anni
-Un anno fa avevi 19 anni</code></pre>
+Un anno fa avevi 19 anni</code></pre><details><summary>Soluzione</summary><pre><code class="language-js">let eta_input = prompt(&quot;Età:&quot;);
+let eta = Number(eta_input);
+console.log(&quot;Età:&quot;, eta);
+console.log(&quot;Tra un anno avrai&quot;, eta + 1, &quot;anni&quot;);
+console.log(&quot;Un anno fa avevi&quot;, eta - 1, &quot;anni&quot;);</code></pre><p><strong>Attenzione all&#x27;errore classico.</strong> Con <code>eta = 20</code>, questa riga:</p><pre><code class="language-js">console.log(&quot;Tra un anno avrai &quot; + eta + 1);     // SBAGLIATO: stampa &quot;Tra un anno avrai 201&quot;</code></pre><p>non stampa <code>21</code>. L&#x27;interprete valuta i <code>+</code> <strong>da sinistra a destra</strong>, uno alla volta:</p><ol><li><code>&quot;Tra un anno avrai &quot; + eta</code> → una stringa e un numero: <code>+</code> <strong>concatena</strong>, quindi <code>20</code> diventa testo e il risultato è la stringa <code>&quot;Tra un anno avrai 20&quot;</code>;</li><li><code>&quot;Tra un anno avrai 20&quot; + 1</code> → di nuovo una stringa e un numero: concatena ancora, e il risultato è <code>&quot;Tra un anno avrai 201&quot;</code>.</li></ol><p>Il <code>1</code> non viene mai sommato a <code>20</code>: al secondo passo il valore a sinistra è già una stringa. Due modi per ottenere <code>21</code>:</p><pre><code class="language-js">console.log(&quot;Tra un anno avrai &quot; + (eta + 1));   // le parentesi si calcolano per prime: 20 + 1 = 21, poi si concatena
+console.log(&quot;Tra un anno avrai&quot;, eta + 1);       // la virgola separa gli argomenti: eta + 1 è un calcolo a sé</code></pre></details>
     
   </div>
 </section>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-9">Esercizio 9</h2><p>Leggete un <strong>nome</strong> e un <strong>anno di nascita</strong> dall&#x27;input, poi stampate una frase come:</p><pre><code class="language-text">Ciao Anna, potresti avere 20 o 21 anni</code></pre><p>(Non conosciamo la data di nascita completa, quindi la differenza tra anni vale solo se il compleanno è già passato; altrimenti l&#x27;età è di uno in meno.)</p>
+    <h2 id="esercizio-7">Esercizio 7</h2><p>Scrivere un programma che, leggendo il valore del raggio di un cerchio in input, calcoli e visualizzi il valore del perimetro e dell’area del cerchio. Si aggiungano al programma tutti i commenti ritenuti necessari.​</p><blockquote><p><strong>Promemoria:</strong> dato il raggio <code>r</code>, perimetro = <code>2 · π · r</code>, area = <code>π · r²</code>.</p></blockquote><details><summary>Soluzione</summary><pre><code class="language-js">const PI_GRECO = 3.14159;                          // costante: non cambia
+let r_input = prompt(&quot;Raggio:&quot;);
+let r = Number(r_input);
+let perimetro = 2 * PI_GRECO * r;
+let area = PI_GRECO * r ** 2;                       // ** ha precedenza su *
+console.log(&quot;Perimetro:&quot;, perimetro);
+console.log(&quot;Area:&quot;, area);</code></pre><p>Si può usare <code>Math.PI</code> al posto della costante. Senza parentesi <code>r ** 2</code> viene calcolato per primo, come ci aspettiamo.</p></details>
     
   </div>
 </section>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-10">Esercizio 10</h2><p>Leggete una temperatura in gradi <strong>Celsius</strong> e stampate l&#x27;equivalente in <strong>Fahrenheit</strong> e in <strong>Kelvin</strong>.</p><p>Formule: <code>F = C · 9/5 + 32</code> e <code>K = C + 273.15</code>.</p><p>Esempio con <code>23</code>:</p><pre><code class="language-text">23 °C = 73.4 °F = 296.15 K</code></pre>
+    <h2 id="esercizio-8">Esercizio 8</h2><p>Leggete una temperatura in gradi <strong>Celsius</strong> e stampate l&#x27;equivalente in <strong>Fahrenheit</strong> e in <strong>Kelvin</strong>.</p><p>Formule: <code>F = C · 9/5 + 32</code> e <code>K = C + 273.15</code>.</p><p>Esempio con <code>23</code>:</p><pre><code class="language-text">23 °C = 73.4 °F = 296.15 K</code></pre><details><summary>Soluzione</summary><pre><code class="language-js">let c_input = prompt(&quot;Temperatura in °C:&quot;);
+let c = Number(c_input);
+let f = c * 9 / 5 + 32;
+let k = c + 273.15;
+console.log(c, &quot;°C =&quot;, f, &quot;°F =&quot;, k, &quot;K&quot;);</code></pre><p>Con <code>23</code> stampa <code>23 °C = 73.4 °F = 296.15 K</code>. Provate anche <code>0</code> e un valore negativo.</p></details>
     
   </div>
 </section>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-11">Esercizio 11</h2><p>Leggete due numeri <code>a</code> e <code>b</code> e stampate, <strong>ognuna su una riga</strong>, il valore booleano di queste affermazioni:</p><pre><code class="language-text">a è maggiore di b: ...
-a è uguale a b: ...
-a è diverso da b: ...
-a è pari: ...
-b è multiplo di a: ...</code></pre><p>Esempio con <code>a = 6</code> e <code>b = 12</code>:</p><pre><code class="language-text">a è maggiore di b: false
-a è uguale a b: false
-a è diverso da b: true
-a è pari: true
-b è multiplo di a: true</code></pre>
+    <h2 id="esercizio-9">Esercizio 9</h2><p>Leggete un <strong>nome</strong> e un <strong>anno di nascita</strong> dall&#x27;input, poi stampate una frase come:</p><pre><code class="language-text">Ciao Anna, potresti avere 20 o 21 anni</code></pre><p>(Non conosciamo la data di nascita completa, quindi la differenza tra anni vale solo se il compleanno è già passato; altrimenti l&#x27;età è di uno in meno.)</p><details><summary>Soluzione</summary><pre><code class="language-js">const ANNO_CORRENTE = 2026;
+let nome = prompt(&quot;Nome:&quot;);
+let anno_input = prompt(&quot;Anno di nascita:&quot;);
+let anno = Number(anno_input);
+let eta_max = ANNO_CORRENTE - anno;                 // compleanno già passato
+let eta_min = eta_max - 1;                          // compleanno non ancora passato
+console.log(&quot;Ciao &quot; + nome + &quot;, potresti avere&quot;, eta_min, &quot;o&quot;, eta_max, &quot;anni&quot;);</code></pre><p>Non conoscendo il giorno di nascita, l&#x27;età è uno di due valori consecutivi.</p></details>
     
   </div>
 </section>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-12">Esercizio 12</h2><p>Simulate il lancio di <strong>due dadi</strong> a 6 facce: stampate i due valori, la loro somma e se è uscito un <strong>doppio</strong> (valore booleano).</p><p>Esempio:</p><pre><code class="language-text">Dado 1: 4
-Dado 2: 4
-Somma: 8
-Doppio: true</code></pre>
+    <h2 id="esercizio-10">Esercizio 10</h2><p>Creare un programma JS che estragga 3 numeri naturali casuali compresi tra 1 e 100 e li mostri a schermo.​</p><details><summary>Soluzione</summary><pre><code class="language-js">// Math.random() dà un decimale in [0, 1)
+let a = Math.floor(Math.random() * 100) + 1;        // intero tra 1 e 100
+let b = Math.floor(Math.random() * 100) + 1;
+let c = Math.floor(Math.random() * 100) + 1;
+console.log(a, b, c);</code></pre><p><code>Math.random() * 100</code> è in [0, 100): con <code>Math.floor</code> otteniamo 0–99, il <code>+ 1</code> porta l&#x27;intervallo a 1–100.</p></details>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-11">Esercizio 11</h2><p>Scrivere un programma che stampi il valore delle unità, decine e centinaia che compongono un numero naturale a tre cifre (scelto a piacere in input). Si utilizzino gli operatori visti nel Capitolo 1. Si aggiungano al programma tutti i commenti ritenuti necessari. ​</p><blockquote><p>Suggerimento:<br>Si parta da questa considerazione per poi procedere.<br>Se si considera ad esempio il numero 234, il numero di unità (cioè 4) si può ottenere dividendo il numero per 10 e considerando il resto (infatti, 234 diviso 10 fa 23 con resto 4).​</p></blockquote><details><summary>Soluzione</summary><pre><code class="language-js">let n_input = prompt(&quot;Numero a tre cifre:&quot;);
+let n = Number(n_input);   // es. 234
+let unita = n % 10;                                 // 234 % 10 = 4
+let decine = Math.floor(n / 10) % 10;               // 23.4 -&gt; 23, poi 23 % 10 = 3
+let centinaia = Math.floor(n / 100);                // 2.34 -&gt; 2
+console.log(&quot;Unità:&quot;, unita);
+console.log(&quot;Decine:&quot;, decine);
+console.log(&quot;Centinaia:&quot;, centinaia);</code></pre><p><code>/</code> è divisione <strong>reale</strong> (234 / 10 è 23.4), quindi serve <code>Math.floor</code> per scartare i decimali.</p></details>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="errori-visti-a-lezione-1-chiamare-o-assegnare">Errori visti a lezione · 1. Chiamare o assegnare?</h2><pre><code class="language-js">console.log=(&quot;risultato: &quot;);      // SBAGLIATO</code></pre><p>Quel <code>=</code> è un <strong>assegnamento</strong>: stiamo dicendo &quot;<code>console.log</code> ora vale la stringa <code>&quot;risultato: &quot;</code>&quot;. Non stampa niente, e <strong>non dà errore subito</strong>.</p><p>Il problema si vede alla prossima istruzione che usa <code>console.log</code>:</p><pre><code class="language-text">TypeError: console.log is not a function</code></pre><p>Per <strong>chiamare</strong> una funzione si scrivono le parentesi subito dopo il nome, senza <code>=</code>:</p><pre><code class="language-js">console.log(&quot;risultato: &quot;);       // GIUSTO</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="errori-visti-a-lezione-2-cosa-va-dentro-prompt">Errori visti a lezione · 2. Cosa va dentro <code>prompt</code>?</h2><pre><code class="language-js">anni = prompt(&quot;22&quot;);              // SBAGLIATO</code></pre><p>La stringa dentro <code>prompt(...)</code> è il <strong>messaggio mostrato all&#x27;utente</strong>, non la risposta. Il valore (<code>22</code>) lo digita chi usa il programma, e <code>prompt</code> lo restituisce.</p><pre><code class="language-js">let anni_input = prompt(&quot;Quanti anni hai?&quot;);   // mostra la domanda, restituisce la risposta (stringa)
+let anni = Number(anni_input);                 // convertiamo: anni è un number</code></pre><p>Notate anche <code>let</code>: senza, <code>anni</code> non è dichiarata. Dichiarate sempre le variabili.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="errori-visti-a-lezione-3-convertito-ma-usato-quello-sbagliato">Errori visti a lezione · 3. Convertito, ma usato quello sbagliato</h2><pre><code class="language-js">anni = prompt(&quot;inserisci anni&quot;);
+anni_num = Number(anni);
+console.log(&quot;L&#x27;anno prossimo avrai&quot;, anni+1, &quot;anni&quot;);     // SBAGLIATO</code></pre><p>Con input <code>22</code> stampa:</p><pre><code class="language-text">L&#x27;anno prossimo avrai 221 anni</code></pre><p>La conversione è stata fatta, ma nel calcolo c&#x27;è ancora <code>anni</code>, che è una <strong>stringa</strong>: <code>&quot;22&quot; + 1</code> è la concatenazione <code>&quot;221&quot;</code>. Convertire in <code>anni_num</code> non cambia <code>anni</code>: sono due variabili diverse.</p><pre><code class="language-js">let anni = prompt(&quot;inserisci anni&quot;);
+let anni_num = Number(anni);
+console.log(&quot;L&#x27;anno prossimo avrai&quot;, anni_num + 1, &quot;anni&quot;);   // GIUSTO: 23</code></pre>
     
   </div>
 </section>
@@ -324,7 +384,7 @@ Doppio: true</code></pre>
     <button type="button" id="next">Avanti</button>
   </div>
   <div class="progress"><div class="progress-bar" id="progress"></div></div>
-  <div class="counter" id="counter" aria-hidden="true">1 / 26</div>
+  <div class="counter" id="counter" aria-hidden="true">1 / 27</div>
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license" style="display:flex;align-items:center;opacity:0.6;">
     <img src="https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png" alt="CC BY-NC-SA 4.0" style="height:15px;border-radius:0;margin:0;">
   </a>
