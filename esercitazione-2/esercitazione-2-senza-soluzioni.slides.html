@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esercitazione 2 - 05/10 - Slides</title>
+<style>
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body { font-family: "Avenir Next", "Segoe UI", Arial, sans-serif; background:
+radial-gradient(circle at top left, #f4ead8 0%, #efe3d0 28%, #d9d7dd 58%, #bcc9d1 100%);
+color: #17212b; }
+.deck { position: relative; width: 100vw; height: 100vh; }
+.slide { display: none; width: 100vw; height: 100vh; padding: 40px; }
+.slide.active { display: block; }
+.slide:focus { outline: none; }
+.slide:focus-visible { outline: 3px solid #7a9aaa; outline-offset: -3px; }
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.slide-inner {
+  width: min(1180px, calc(100vw - 80px));
+  height: calc(100vh - 110px);
+  margin: 0 auto;
+  overflow: auto;
+  background: rgba(255,255,255,0.86);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(23, 33, 43, 0.12);
+  border-radius: 28px;
+  box-shadow: 0 24px 80px rgba(35, 40, 46, 0.16);
+  padding: 38px 46px 44px;
+}
+.title-slide .slide-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background:
+  linear-gradient(135deg, rgba(255,255,255,0.9), rgba(250,245,238,0.86)),
+  radial-gradient(circle at right top, rgba(201,127,49,0.14), transparent 35%);
+}
+.eyebrow { text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.82rem; color: #8b3f1d; margin: 0 0 1rem; }
+.instructions { color: #5d6770; margin-top: 1.5rem; font-size: 1rem; }
+h1, h2, h3, h4 { line-height: 1.08; color: #1a2834; margin: 0 0 0.8rem; }
+h1 { font-size: clamp(2.4rem, 4.6vw, 4.8rem); max-width: 12ch; }
+h2 { font-size: clamp(2rem, 3.4vw, 3.4rem); border-bottom: 2px solid rgba(139,63,29,0.2); padding-bottom: 0.5rem; margin-bottom: 1.4rem; }
+h3 { font-size: clamp(1.4rem, 2.2vw, 2.1rem); margin-top: 1.8rem; margin-bottom: 0.6rem; }
+p, ul, ol, blockquote, table, pre { margin: 0 0 1.1rem; font-size: clamp(1.08rem, 1.6vw, 1.32rem); line-height: 1.55; }
+img { max-width: 100%; height: auto; display: block; margin: 1rem auto; border-radius: 18px; box-shadow: 0 14px 42px rgba(35, 40, 46, 0.18); }
+ul, ol { padding-left: 1.35rem; }
+li { margin: 0.38rem 0; }
+blockquote { border-top: 4px solid #c97f31; border-bottom: 4px solid #c97f31; padding: 0.8rem 1.5rem; background: #fff6ea; border-radius: 14px; text-align: center; max-width: 80%; margin-left: auto; margin-right: auto; }
+details { margin: 0 0 1rem; border: 1px solid rgba(23, 33, 43, 0.12); border-radius: 14px; background: rgba(255,255,255,0.72); overflow: hidden; }
+summary { cursor: pointer; font-weight: 700; padding: 0.75rem 0.95rem; background: rgba(23, 33, 43, 0.06); }
+details > :not(summary) { padding-left: 0.95rem; padding-right: 0.95rem; }
+pre { background: #1f2430; color: #f3f4f6; padding: 1rem; border-radius: 16px; overflow-x: auto; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; }
+p code, li code, td code, th code, blockquote code { background: rgba(23, 33, 43, 0.07); padding: 0.08rem 0.35rem; border-radius: 4px; }
+table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.92); border-radius: 14px; overflow: hidden; }
+th, td { border: 1px solid rgba(23, 33, 43, 0.12); padding: 0.55rem 0.7rem; vertical-align: top; text-align: left; }
+th { background: #f2e7d7; }
+hr { border: 0; border-top: 1px solid rgba(23, 33, 43, 0.12); margin: 1.2rem 0; }
+a { color: #8b3f1d; }
+ol.exercise-list { list-style: none; padding-left: 0; }
+ol.exercise-list > li { display: flex; align-items: baseline; gap: 0.5em; flex-wrap: wrap; }
+a.ex-id { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.78em; font-weight: 600; background: rgba(139,63,29,0.1); border: 1px solid rgba(139,63,29,0.25); color: #8b3f1d; padding: 0.05rem 0.4rem; border-radius: 5px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+a.ex-id:hover { background: rgba(139,63,29,0.18); }
+.controls {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px 18px;
+  color: #213242;
+}
+.progress {
+  flex: 1;
+  height: 6px;
+  background: rgba(23, 33, 43, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, #c97f31, #7a9aaa); }
+.counter { min-width: 70px; text-align: right; font-size: 0.95rem; }
+.nav button {
+  border: 0;
+  background: rgba(255,255,255,0.82);
+  color: #213242;
+  border-radius: 999px;
+  padding: 0.72rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(35, 40, 46, 0.12);
+}
+.nav { display: flex; gap: 10px; }
+@media (max-width: 820px) {
+  .slide { padding: 18px 14px 78px; }
+  .slide-inner { width: 100%; height: calc(100vh - 96px); padding: 24px 22px 30px; border-radius: 20px; }
+  p, ul, ol, blockquote, table, pre { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+<div class="deck" role="region" aria-label="Diapositive">
+  
+<section class="slide title-slide active" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <p class="eyebrow">Fondamenti Teorici e Programmazione</p>
+    <h1>Esercitazione 2 - 05/10</h1>
+    <p class="instructions">Freccia destra o spazio per avanzare, freccia sinistra per tornare indietro — oppure i pulsanti "Indietro" e "Avanti" in fondo alla pagina.</p>
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <p>Argomenti:</p><ul><li>tipo <code>boolean</code> e operatori di confronto</li><li>condizioni: <code>if</code>, <code>else if</code>, <code>else</code></li><li>operatori logici <code>&amp;&amp;</code>, <code>||</code>, <code>!</code></li><li>ciclo <code>for</code>: somma e prodotto dei primi <em>n</em> numeri</li><li>ciclo <code>while</code>: come alternativa al <code>for</code> e per condizioni diverse dal contare</li></ul>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="come-si-lavora">Come si lavora</h2><ul><li>Brevi <strong>Recap</strong> pratici, alternati agli esercizi</li><li>Svolgiamo alcuni esercizi insieme (io scrivo il codice live, voi fate lo stesso)</li><li>Esercizi svolti da voi in autonomia</li><li>Domande</li></ul><p>Le regole sono le stesse della volta scorsa:</p><ul><li><strong>provare</strong> prima di rinunciare</li><li><strong>commenti</strong> dove il codice non parla da solo</li><li>eseguite <strong>sempre</strong> il programma con più valori, compresi i casi &quot;strani&quot; (0, numeri negativi, decimali).</li></ul>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-1-bool-e-operatori-di-confronto">Recap 1 · <code>bool</code> e operatori di confronto</h2><p>Con i tipi <code>number</code> e <code>string</code> possiamo descrivere la maggior parte degli oggetti che ci interessano.</p><table><thead><tr><th>Esempio</th><th></th></tr></thead><tbody><tr><td>Chilometri percorsi nello scorso anno</td><td><code>number</code> - numero intero</td></tr><tr><td>Media dei voti</td><td><code>number</code> - decimale</td></tr><tr><td>Nome e cognome</td><td><code>string</code></td></tr><tr><td>Anno di nascita</td><td><code>number</code> - numero intero</td></tr></tbody></table><p>Nel mondo reale però esiste anche un altro tipo di valore che vogliamo poter rappresentare in un linguaggio di programmazione. Ad esempio noi sappiamo valutare le seguenti espressioni:</p><ul><li>&quot;il numero 3 è minore del numero 5&quot;</li><li>&quot;Andrea è più alto di Marta&quot;</li></ul><p>Questi valori (vero o falso) sono rappresentati nei linguaggi di programmazione dal tipo <code>boolean</code></p><p>Possiamo ottenerli effettuando operazioni <strong>di confronto</strong> su altri valori:</p><table><thead><tr><th>Operatore</th><th>Significato</th></tr></thead><tbody><tr><td><code>&lt;</code> <code>&gt;</code></td><td>minore, maggiore</td></tr><tr><td><code>&lt;=</code> <code>&gt;=</code></td><td>minore o uguale, ecc.</td></tr><tr><td><code>==</code> <code>!=</code></td><td>uguale, diverso</td></tr></tbody></table><ul><li>l&#x27;espressione <code>3 &lt; 5</code> vale <code>true</code></li><li>l&#x27;espressione <code>&quot;casa&quot; == &quot;gatto&quot;</code> vale <code>false</code></li></ul>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-2-confronti-e-operatori-logici">Recap 2 · Confronti e operatori logici</h2><table><thead><tr><th>Operatore</th><th>Significato</th><th>Esempio (<code>x = 5</code>)</th></tr></thead><tbody><tr><td><code>==</code> <code>!=</code></td><td>uguale, diverso</td><td><code>x == 5</code> → <code>true</code></td></tr><tr><td><code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code></td><td>confronti</td><td><code>x &gt;= 6</code> → <code>false</code></td></tr><tr><td><code>&amp;&amp;</code></td><td><strong>e</strong>: entrambe vere</td><td><code>x &gt; 0 &amp;&amp; x &lt; 10</code> → <code>true</code></td></tr><tr><td><code>||</code></td><td><strong>o</strong>: almeno una vera</td><td><code>x &lt; 0 || x &gt; 3</code> → <code>true</code></td></tr><tr><td><code>!</code></td><td><strong>non</strong>: nega</td><td><code>!(x &gt; 3)</code> → <code>false</code></td></tr></tbody></table><p>Pattern utili:</p><pre><code class="language-js">n % 2 == 0                  // n è pari
+n % k == 0                  // n è multiplo di k
+n &gt;= 0 &amp;&amp; n &lt;= 10           // n compreso tra 0 e 10 (estremi inclusi)</code></pre><p>Attenzione: <code>=</code> <strong>assegna</strong>, <code>==</code> <strong>confronta</strong>.</p><p><code>0 &lt;= n &lt;= 10</code> non funziona: si scrive <code>n &gt;= 0 &amp;&amp; n &lt;= 10</code>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-3-strumenti-utili">Recap 3 · Strumenti utili</h2><table><thead><tr><th>Strumento</th><th>Cosa fa</th><th>Esempio</th></tr></thead><tbody><tr><td><code>Math.max(a, b)</code> / <code>Math.min(a, b)</code></td><td>massimo / minimo</td><td><code>Math.max(3, 7)</code> → <code>7</code></td></tr><tr><td><code>Math.floor(x)</code></td><td>parte intera (arrotonda per difetto)</td><td><code>Math.floor(2.9)</code> → <code>2</code></td></tr><tr><td><code>Math.random()</code></td><td>decimale casuale in [0, 1)</td><td><code>Math.floor(Math.random() * 6) + 1</code> → da 1 a 6</td></tr><tr><td><code>s += x</code></td><td>abbreviazione di <code>s = s + x</code></td><td><code>s -= x</code>, <code>s *= x</code>, ...</td></tr><tr><td><code>x++</code> / <code>x--</code></td><td>aumenta / diminuisce il valore della variabile x di 1</td><td></td></tr></tbody></table>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-1-affermazioni-su-a-e-b">Esercizio 1 · Affermazioni su <em>a</em> e <em>b</em></h2><p>Leggete due numeri <code>a</code> e <code>b</code> dall&#x27;input e stampate, <strong>ognuna su una riga</strong>, il valore booleano di queste affermazioni:</p><pre><code class="language-text">a è maggiore di b: ...
+a è uguale a b: ...
+a è diverso da b: ...
+a è pari: ...
+b è multiplo di a: ...</code></pre><p>Esempio con <code>a = 6</code> e <code>b = 12</code>:</p><pre><code class="language-text">a è maggiore di b: false
+a è uguale a b: false
+a è diverso da b: true
+a è pari: true
+b è multiplo di a: true</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-2-confronti">Esercizio 2 · Confronti</h2><p>Scrivere un programma che legga due numeri <code>N</code> e <code>M</code> e visualizzi, ognuno su una riga:</p><ul><li>il massimo tra <code>N</code> e <code>M</code>;</li><li>il minimo tra <code>N</code> e <code>M</code>;</li><li>se <code>N</code> è minore o uguale di <code>M</code>;</li><li>se <code>N</code> è compreso tra 0 ed <code>M</code> (estremi inclusi);</li><li>se <code>N</code> è divisibile per <code>M</code>.</li></ul><p>Quali risultati sono numeri? Quali sono booleani?</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-3-lancio-di-due-dadi">Esercizio 3 · Lancio di due dadi</h2><p>Simulate il lancio di <strong>due dadi</strong> a 6 facce: stampate i due valori, la loro somma e se è uscito un <strong>doppio</strong> (valore booleano).</p><p>Esempio:</p><pre><code class="language-text">Dado 1: 4
+Dado 2: 4
+Somma: 8
+Doppio: true</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-4-i-cicli-for-e-while">Recap 4 · I cicli <code>for</code> e <code>while</code></h2><p>Entrambi <strong>ripetono</strong> il corpo <code>{ ... }</code> finché la condizione è vera. Questi due programmi stampano <code>Ciao!</code> <strong>5 volte</strong>:</p><pre><code class="language-js">let i;                                  // for: tutto nell&#x27;intestazione
+for (i = 1; i &lt;= 5; i = i + 1) {        // inizializzazione; condizione; aggiornamento
+  console.log(&quot;Ciao!&quot;);
+}</code></pre><pre><code class="language-js">let i = 1;                              // while: i tre pezzi sono &quot;sparsi&quot;
+while (i &lt;= 5) {                        // condizione
+  console.log(&quot;Ciao!&quot;);
+  i = i + 1;                            // aggiornamento: se manca, ciclo infinito!
+}</code></pre><ul><li><code>for</code> quando <strong>so quante volte</strong> ripetere; <code>while</code> quando dipende da cosa succede (es. input dell&#x27;utente);</li><li>abbreviazione: <code>i++</code> significa <code>i = i + 1</code>, e nel <code>for</code> si può scrivere <code>for (let i = 1; ...)</code>.</li></ul>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-4-completa-la-guardia-1">Esercizio 4 · Completa la guardia (1)</h2><p>Il corpo del ciclo c&#x27;è già. Completate la <strong>condizione</strong> (al posto di <code>______</code>) in modo che il programma stampi <code>Ciao!</code> <strong>5 volte</strong>.</p><pre><code class="language-js">let i;
+for (i = 0; ______; i = i + 1) {
+  console.log(&quot;Ciao!&quot;);
+}</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-5-completa-linput-e-la-guardia">Esercizio 5 · Completa l&#x27;input e la guardia</h2><p>Il numero di ripetizioni lo sceglie l&#x27;utente. Completate il programma (al posto di <code>______</code>) in modo che chieda <code>n</code> all&#x27;utente, lo converta in numero e stampi <code>Ciao!</code> <strong>n volte</strong>.</p><pre><code class="language-js">let n_input = ______(&quot;Quante volte?&quot;);     // chiedo il valore all&#x27;utente
+let n = ______(n_input);                   // lo converto in numero
+let i;
+for (i = 1; ______; i = i + 1) {
+  console.log(&quot;Ciao!&quot;);
+}</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-6-potenze-di-2">Esercizio 6 · Potenze di 2</h2><p>Scrivere un programma che visualizzi le potenze di 2 partendo dall&#x27;esponente 0 fino all&#x27;esponente 8, una per riga.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-7-completa-la-guardia-2">Esercizio 7 · Completa la guardia (2)</h2><p>Il programma deve chiedere all&#x27;utente quanti numeri vuole sommare, poi chiedere i numeri uno alla volta e stampare la loro <strong>somma</strong>. Il corpo del ciclo c&#x27;è già: completate la <strong>condizione</strong> (al posto di <code>______</code>).</p><pre><code class="language-js">let n_input = prompt(&quot;Quanti numeri vuoi sommare?&quot;);
+let n = Number(n_input);
+let somma = 0;                                   // accumulatore
+let i;
+for (i = 1; ______; i = i + 1) {
+  let x_input = prompt(&quot;Numero &quot; + i + &quot;:&quot;);
+  let x = Number(x_input);
+  somma = somma + x;
+}
+console.log(&quot;Somma:&quot;, somma);</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-8-somma-dei-primi-n-numeri">Esercizio 8 · Somma dei primi <em>n</em> numeri</h2><p>Leggere un numero naturale <code>n</code> e calcolare la somma <code>1 + 2 + ... + n</code> usando un ciclo <code>for</code>.</p><p>Esempio: con <code>n = 5</code> il risultato è <code>15</code>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-9-prodotto-dei-primi-n-numeri">Esercizio 9 · Prodotto dei primi <em>n</em> numeri</h2><p>Leggere un numero naturale <code>n</code> e calcolare il prodotto <code>1 · 2 · ... · n</code> (il <em>fattoriale</em> di <code>n</code>) con un ciclo <code>for</code>.</p><p>Esempio: con <code>n = 5</code> il risultato è <code>120</code>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-10-media-di-n-numeri">Esercizio 10 · Media di <em>n</em> numeri</h2><p>Leggere un numero <code>n</code> e poi <code>n</code> numeri, uno alla volta. Stampare la loro <strong>media</strong>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-11-una-riga-di-asterischi">Esercizio 11 · Una riga di asterischi</h2><p>Leggere un numero <code>n</code> e stampare <strong>una sola riga</strong> composta da <code>n</code> asterischi. Con <code>n = 5</code>:</p><pre><code class="language-text">*****</code></pre><p>Il ciclo e la stampa ci sono già: completate il corpo (al posto di <code>______</code>) in modo da <strong>aggiungere</strong> un asterisco alla stringa <code>riga</code> a ogni giro.</p><pre><code class="language-js">let n_input = prompt(&quot;n:&quot;);
+let n = Number(n_input);
+let riga = &quot;&quot;;                        // stringa vuota: l&#x27;accumulatore
+let i;
+for (i = 1; i &lt;= n; i = i + 1) {
+  riga = ______;
+}
+console.log(riga);</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-12-i-numeri-da-1-a-n-su-una-riga">Esercizio 12 · I numeri da 1 a <em>n</em> su una riga</h2><p>Leggere un numero <code>n</code> e stampare <strong>su una sola riga</strong> i numeri da 1 a <code>n</code>, separati da uno spazio. Con <code>n = 5</code>:</p><pre><code class="language-text">1 2 3 4 5</code></pre><p>Suggerimento: partite dall&#x27;esercizio precedente, ma ora serve aggiungere a <code>riga</code> il valore di <code>i</code> <strong>e</strong> uno spazio.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-13-conto-alla-rovescia">Esercizio 13 · Conto alla rovescia</h2><p>Stesso schema del <code>for</code>, ma con il <code>while</code>: i tre pezzi (inizializzazione, condizione, aggiornamento) sono <strong>sparsi</strong>. Completate (al posto di <code>______</code>) in modo che il programma stampi <code>5</code>, <code>4</code>, <code>3</code>, <code>2</code>, <code>1</code> e infine <code>Via!</code>.</p><pre><code class="language-js">let i = 5;                              // inizializzazione
+while (______) {                        // condizione
+  console.log(i);
+  i = ______;                           // aggiornamento
+}
+console.log(&quot;Via!&quot;);</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-14-somma-con-while-e-verifica">Esercizio 14 · Somma con <code>while</code> e verifica</h2><p>Scrivere un programma che, ricevuto il valore di un numero naturale <code>n</code> in input, calcoli e visualizzi la somma dei numeri naturali compresi tra 1 ed <code>n</code>.</p><p>Per esempio, se <code>n = 5</code>, il risultato è <code>1+2+3+4+5 = 15</code>. Si usi il ciclo <code>while</code>.</p><p>Verificare infine che la somma così calcolata risulti uguale a quella trovata dalla formula <code>S = n · (n + 1) / 2</code>, ottenendo <code>true</code> se vi è uguaglianza e <code>false</code> in caso contrario.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-15-completa-linput-valido">Esercizio 15 · Completa l&#x27;input valido</h2><p>Il programma chiede un numero <strong>positivo</strong> e ripete la domanda finché il valore non è valido. Completate la <strong>condizione</strong> e la riga che <strong>rilegge</strong> il valore (al posto di <code>______</code>).</p><pre><code class="language-js">let x_input = prompt(&quot;Inserisci un numero positivo:&quot;);
+let x = Number(x_input);
+while (______) {                                       // finché NON è valido
+  x_input = ______(&quot;Non valido. Riprova:&quot;);
+  x = Number(x_input);
+}
+console.log(&quot;Hai inserito:&quot;, x);</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-16-input-valido">Esercizio 16 · Input valido</h2><p>Chiedere all&#x27;utente un numero <strong>positivo</strong>, ripetendo la domanda finché il valore inserito non è valido. Poi stampare <code>Hai inserito: &lt;numero&gt;</code>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-17-completa-la-somma-fino-a-zero">Esercizio 17 · Completa la somma fino a zero</h2><p>Il programma somma i numeri inseriti finché l&#x27;utente non inserisce <code>0</code>. Completate la <strong>condizione</strong> e l&#x27;<strong>aggiornamento dell&#x27;accumulatore</strong> (al posto di <code>______</code>).</p><pre><code class="language-js">let somma = 0;
+let x_input = prompt(&quot;Numero (0 per terminare):&quot;);
+let x = Number(x_input);
+while (______) {
+  somma = ______;
+  x_input = prompt(&quot;Numero (0 per terminare):&quot;);
+  x = Number(x_input);
+}
+console.log(&quot;Somma:&quot;, somma);</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-18-somma-fino-a-zero">Esercizio 18 · Somma fino a zero</h2><p>Leggere numeri dall&#x27;input e sommarli, finché l&#x27;utente non inserisce <code>0</code>. Alla fine stampare la somma e quanti numeri sono stati inseriti (lo <code>0</code> finale escluso).</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-19-indovina-il-numero">Esercizio 19 · Indovina il numero</h2><p>Il programma sceglie un numero casuale tra 1 e 10. L&#x27;utente prova a indovinarlo, finché non ci riesce. Alla fine stampare in quanti tentativi ci è riuscito.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-5-if-else-if-else">Recap 5 · <code>if</code> / <code>else if</code> / <code>else</code></h2><pre><code class="language-js">if (condizione1) {
+  // eseguito se condizione1 è true
+} else if (condizione2) {
+  // eseguito se condizione1 è false e condizione2 è true
+} else {
+  // eseguito se nessuna delle precedenti è true
+}</code></pre><ul><li>la condizione è un&#x27;espressione che vale <code>true</code> o <code>false</code> (ad esempio <code>eta &gt;= 18</code>);</li><li>viene eseguito <strong>un solo</strong> blocco: il primo la cui condizione è vera;</li><li><code>else if</code> e <code>else</code> sono <strong>facoltativi</strong>;</li><li>l&#x27;ordine conta: le condizioni vengono controllate dall&#x27;alto verso il basso.</li></ul><pre><code class="language-js">let voto = 24;
+if (voto &gt;= 18) {
+  console.log(&quot;Esame superato&quot;);
+} else {
+  console.log(&quot;Esame non superato&quot;);
+}</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-20-pari-o-dispari">Esercizio 20 · Pari o dispari</h2><p>Leggere un numero intero e stampare <code>&quot;pari&quot;</code> oppure <code>&quot;dispari&quot;</code>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-21-logaritmi">Esercizio 21 · Logaritmi</h2><p>Dato un numero reale in input, mostrare il valore del logaritmo naturale e del logaritmo in base due di quel numero.</p><p>Fare inizialmente il controllo che il numero sia <strong>positivo</strong>, dato che i logaritmi sono definiti solo per argomenti reali positivi. Altrimenti stampare un messaggio di errore.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-22-massimo-di-tre-numeri">Esercizio 22 · Massimo di tre numeri</h2><p>Leggere tre numeri e stampare il più grande, <strong>senza</strong> usare <code>Math.max</code>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-23-anno-bisestile">Esercizio 23 · Anno bisestile</h2><p>Leggere un anno e stampare se è <strong>bisestile</strong>.</p><p>Un anno è bisestile se è divisibile per 4 ma non per 100, oppure se è divisibile per 400. Quindi 2024 e 2000 sono bisestili, 1900 e 2023 no.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-24-voto-e-giudizio">Esercizio 24 · Voto e giudizio</h2><p>Leggere un voto da 0 a 30 e stampare un giudizio:</p><table><thead><tr><th>Voto</th><th>Giudizio</th></tr></thead><tbody><tr><td>minore di 18</td><td>insufficiente</td></tr><tr><td>da 18 a 23</td><td>sufficiente</td></tr><tr><td>da 24 a 27</td><td>buono</td></tr><tr><td>da 28 a 30</td><td>ottimo</td></tr><tr><td>fuori da 0–30</td><td>voto non valido</td></tr></tbody></table>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-25-costo-di-una-chiamata">Esercizio 25 · Costo di una chiamata</h2><p>Leggere la durata in minuti (numero reale) di una chiamata telefonica e visualizzare il costo, sapendo che:</p><ul><li>lo scatto alla risposta costa 0.18 €;</li><li>il primo minuto è gratuito;</li><li>ogni minuto successivo al primo costa 0.16 €.</li></ul><p>Se la durata è negativa, stampare un messaggio di errore.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-26-somma-di-multipli">Esercizio 26 · Somma di multipli</h2><p>Calcolare la somma di tutti i numeri da 1 a <code>n</code> che sono multipli di 3 <strong>oppure</strong> di 5.</p><p>Esempio: con <code>n = 10</code> si sommano <code>3, 5, 6, 9, 10</code> → <code>33</code>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-27-tabellina">Esercizio 27 · Tabellina</h2><p>Leggere un numero <code>n</code> e stampare la sua tabellina (da <code>n · 1</code> a <code>n · 10</code>) <strong>in un&#x27;unica stringa</strong>.</p><p>Se <code>n</code> non è un numero intero compreso tra 1 e 10, stampare un messaggio di errore.</p><p>Esempio con <code>n = 5</code>: <code>5 10 15 20 25 30 35 40 45 50</code></p><p>Scrivere due versioni: una con <code>for</code>, una con <code>while</code>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-28-polinomio">Esercizio 28 · Polinomio</h2><p>Leggere un numero reale <code>x</code> e un numero naturale <code>n</code> (con <code>n ≥ 1</code>) e calcolare</p><p><code>x + x² + x³ + ... + xⁿ</code></p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-29-coppie-con-somma-n">Esercizio 29 · Coppie con somma <em>n</em></h2><p>Realizzare un programma che stampi tutte le coppie di numeri interi positivi (diversi tra loro) la cui somma è un numero naturale <code>n</code> a scelta, maggiore di 2.</p><p>Ad esempio, con <code>n = 3</code> le coppie da visualizzare sono:</p><pre><code class="language-text">1, 2
+2, 1</code></pre><p>Accertarsi inizialmente che <code>n</code> sia effettivamente un numero naturale maggiore di 2. Fare uso del ciclo <code>for</code>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-30-primi-n-pari-dopo-a">Esercizio 30 · Primi <em>N</em> pari dopo <em>A</em></h2><p>Calcolare la somma e la media dei primi <code>N</code> numeri interi positivi <strong>pari</strong> successivi a un numero intero positivo <code>A</code>. Sia <code>N</code> che <code>A</code> devono essere letti da tastiera.</p><p>Accertarsi inizialmente che <code>N</code> ed <code>A</code> siano numeri interi positivi.</p><p>Esempio: con <code>A = 5</code> e <code>N = 3</code> i numeri sono <code>6, 8, 10</code>: somma <code>24</code>, media <code>8</code>.</p>
+    
+  </div>
+</section>
+
+</div>
+<div class="sr-only" id="slide-announcer" aria-live="polite" aria-atomic="true"></div>
+<div class="controls">
+  <div class="nav">
+    <button type="button" id="prev">Indietro</button>
+    <button type="button" id="next">Avanti</button>
+  </div>
+  <div class="progress"><div class="progress-bar" id="progress"></div></div>
+  <div class="counter" id="counter" aria-hidden="true">1 / 38</div>
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license" style="display:flex;align-items:center;opacity:0.6;">
+    <img src="https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png" alt="CC BY-NC-SA 4.0" style="height:15px;border-radius:0;margin:0;">
+  </a>
+</div>
+<script>
+const slides = Array.from(document.querySelectorAll(".slide"));
+const counter = document.getElementById("counter");
+const progress = document.getElementById("progress");
+const announcer = document.getElementById("slide-announcer");
+let current = 0;
+
+function slideLabel(slide, index) {
+  const heading = slide.querySelector("h1, h2, h3");
+  const title = heading ? heading.textContent.trim() : "";
+  const position = `Diapositiva ${index + 1} di ${slides.length}`;
+  return title ? `${position}: ${title}` : position;
+}
+
+function updateSlide(index, options) {
+  const opts = options || {};
+  current = Math.max(0, Math.min(index, slides.length - 1));
+  slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+  counter.textContent = `${current + 1} / ${slides.length}`;
+  progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+
+  const activeSlide = slides[current];
+  const label = slideLabel(activeSlide, current);
+  activeSlide.setAttribute("aria-label", label);
+  announcer.textContent = label;
+
+  if (opts.moveFocus) {
+    activeSlide.focus({ preventScroll: true });
+  }
+
+  const anchor = activeSlide.querySelector("[id]");
+  if (anchor) {
+    history.replaceState(null, "", `#${anchor.id}`);
+  }
+}
+
+document.getElementById("prev").addEventListener("click", () => updateSlide(current - 1, { moveFocus: true }));
+document.getElementById("next").addEventListener("click", () => updateSlide(current + 1, { moveFocus: true }));
+
+document.addEventListener("keydown", (event) => {
+  if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+    event.preventDefault();
+    updateSlide(current + 1, { moveFocus: true });
+  }
+  if (["ArrowLeft", "PageUp"].includes(event.key)) {
+    event.preventDefault();
+    updateSlide(current - 1, { moveFocus: true });
+  }
+  if (event.key === "Home") updateSlide(0, { moveFocus: true });
+  if (event.key === "End") updateSlide(slides.length - 1, { moveFocus: true });
+});
+
+updateSlide(0);
+</script>
+</body>
+</html>

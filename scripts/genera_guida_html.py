@@ -150,7 +150,7 @@ def parse_table(lines: list[str], start: int) -> tuple[str, int]:
     rows: list[list[str]] = []
     i = start
     while i < len(lines) and lines[i].strip().startswith("|"):
-        row = [cell.strip() for cell in lines[i].strip().strip("|").split("|")]
+        row = [cell.strip().replace("\\|", "|") for cell in re.split(r"(?<!\\)\|", lines[i].strip().strip("|"))]
         rows.append(row)
         i += 1
 
@@ -326,7 +326,7 @@ footer img {{ margin: 0; border-radius: 0; height: 22px; width: auto; display: i
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license">
 <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0">
 </a>
-Ludovica Pannitto — Università degli Studi di Salerno —
+Ludovica Pannitto - Università di Pisa -
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>
 </footer>
 </main>
@@ -684,24 +684,35 @@ def gather_sources(args: argparse.Namespace) -> list[Path]:
     return [DEFAULT_SOURCE]
 
 
-def generate_outputs(source: Path, slides: bool, document: bool) -> list[Path]:
+SOLUZIONI_RE = re.compile(r"<details>\s*<summary>Soluzione.*?</summary>.*?</details>[ \t]*\n*", re.DOTALL)
+
+
+def rimuovi_soluzioni(text: str) -> str:
+    return SOLUZIONI_RE.sub("", text)
+
+
+def generate_outputs(source: Path, slides: bool, document: bool, senza_soluzioni: bool = False) -> list[Path]:
     if not source.exists():
         raise SystemExit(f"File non trovato: {source}")
 
     text = source.read_text(encoding="utf-8")
+    suffix = ""
+    if senza_soluzioni:
+        text = rimuovi_soluzioni(text)
+        suffix = "-senza-soluzioni"
     title = first_heading(text, source)
     outputs: list[Path] = []
 
     if document:
         html = render_document_html(title, render_body(text))
-        output = source.with_suffix(".html")
+        output = source.with_name(f"{source.stem}{suffix}.html")
         output.write_text(html, encoding="utf-8")
         outputs.append(output)
 
     if slides:
         epilogue = load_programma_table_html(source.stem)
         slides_html = render_slides_html(text, title, epilogue)
-        output = source.with_name(f"{source.stem}.slides.html")
+        output = source.with_name(f"{source.stem}{suffix}.slides.html")
         output.write_text(slides_html, encoding="utf-8")
         outputs.append(output)
 
@@ -713,6 +724,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("sources", nargs="*", help="File Markdown sorgente. Se omesso usa guida-lezioni/modulo-1.md")
     parser.add_argument("--slides", action="store_true", help="Genera solo la versione slide standalone (.slides.html).")
     parser.add_argument("--both", action="store_true", help="Genera sia la versione documento sia la versione slide.")
+    parser.add_argument("--senza-soluzioni", action="store_true", help="Omette i blocchi <details> 'Soluzione' e aggiunge il suffisso -senza-soluzioni ai file generati.")
     parser.add_argument("--all", action="store_true", help="Compila tutti i file guida-lezioni/modulo-*.md.")
     return parser
 
@@ -729,7 +741,7 @@ def main() -> None:
         raise SystemExit("Nessun file sorgente trovato.")
 
     for source in sources:
-        outputs = generate_outputs(source, slides=slides, document=document)
+        outputs = generate_outputs(source, slides=slides, document=document, senza_soluzioni=args.senza_soluzioni)
         for output in outputs:
             print(f"Generato {output.relative_to(ROOT)} da {source.relative_to(ROOT)}")
 
