@@ -376,6 +376,19 @@ console.log(&quot;L&#x27;anno prossimo avrai&quot;, anni_num + 1, &quot;anni&quo
   </div>
 </section>
 
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="domande-dalla-lezione-gli-spazi-contano">Domande dalla lezione · Gli spazi contano?</h2><p><strong>Non contano</strong> (tra un&#x27;istruzione e l&#x27;altra, attorno a <code>=</code>, <code>+</code>, <code>(</code>, a capo, rientri):</p><pre><code class="language-js">let   x=5 ;
+let y   =   x+1;       // stesso significato di let y = x + 1;</code></pre><p>L&#x27;indentazione serve solo a <strong>leggere meglio</strong> il codice.</p><p>Anche le <strong>righe vuote</strong> servono solo alla lettura: ad esempio per separare i blocchi logici del programma (input, elaborazione, output).</p><pre><code class="language-js">let anni_input = prompt(&quot;Quanti anni hai?&quot;);     // 1. prendo i dati in input
+let anni = Number(anni_input);
+
+let prossimo = anni + 1;                          // 2. li trasformo
+
+console.log(&quot;L&#x27;anno prossimo avrai&quot;, prossimo);   // 3. stampo il risultato</code></pre><p><strong>Contano</strong>:</p><ul><li><strong>dentro le stringhe</strong>: <code>&quot;Ciao &quot;</code> e <code>&quot;Ciao&quot;</code> sono diverse, e <code>&quot;Ciao &quot; + &quot;mondo&quot;</code> stampa <code>Ciao mondo</code>, mentre <code>&quot;Ciao&quot; + &quot;mondo&quot;</code> stampa <code>Ciaomondo</code></li><li><strong>nei nomi e nelle parole chiave</strong>: <code>let mia variabile = 5;</code> dà <code>SyntaxError</code>; si scrive <code>mia_variabile</code>. Anche <code>let x</code> e <code>letx</code> sono cose diverse</li><li><strong>nell&#x27;input</strong>: <code>Number(&quot; 22 &quot;)</code> vale <code>22</code> (gli spazi ai lati si ignorano), ma <code>Number(&quot;2 2&quot;)</code> vale <code>NaN</code>, e <code>Number(&quot;&quot;)</code> (o solo spazi) vale <code>0</code></li></ul><p><code>console.log(&quot;a&quot;, &quot;b&quot;)</code> stampa <code>a b</code>: tra gli argomenti separati da virgola lo spazio lo mette lui.</p>
+    
+  </div>
+</section>
+
 </div>
 <div class="sr-only" id="slide-announcer" aria-live="polite" aria-atomic="true"></div>
 <div class="controls">
@@ -384,7 +397,7 @@ console.log(&quot;L&#x27;anno prossimo avrai&quot;, anni_num + 1, &quot;anni&quo
     <button type="button" id="next">Avanti</button>
   </div>
   <div class="progress"><div class="progress-bar" id="progress"></div></div>
-  <div class="counter" id="counter" aria-hidden="true">1 / 27</div>
+  <div class="counter" id="counter" aria-hidden="true">1 / 28</div>
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license" style="display:flex;align-items:center;opacity:0.6;">
     <img src="https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png" alt="CC BY-NC-SA 4.0" style="height:15px;border-radius:0;margin:0;">
   </a>

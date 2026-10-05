@@ -542,3 +542,33 @@ let anni = prompt("inserisci anni");
 let anni_num = Number(anni);
 console.log("L'anno prossimo avrai", anni_num + 1, "anni");   // GIUSTO: 23
 ```
+
+## Domande dalla lezione · Gli spazi contano?
+
+**Non contano** (tra un'istruzione e l'altra, attorno a `=`, `+`, `(`, a capo, rientri):
+
+```js
+let   x=5 ;
+let y   =   x+1;       // stesso significato di let y = x + 1;
+```
+
+L'indentazione serve solo a **leggere meglio** il codice.
+
+Anche le **righe vuote** servono solo alla lettura: ad esempio per separare i blocchi logici del programma (input, elaborazione, output).
+
+```js
+let anni_input = prompt("Quanti anni hai?");     // 1. prendo i dati in input
+let anni = Number(anni_input);
+
+let prossimo = anni + 1;                          // 2. li trasformo
+
+console.log("L'anno prossimo avrai", prossimo);   // 3. stampo il risultato
+```
+
+**Contano**:
+
+- **dentro le stringhe**: `"Ciao "` e `"Ciao"` sono diverse, e `"Ciao " + "mondo"` stampa `Ciao mondo`, mentre `"Ciao" + "mondo"` stampa `Ciaomondo`
+- **nei nomi e nelle parole chiave**: `let mia variabile = 5;` dà `SyntaxError`; si scrive `mia_variabile`. Anche `let x` e `letx` sono cose diverse
+- **nell'input**: `Number(" 22 ")` vale `22` (gli spazi ai lati si ignorano), ma `Number("2 2")` vale `NaN`, e `Number("")` (o solo spazi) vale `0`
+
+`console.log("a", "b")` stampa `a b`: tra gli argomenti separati da virgola lo spazio lo mette lui.
