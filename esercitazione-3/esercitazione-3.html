@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esercitazione 3 - 12/10</title>
+<style>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; background: #f6f3ee; color: #1f1f1f; line-height: 1.65; }
+.page { max-width: 900px; margin: 0 auto; padding: 40px 20px 72px; }
+h1, h2, h3, h4 { font-family: "Avenir Next", "Segoe UI", Arial, sans-serif; line-height: 1.2; color: #1c2a39; }
+h1 { font-size: 2.1rem; margin: 0 0 1.5rem; }
+h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; padding-top: 0.25rem; border-top: 1px solid #d8d1c7; }
+h3 { font-size: 1.2rem; margin: 2rem 0 0.8rem; }
+p, ul, ol, blockquote, table, pre { margin: 0 0 1rem; }
+img { max-width: 100%; height: auto; display: block; margin: 1rem auto; border-radius: 12px; }
+ul, ol { padding-left: 1.4rem; }
+li { margin: 0.3rem 0; }
+blockquote { border-top: 3px solid #c97f31; border-bottom: 3px solid #c97f31; padding: 0.75rem 1.5rem; background: #fff8ef; color: #503521; text-align: center; max-width: 82%; margin-left: auto; margin-right: auto; }
+details { margin: 0 0 1rem; border: 1px solid #ddd5ca; border-radius: 10px; background: #fffdfa; overflow: hidden; }
+summary { cursor: pointer; font-weight: 600; padding: 0.8rem 1rem; background: #f3ece2; }
+details > :not(summary) { padding-left: 1rem; padding-right: 1rem; }
+pre { background: #1f2430; color: #f3f4f6; padding: 1rem; border-radius: 10px; overflow-x: auto; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95em; }
+p code, li code, td code, th code, blockquote code { background: rgba(28, 42, 57, 0.08); padding: 0.08rem 0.35rem; border-radius: 4px; color: #18212d; }
+table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
+th, td { border: 1px solid #ddd5ca; padding: 0.55rem 0.7rem; vertical-align: top; text-align: left; }
+th { background: #efe7db; }
+hr { border: 0; border-top: 1px solid #d8d1c7; margin: 2rem 0; }
+a { color: #8b3f1d; }
+[id] { scroll-margin-top: 20px; }
+ol.exercise-list { list-style: none; padding-left: 0; }
+ol.exercise-list > li { display: flex; align-items: baseline; gap: 0.5em; flex-wrap: wrap; }
+a.ex-id { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82em; font-weight: 600; background: #f3ece2; border: 1px solid #ddd5ca; color: #8b3f1d; padding: 0.05rem 0.4rem; border-radius: 5px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+a.ex-id:hover { background: #e8d9c5; border-color: #c9b89e; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #d8d1c7; font-size: 0.82rem; color: #595959; display: flex; align-items: center; gap: 0.6rem; }
+footer img { margin: 0; border-radius: 0; height: 22px; width: auto; display: inline; }
+@media (max-width: 700px) {
+  .page { padding: 24px 14px 56px; }
+  table { display: block; overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+<h1 id="esercitazione-3---1210">Esercitazione 3 - 12/10</h1><p>Argomenti:</p><ul><li>funzioni matematiche (<code>Math.log</code>, <code>Math.exp</code>, <code>Math.abs</code>) e <code>Number.isInteger</code></li><li>ciclo <code>do ... while</code> (e differenza dal <code>while</code>): validare l&#x27;input</li><li>l&#x27;operatore <code>x++</code></li><li>cicli e variabili &quot;bandiera&quot; (<code>true</code> / <code>false</code>): numeri primi</li><li><code>switch</code> e operatore ternario <code>? :</code></li><li>cicli annidati: fattoriale e serie di Taylor</li><li><code>break</code> e metodi iterativi</li></ul><h2 id="indice-degli-esercizi">Indice degli esercizi</h2><table><thead><tr><th>Esercizio</th><th>Argomento</th></tr></thead><tbody><tr><td><a href="#esercizio-1-cosa-stampa-x">Esercizio 1</a></td><td>Operatore ++</td></tr><tr><td><a href="#esercizio-2-contatori-con-x">Esercizio 2</a></td><td>Operatore ++ e ciclo while</td></tr><tr><td><a href="#esercizio-3-cosa-stampa-while-e-do-while">Esercizio 3</a></td><td>Ciclo while e do-while</td></tr><tr><td><a href="#esercizio-4-logaritmo-ed-esponenziale">Esercizio 4</a></td><td>Funzioni matematiche</td></tr><tr><td><a href="#esercizio-5-numero-intero-compreso-tra-1-e-100">Esercizio 5</a></td><td>Do-while e validazione dell&#x27;input</td></tr><tr><td><a href="#esercizio-6-31-logaritmo-in-base-a-con-controllo">Esercizio 6 (★ 3.1)</a></td><td>Do-while e funzioni matematiche</td></tr><tr><td><a href="#esercizio-7-32-numero-primo">Esercizio 7 (★ 3.2)</a></td><td>Variabili bandiera (numeri primi)</td></tr><tr><td><a href="#esercizio-8-33-tabella-di-conversione">Esercizio 8 (★ 3.3)</a></td><td>Ciclo for</td></tr><tr><td><a href="#esercizio-9-switch-cosa-stampa-e-completa">Esercizio 9</a></td><td>Switch</td></tr><tr><td><a href="#esercizio-10-34-il-nome-del-mese">Esercizio 10 (★ 3.4)</a></td><td>Switch</td></tr><tr><td><a href="#esercizio-11-completa-loperatore-ternario">Esercizio 11</a></td><td>Operatore ternario</td></tr><tr><td><a href="#esercizio-12-tabella-dei-fattoriali">Esercizio 12</a></td><td>Cicli annidati</td></tr><tr><td><a href="#esercizio-13-35-serie-di-taylor-del-seno">Esercizio 13 (★ 3.5)</a></td><td>Cicli annidati</td></tr><tr><td><a href="#esercizio-14-quando-fermarsi">Esercizio 14</a></td><td>Break</td></tr><tr><td><a href="#esercizio-15-approssimazioni-successive">Esercizio 15</a></td><td>Metodi iterativi</td></tr><tr><td><a href="#esercizio-16-36-equazione-non-lineare">Esercizio 16 (★ 3.6)</a></td><td>Metodi iterativi</td></tr></tbody></table><h2 id="come-si-lavora">Come si lavora</h2><ul><li>Ogni esercizio del foglio (3.1 – 3.6) è preceduto da <strong>esercizi preparatori</strong>, di difficoltà crescente</li><li>Si parte con alcune domande <strong>&quot;cosa stampa?&quot;</strong> (<code>x++</code>, <code>while</code> e <code>do ... while</code>, <code>switch</code>)</li><li>Brevi <strong>Recap</strong> pratici, alternati agli esercizi</li><li>Svolgiamo alcuni esercizi insieme (io scrivo il codice live, voi fate lo stesso)</li><li>Esercizi svolti da voi in autonomia</li><li>Domande</li></ul><p>Le regole sono le stesse delle volte scorse:</p><ul><li><strong>provare</strong> prima di rinunciare</li><li><strong>commenti</strong> dove il codice non parla da solo</li><li>eseguite <strong>sempre</strong> il programma con più valori, compresi i casi &quot;strani&quot; (0, numeri negativi, decimali).</li></ul><p>Gli esercizi con il simbolo ★ sono quelli del foglio di esercitazione; gli altri servono per arrivarci un passo alla volta.</p><h2 id="esercizio-1-cosa-stampa-x">Esercizio 1 · Cosa stampa? (<code>x++</code>)</h2><p><code>x++</code> <strong>aumenta</strong> <code>x</code> di 1, come <code>x = x + 1</code>. Come espressione, <code>x++</code> vale il valore <strong>di prima</strong> dell&#x27;aumento.</p><p><strong>A.</strong> Senza eseguirlo, cosa stampa?</p><pre><code class="language-js">let x = 5;
+x++;
+x++;
+console.log(x);</code></pre><p><strong>B.</strong> Cosa stampano <code>x</code> e <code>somma</code>? Attenzione a dove compare <code>x++</code>.</p><pre><code class="language-js">let x = 1;
+let somma = 0;
+while (x &lt;= 4) {
+  somma = somma + x++;
+}
+console.log(x, somma);</code></pre><p><strong>C.</strong> Cosa stampa? Quante volte gira il ciclo?</p><pre><code class="language-js">let i = 0;
+while (i &lt; 3) {
+  console.log(i);
+  i++;
+}
+console.log(&quot;fine&quot;, i);</code></pre><details><summary>Soluzione</summary><p><strong>A.</strong> Stampa <code>7</code>: ogni <code>x++</code> aggiunge 1.</p><p><strong>B.</strong> Stampa <code>5 10</code>. Dentro l&#x27;espressione <code>somma + x++</code>, <code>x++</code> vale il valore <strong>di prima</strong>: <code>somma</code> accumula <code>1 + 2 + 3 + 4 = 10</code>, mentre <code>x</code> aumenta di 1 a ogni giro e finisce a 5 (il valore che rende falsa la condizione). Da solo (<code>x++;</code>) è semplicemente <code>x = x + 1</code>; dentro un&#x27;altra istruzione bisogna stare attenti all&#x27;ordine.</p><p><strong>C.</strong> Stampa <code>0</code>, <code>1</code>, <code>2</code> e infine <code>fine 3</code>: il ciclo gira 3 volte, e alla fine <code>i</code> vale 3 (il valore che rende falsa la condizione).</p></details><h2 id="esercizio-2-contatori-con-x">Esercizio 2 · Contatori con <code>x++</code></h2><p>Il programma legge numeri finché l&#x27;utente non inserisce <code>0</code>, e alla fine stampa <strong>quanti numeri</strong> sono stati inseriti (lo <code>0</code> escluso) e <strong>quanti</strong> di essi erano <strong>positivi</strong>. Completate (al posto di <code>______</code>) la condizione del ciclo, le due istruzioni con <code>++</code> e la condizione dell&#x27;<code>if</code>:</p><pre><code class="language-js">let totale = 0;
+let positivi = 0;
+let x_input = prompt(&quot;Numero (0 per terminare):&quot;);
+let x = Number(x_input);
+while (______) {
+  ______;                                   // un numero in più
+  if (______) {
+    ______;                                 // un positivo in più
+  }
+  x_input = prompt(&quot;Numero (0 per terminare):&quot;);
+  x = Number(x_input);
+}
+console.log(&quot;Inseriti:&quot;, totale, &quot;positivi:&quot;, positivi);</code></pre><details><summary>Soluzione</summary><pre><code class="language-js">let totale = 0;
+let positivi = 0;
+let x_input = prompt(&quot;Numero (0 per terminare):&quot;);
+let x = Number(x_input);
+while (x != 0) {
+  totale++;                                 // un numero in più
+  if (x &gt; 0) {
+    positivi++;                             // un positivo in più
+  }
+  x_input = prompt(&quot;Numero (0 per terminare):&quot;);
+  x = Number(x_input);
+}
+console.log(&quot;Inseriti:&quot;, totale, &quot;positivi:&quot;, positivi);</code></pre><p><code>totale++</code> e <code>positivi++</code> sono <strong>contatori</strong>: partono da <code>0</code> e aumentano di 1 ogni volta che succede qualcosa. <code>positivi++</code> sta dentro l&#x27;<code>if</code>, <code>totale++</code> no. Il valore letto viene aggiornato <strong>alla fine</strong> di ogni giro; se il primo numero è <code>0</code> il ciclo non parte e il risultato è <code>0</code> e <code>0</code>. Provate <code>5, -2, 3, 0</code>: <code>Inseriti: 3 positivi: 2</code>.</p></details><h2 id="recap-1-il-ciclo-do-while">Recap 1 · Il ciclo <code>do ... while</code></h2><p>Nel <code>while</code> la condizione viene controllata <strong>prima</strong> di eseguire il corpo. Nel <code>do ... while</code> il corpo viene eseguito <strong>almeno una volta</strong>, e la condizione si controlla <strong>dopo</strong>:</p><pre><code class="language-js">let x;
+do {
+  let x_input = prompt(&quot;Inserisci un numero positivo:&quot;);
+  x = Number(x_input);
+} while (x &lt;= 0);                       // si ripete finché il valore NON è valido
+console.log(&quot;Hai inserito:&quot;, x);</code></pre><ul><li>se la condizione è falsa fin dall&#x27;inizio, <code>while</code> <strong>non esegue mai</strong> il corpo, <code>do ... while</code> lo esegue <strong>una volta</strong>;</li><li>è il ciclo ideale per <strong>chiedere un valore e ripetere la domanda</strong> se è sbagliato: non serve leggere l&#x27;input due volte (prima del ciclo e dentro);</li><li>la variabile (<code>x</code>) va dichiarata <strong>prima</strong> del <code>do</code>: se la dichiarate dentro le graffe, la condizione del <code>while</code> non la vede;</li><li>la condizione descrive il caso <strong>sbagliato</strong>, come nel <code>while</code>;</li><li>si ricorda il <code>;</code> dopo la parentesi del <code>while</code>.</li></ul><h2 id="esercizio-3-cosa-stampa-while-e-do-while">Esercizio 3 · Cosa stampa? (<code>while</code> e <code>do ... while</code>)</h2><p>Per ogni programma, dite cosa stampa <strong>senza eseguirlo</strong>.</p><p><strong>A.</strong> La condizione è vera all&#x27;inizio:</p><pre><code class="language-js">let n = 1;
+while (n &lt;= 3) {
+  console.log(&quot;giro&quot;, n);
+  n++;
+}</code></pre><p><strong>B.</strong> La condizione è falsa <strong>fin dall&#x27;inizio</strong>: cambia qualcosa tra i due cicli?</p><pre><code class="language-js">let n = 10;
+while (n &lt; 5) {
+  console.log(&quot;while&quot;);
+  n++;
+}
+do {
+  console.log(&quot;do-while&quot;);
+  n++;
+} while (n &lt; 5);
+console.log(n);</code></pre><p><strong>C.</strong> Completate (al posto di <code>______</code>) la <strong>parola chiave</strong> e la <strong>condizione</strong>, in modo che il programma chieda un numero e lo richieda finché non è <strong>positivo</strong>:</p><pre><code class="language-js">let x;
+______ {
+  let x_input = prompt(&quot;Numero positivo:&quot;);
+  x = Number(x_input);
+} ______ (______);</code></pre><details><summary>Soluzione</summary><p><strong>A.</strong> Stampa <code>giro 1</code>, <code>giro 2</code>, <code>giro 3</code>.</p><p><strong>B.</strong> Stampa <code>do-while</code> e poi <code>11</code>: il <code>while</code> controlla la condizione <strong>prima</strong> e non esegue mai il corpo; il <code>do ... while</code> esegue il corpo <strong>una volta</strong> e controlla <strong>dopo</strong>. Quindi la differenza si vede solo quando la condizione è falsa fin dall&#x27;inizio.</p><p><strong>C.</strong></p><pre><code class="language-js">let x;
+do {
+  let x_input = prompt(&quot;Numero positivo:&quot;);
+  x = Number(x_input);
+} while (x &lt;= 0);</code></pre><p>La condizione descrive il caso <strong>sbagliato</strong> (<code>x &lt;= 0</code>): il ciclo si ripete finché il valore non va bene. Il <code>do ... while</code> è ideale qui, perché la domanda va fatta <strong>almeno una volta</strong>.</p></details><h2 id="recap-2-funzioni-matematiche">Recap 2 · Funzioni matematiche</h2><table><thead><tr><th>Strumento</th><th>Cosa fa</th><th>Esempio</th></tr></thead><tbody><tr><td><code>Math.log(x)</code></td><td>logaritmo <strong>naturale</strong> (in base <em>e</em>), <code>x &gt; 0</code></td><td><code>Math.log(1)</code> → <code>0</code></td></tr><tr><td><code>Math.exp(x)</code></td><td><em>e</em> elevato a <em>x</em></td><td><code>Math.exp(0)</code> → <code>1</code></td></tr><tr><td><code>Math.abs(x)</code></td><td>valore assoluto</td><td><code>Math.abs(-3)</code> → <code>3</code></td></tr><tr><td><code>Math.sqrt(x)</code></td><td>radice quadrata</td><td><code>Math.sqrt(9)</code> → <code>3</code></td></tr><tr><td><code>Math.sin(x)</code></td><td>seno (<em>x</em> in radianti)</td><td><code>Math.sin(0)</code> → <code>0</code></td></tr><tr><td><code>x ** y</code></td><td><em>x</em> elevato a <em>y</em></td><td><code>2 ** 3</code> → <code>8</code></td></tr><tr><td><code>Number.isInteger(x)</code></td><td><code>true</code> se <em>x</em> è un numero intero</td><td><code>Number.isInteger(2.5)</code> → <code>false</code></td></tr></tbody></table><p>Una funzione si usa <strong>scrivendo il suo nome</strong> e, tra parentesi, il valore su cui lavora. Il risultato si può salvare in una variabile oppure stampare direttamente.</p><h2 id="esercizio-4-logaritmo-ed-esponenziale">Esercizio 4 · Logaritmo ed esponenziale</h2><p>Leggere un numero <code>x</code> e stampare, su due righe, il suo logaritmo naturale e <em>e</em> elevato a <code>x</code>. Con <code>x = 1</code>:</p><pre><code class="language-text">ln(x): 0
+exp(x): 2.718281828459045</code></pre><p>I due grafici mostrano come si comportano le funzioni:</p><p><img src="imgs/grafici-ln-exp.svg" alt="Grafici di ln(x) a sinistra e di e^x a destra"></p><ul><li><code>ln(x)</code> esiste solo per <code>x &gt; 0</code>; vale <code>0</code> in <code>x = 1</code>, è negativa tra 0 e 1 e cresce lentamente; avvicinandosi a 0 scende verso <code>-Infinity</code>;</li><li><code>e^x</code> è sempre positiva; vale <code>1</code> in <code>x = 0</code> ed è <code>e</code> ≈ 2.718 in <code>x = 1</code>; cresce sempre più in fretta;</li><li>sono una l&#x27;<strong>inversa</strong> dell&#x27;altra: <code>Math.log(Math.exp(x))</code> torna <code>x</code>.</li></ul><details><summary>Soluzione</summary><pre><code class="language-js">let x_input = prompt(&quot;x:&quot;);
+let x = Number(x_input);
+console.log(&quot;ln(x):&quot;, Math.log(x));
+console.log(&quot;exp(x):&quot;, Math.exp(x));</code></pre><p>Provate <code>x = 0</code> (il logaritmo vale <code>-Infinity</code>) e <code>x = -1</code> (il risultato è <code>NaN</code>): il logaritmo è definito solo per valori <strong>positivi</strong>. Per questo, nell&#x27;esercizio ★ 6, dovremo controllare l&#x27;input.</p></details><h2 id="esercizio-5-numero-intero-compreso-tra-1-e-100">Esercizio 5 · Numero intero compreso tra 1 e 100</h2><p>Con un <code>do ... while</code>, chiedere all&#x27;utente un numero <strong>intero compreso tra 1 e 100</strong> (estremi inclusi) e ripetere la domanda finché non è valido. Alla fine stampare il numero.</p><p>Suggerimento: <code>Number.isInteger(x)</code> è <code>true</code> se <code>x</code> è intero; per il caso sbagliato usate <code>!</code> e <code>||</code>.</p><details><summary>Soluzione</summary><pre><code class="language-js">let n;
+do {
+  let n_input = prompt(&quot;Inserisci un intero tra 1 e 100:&quot;);
+  n = Number(n_input);
+} while (n &lt; 1 || n &gt; 100 || !Number.isInteger(n));
+console.log(&quot;Hai inserito:&quot;, n);</code></pre><p>Il valore è sbagliato se è <strong>troppo piccolo</strong>, <strong>oppure</strong> troppo grande, <strong>oppure</strong> non intero: tre casi uniti da <code>||</code>. Provate <code>2.5</code>, <code>0</code>, <code>101</code>, <code>abc</code> (che <code>Number</code> trasforma in <code>NaN</code>: <code>Number.isInteger(NaN)</code> è <code>false</code>, quindi viene scartato).</p></details><h2 id="esercizio-6-31-logaritmo-in-base-a-con-controllo">Esercizio 6 · ★ 3.1 Logaritmo in base <em>a</em> con controllo</h2><p>Sapendo che log_a(b) = ln(b) / ln(a), scrivere un programma che legga due numeri <code>a</code> e <code>b</code> e stampi il valore di log_a(b). Una volta inseriti <code>a</code> e <code>b</code>, verificare che <code>a</code> sia un <strong>intero maggiore di 1</strong> e <code>b</code> sia un <strong>reale positivo</strong>. Se così non fosse, far <strong>ripetere l&#x27;inserimento di entrambi</strong> i valori all&#x27;utente. Alla fine stampare il risultato. Con <code>a = 2</code> e <code>b = 8</code> il risultato è <code>3</code>.</p><p>Suggerimento: usate <code>Math.log</code> (esercizio 4) per il logaritmo e il <code>do ... while</code> dell&#x27;esercizio 5 per ripetere l&#x27;input.</p><details><summary>Soluzione</summary><pre><code class="language-js">let a, b;
+do {
+  let a_input = prompt(&quot;Inserire a (intero, maggiore di 1):&quot;);
+  a = Number(a_input);
+  let b_input = prompt(&quot;Inserire b (positivo):&quot;);
+  b = Number(b_input);
+} while (a &lt;= 1 || !Number.isInteger(a) || b &lt;= 0);
+let risultato = Math.log(b) / Math.log(a);
+console.log(&quot;log_a(b) =&quot;, risultato);</code></pre><p>Si chiedono <strong>entrambi</strong> i valori dentro lo stesso ciclo, e la condizione unisce con <code>||</code> tutti i casi sbagliati. Con <code>a = 2</code> e <code>b = 8</code> il risultato è <code>3</code>; con <code>a = 2.5</code> si ricomincia da capo, anche se <code>b</code> era corretto.</p><p>Attenzione: se <code>b</code> non è un numero (ad esempio <code>abc</code>), <code>Number</code> dà <code>NaN</code>, e <code>NaN &lt;= 0</code> è <code>false</code>: l&#x27;input verrebbe accettato! Per evitarlo si può scrivere <code>!(b &gt; 0)</code> al posto di <code>b &lt;= 0</code>.</p></details><h2 id="recap-3-variabili-bandiera">Recap 3 · Variabili &quot;bandiera&quot;</h2><p>Una variabile booleana può &quot;ricordare&quot; se, durante un ciclo, è successo qualcosa:</p><p>Esempio: l&#x27;utente inserisce 5 numeri; vogliamo sapere se <strong>tra questi c&#x27;è uno zero</strong>.</p><pre><code class="language-js">let zero_presente = false;              // ipotesi iniziale: non c&#x27;è nessuno zero
+for (let i = 1; i &lt;= 5; i++) {
+  let x_input = prompt(&quot;Numero &quot; + i + &quot;:&quot;);
+  let x = Number(x_input);
+  if (x == 0) {
+    zero_presente = true;               // trovato uno zero: alzo la bandiera
+  }
+}
+console.log(&quot;C&#x27;è almeno uno zero:&quot;, zero_presente);</code></pre><p>Con <code>3, 7, 0, 4, 9</code> stampa <code>true</code>; con <code>3, 7, 2, 4, 9</code> stampa <code>false</code>. Con <code>0, 5, 0, 1, 0</code> stampa ancora <code>true</code> (una volta sola): la bandiera dice <strong>se</strong> è successo, non <strong>quante volte</strong>.</p><ul><li>si parte da un&#x27;<strong>ipotesi</strong> (<code>false</code>, oppure <code>true</code>);</li><li>nel ciclo si <strong>cambia</strong> il valore solo se si trova un caso che smentisce l&#x27;ipotesi;</li><li>la bandiera <strong>non torna indietro</strong>: una volta cambiata, nessun altro giro la rimette com&#x27;era;</li><li>il risultato si usa <strong>dopo</strong> il ciclo.</li></ul><h2 id="esercizio-7-32-numero-primo">Esercizio 7 · ★ 3.2 Numero primo</h2><p>Un numero intero <code>N &gt; 1</code> è <strong>primo</strong> se è divisibile solo per 1 e per se stesso. Scrivere un programma che legga <code>N</code> e stampi se è primo oppure no.</p><p>Una volta letto <code>N</code>, verificare che sia un <strong>intero maggiore di 1</strong>. Se così non fosse, far ripetere l&#x27;inserimento.</p><p>Suggerimento: ipotizzate che <code>N</code> sia primo (<code>true</code>) e provate tutti i numeri da 2 a <code>N - 1</code>: se ne trovate uno che divide <code>N</code>, l&#x27;ipotesi è smentita. Riusate il <code>do ... while</code> dell&#x27;esercizio 5 per l&#x27;input.</p><details><summary>Soluzione</summary><pre><code class="language-js">let N;
+do {
+  let N_input = prompt(&quot;Inserire un intero maggiore di 1:&quot;);
+  N = Number(N_input);
+} while (N &lt;= 1 || !Number.isInteger(N));
+let primo = true;                   // ipotesi: N è primo
+for (let i = 2; i &lt; N; i++) {
+  if (N % i == 0) {
+    primo = false;                  // ho trovato un divisore: non è primo
+  }
+}
+console.log(&quot;N è un numero primo?&quot;, primo);</code></pre><p>Il ciclo parte da 2 (il divisore 1 non conta) e finisce a <code>N - 1</code> (nemmeno <code>N</code> conta): per questo <code>i &lt; N</code>. Provate <code>2</code> (primo, il ciclo non gira), <code>9</code>, <code>13</code>, <code>15</code>.</p><p>Una versione più efficiente: appena si trova un divisore, si può uscire dal ciclo con <code>break</code>, di cui parliamo più avanti.</p></details><h2 id="esercizio-8-33-tabella-di-conversione">Esercizio 8 · ★ 3.3 Tabella di conversione</h2><p>La formula per convertire gradi Celsius <code>C</code> in gradi Fahrenheit <code>F</code> è F = 32 + (9/5) · C. Visualizzare la tabella di conversione da Celsius a Fahrenheit per l&#x27;intervallo <strong>50 – 60 °C</strong> con passi di un grado, nel formato:</p><pre><code class="language-text">50°C = 122°F
+51°C = 123.8°F
+...</code></pre><details><summary>Soluzione</summary><pre><code class="language-js">let F;
+for (let C = 50; C &lt;= 60; C++) {
+  F = 32 + 9 / 5 * C;
+  console.log(C + &quot;°C = &quot; + F + &quot;°F&quot;);
+}</code></pre><p>Il <code>for</code> fa variare <code>C</code> (qui il ciclo parte da 50, non da 1, e finisce a 60 <strong>incluso</strong>, per questo <code>&lt;=</code>), il corpo applica la formula.</p><p>Varianti da provare: la tabella da 0 a 100 con passi di 10 (<code>C = C + 10</code> al posto di <code>C++</code>) e la tabella al contrario, da 60 a 50 (<code>C--</code> con la condizione <code>C &gt;= 50</code>).</p></details><h2 id="recap-4-listruzione-switch">Recap 4 · L&#x27;istruzione <code>switch</code></h2><p>Quando una variabile può avere <strong>tanti valori fissi</strong> e per ognuno si fa una cosa diversa, <code>switch</code> è più leggibile di una lunga catena di <code>if</code> / <code>else if</code>:</p><pre><code class="language-js">let giorno = 3;
+let nome;
+switch (giorno) {
+  case 1:
+    nome = &quot;lunedì&quot;;
+    break;
+  case 2:
+    nome = &quot;martedì&quot;;
+    break;
+  default:
+    nome = &quot;altro giorno&quot;;
+}
+console.log(nome);</code></pre><ul><li>si confronta il valore tra parentesi con ogni <code>case</code> (confronto di <strong>uguaglianza</strong>);</li><li><code>break</code> termina lo <code>switch</code>: <strong>senza</strong> <code>break</code>, l&#x27;esecuzione &quot;cade&quot; nel <code>case</code> successivo;</li><li><code>default</code> è facoltativo e si esegue se nessun <code>case</code> corrisponde.</li></ul><p>Equivale a:</p><pre><code class="language-js">if (giorno == 1) {
+  nome = &quot;lunedì&quot;;
+} else if (giorno == 2) {
+  nome = &quot;martedì&quot;;
+} else {
+  nome = &quot;altro giorno&quot;;
+}</code></pre><h2 id="esercizio-9-switch-cosa-stampa-e-completa">Esercizio 9 · <code>switch</code>: cosa stampa e completa</h2><p><strong>A.</strong> Senza eseguirlo, cosa stampa questo programma?</p><pre><code class="language-js">let v = 2;
+switch (v) {
+  case 1:
+    console.log(&quot;uno&quot;);
+  case 2:
+    console.log(&quot;due&quot;);
+  case 3:
+    console.log(&quot;tre&quot;);
+    break;
+  default:
+    console.log(&quot;altro&quot;);
+}</code></pre><p><strong>B.</strong> Il programma legge un numero da 1 a 3 e stampa il nome del semaforo corrispondente: <code>1</code> → <code>rosso</code>, <code>2</code> → <code>giallo</code>, <code>3</code> → <code>verde</code>, qualsiasi altro valore → <code>spento</code>. Completate (al posto di <code>______</code>).</p><pre><code class="language-js">let n_input = prompt(&quot;Numero da 1 a 3:&quot;);
+let n = Number(n_input);
+let colore;
+switch (______) {
+  case 1:
+    colore = &quot;rosso&quot;;
+    ______;
+  case 2:
+    colore = &quot;giallo&quot;;
+    break;
+  case 3:
+    colore = &quot;verde&quot;;
+    break;
+  ______:
+    colore = &quot;spento&quot;;
+}
+console.log(colore);</code></pre><details><summary>Soluzione</summary><p><strong>A.</strong> Stampa <code>due</code> e poi <code>tre</code>: senza <code>break</code>, lo <code>switch</code> entra nel <code>case 2</code> e prosegue nel <code>case 3</code>, fermandosi al suo <code>break</code>. <code>uno</code> e <code>altro</code> non vengono stampati.</p><p><strong>B.</strong></p><pre><code class="language-js">let n_input = prompt(&quot;Numero da 1 a 3:&quot;);
+let n = Number(n_input);
+let colore;
+switch (n) {
+  case 1:
+    colore = &quot;rosso&quot;;
+    break;
+  case 2:
+    colore = &quot;giallo&quot;;
+    break;
+  case 3:
+    colore = &quot;verde&quot;;
+    break;
+  default:
+    colore = &quot;spento&quot;;
+}
+console.log(colore);</code></pre><p>Provate a <strong>togliere</strong> un <code>break</code>: con <code>n = 1</code> e il <code>break</code> mancante nel primo <code>case</code>, il programma stampa <code>giallo</code>, perché dopo aver eseguito <code>colore = &quot;rosso&quot;</code> prosegue con il <code>case 2</code>. Nell&#x27;ultimo ramo (<code>default</code>) il <code>break</code> non serve.</p></details><h2 id="esercizio-10-34-il-nome-del-mese">Esercizio 10 · ★ 3.4 Il nome del mese</h2><p>Realizzare un programma che, ricevuto in input un numero <code>N</code> compreso tra 1 e 12 (estremi inclusi), stampi il corrispondente <strong>mese dell&#x27;anno</strong>: con <code>1</code> stampi <code>gennaio</code>, con <code>2</code> <code>febbraio</code>, e così via.</p><p>Prima di tutto verificare che <code>N</code> sia un <strong>numero intero compreso tra 1 e 12</strong>; se così non fosse, far ripetere l&#x27;inserimento.</p><p>Usare l&#x27;istruzione <code>switch</code>; poi <strong>riscrivere</strong> il programma con <code>if</code> / <code>else if</code> / <code>else</code>.</p><details><summary>Soluzione (con switch)</summary><pre><code class="language-js">let mese;
+do {
+  let mese_input = prompt(&quot;Introduci un intero tra 1 e 12:&quot;);
+  mese = Number(mese_input);
+} while (mese &lt; 1 || mese &gt; 12 || !Number.isInteger(mese));
+let nome;
+switch (mese) {
+  case 1:
+    nome = &quot;gennaio&quot;;
+    break;
+  case 2:
+    nome = &quot;febbraio&quot;;
+    break;
+  case 3:
+    nome = &quot;marzo&quot;;
+    break;
+  case 4:
+    nome = &quot;aprile&quot;;
+    break;
+  case 5:
+    nome = &quot;maggio&quot;;
+    break;
+  case 6:
+    nome = &quot;giugno&quot;;
+    break;
+  case 7:
+    nome = &quot;luglio&quot;;
+    break;
+  case 8:
+    nome = &quot;agosto&quot;;
+    break;
+  case 9:
+    nome = &quot;settembre&quot;;
+    break;
+  case 10:
+    nome = &quot;ottobre&quot;;
+    break;
+  case 11:
+    nome = &quot;novembre&quot;;
+    break;
+  default:
+    nome = &quot;dicembre&quot;;
+}
+console.log(&quot;mese =&quot;, nome);</code></pre><p>L&#x27;input è già stato validato (esercizio 5), quindi l&#x27;ultimo ramo può essere il <code>default</code>: se non è nessuno degli altri 11, è dicembre. In alternativa si può scrivere <code>case 12:</code> e un <code>default</code> con un messaggio di errore.</p></details><details><summary>Soluzione (con if / else if / else)</summary><pre><code class="language-js">let mese;
+do {
+  let mese_input = prompt(&quot;Introduci un intero tra 1 e 12:&quot;);
+  mese = Number(mese_input);
+} while (mese &lt; 1 || mese &gt; 12 || !Number.isInteger(mese));
+let nome;
+if (mese == 1) {
+  nome = &quot;gennaio&quot;;
+} else if (mese == 2) {
+  nome = &quot;febbraio&quot;;
+} else if (mese == 3) {
+  nome = &quot;marzo&quot;;
+} else if (mese == 4) {
+  nome = &quot;aprile&quot;;
+} else if (mese == 5) {
+  nome = &quot;maggio&quot;;
+} else if (mese == 6) {
+  nome = &quot;giugno&quot;;
+} else if (mese == 7) {
+  nome = &quot;luglio&quot;;
+} else if (mese == 8) {
+  nome = &quot;agosto&quot;;
+} else if (mese == 9) {
+  nome = &quot;settembre&quot;;
+} else if (mese == 10) {
+  nome = &quot;ottobre&quot;;
+} else if (mese == 11) {
+  nome = &quot;novembre&quot;;
+} else {
+  nome = &quot;dicembre&quot;;
+}
+console.log(&quot;mese =&quot;, nome);</code></pre><p>Stesso risultato, stesso numero di casi: con tanti valori fissi lo <code>switch</code> è più compatto e leggibile.</p></details><h2 id="recap-5-loperatore-ternario">Recap 5 · L&#x27;operatore ternario</h2><p>Quando un <code>if</code> serve solo a <strong>scegliere un valore tra due</strong>, si può scrivere in modo compatto:</p><pre><code class="language-js">let messaggio = (eta &gt;= 18) ? &quot;maggiorenne&quot; : &quot;minorenne&quot;;</code></pre><pre><code class="language-text">condizione ? valore_se_vera : valore_se_falsa</code></pre><p>È equivalente a:</p><pre><code class="language-js">let messaggio;
+if (eta &gt;= 18) {
+  messaggio = &quot;maggiorenne&quot;;
+} else {
+  messaggio = &quot;minorenne&quot;;
+}</code></pre><ul><li>è un&#x27;<strong>espressione</strong>: ha un valore, che si può assegnare a una variabile o stampare direttamente;</li><li>va bene per scelte <strong>semplici</strong>; con più di due casi usate <code>if</code> / <code>else if</code> o <code>switch</code>.</li></ul><h2 id="esercizio-11-completa-loperatore-ternario">Esercizio 11 · Completa l&#x27;operatore ternario</h2><p>Il programma legge un numero e stampa <code>pari</code> oppure <code>dispari</code>. Completate (al posto di <code>______</code>) la condizione e i due valori.</p><pre><code class="language-js">let n_input = prompt(&quot;n:&quot;);
+let n = Number(n_input);
+let tipo = (______) ? ______ : ______;
+console.log(n + &quot; è &quot; + tipo);</code></pre><details><summary>Soluzione</summary><pre><code class="language-js">let n_input = prompt(&quot;n:&quot;);
+let n = Number(n_input);
+let tipo = (n % 2 == 0) ? &quot;pari&quot; : &quot;dispari&quot;;
+console.log(n + &quot; è &quot; + tipo);</code></pre><p>Si può anche stampare direttamente: <code>console.log(n % 2 == 0 ? &quot;pari&quot; : &quot;dispari&quot;);</code>.</p></details><h2 id="recap-6-cicli-annidati">Recap 6 · Cicli annidati</h2><p>Un ciclo può contenere un altro ciclo. Il ciclo <strong>interno</strong> viene eseguito <strong>per intero</strong> a ogni giro del ciclo <strong>esterno</strong>:</p><pre><code class="language-js">for (let i = 1; i &lt;= 3; i++) {          // esterno: 3 giri
+  let riga = &quot;&quot;;
+  for (let j = 1; j &lt;= i; j++) {        // interno: i giri, ricomincia ogni volta
+    riga = riga + &quot;*&quot;;
+  }
+  console.log(riga);
+}</code></pre><pre><code class="language-text">*
+**
+***</code></pre><ul><li>le variabili del ciclo interno (<code>j</code>) e quelle del ciclo esterno (<code>i</code>) devono avere <strong>nomi diversi</strong>;</li><li>le variabili che servono &quot;da capo&quot; a ogni giro esterno (come <code>riga</code>) vanno <strong>inizializzate dentro</strong> il ciclo esterno, prima del ciclo interno;</li><li>il numero di giri interni può dipendere dalla variabile del ciclo esterno.</li></ul><h2 id="esercizio-12-tabella-dei-fattoriali">Esercizio 12 · Tabella dei fattoriali</h2><p>Il <strong>fattoriale</strong> di un numero naturale <em>n</em> è il prodotto di tutti gli interi da 1 a <em>n</em>: <code>0! = 1</code>, <code>1! = 1</code>, <code>2! = 2 · 1</code>, <code>3! = 3 · 2 · 1</code>, ... Stampare i fattoriali di <strong>tutti i numeri da 0 a 6</strong>, una riga per numero:</p><pre><code class="language-text">0! = 1
+1! = 1
+2! = 2
+...
+6! = 720</code></pre><p>Suggerimento: servono <strong>due cicli, uno dentro l&#x27;altro</strong> (Recap 6). Il ciclo <strong>esterno</strong> scorre i numeri da 0 a 6; per ciascuno, il ciclo <strong>interno</strong> calcola il fattoriale con un prodotto accumulato (come nell&#x27;esercitazione 2). Prima di scrivere il programma intero, provate a calcolare <strong>un solo</strong> fattoriale, ad esempio quello di <code>5</code>.</p><details><summary>Soluzione</summary><pre><code class="language-js">for (let n = 0; n &lt;= 6; n++) {
+  let fattoriale = 1;                       // riparte da 1 a ogni numero
+  for (let i = 1; i &lt;= n; i++) {
+    fattoriale = fattoriale * i;
+  }
+  console.log(n + &quot;! = &quot; + fattoriale);
+}</code></pre><p>Il ciclo interno è un <strong>prodotto accumulato</strong> (come nell&#x27;esercitazione 2), con l&#x27;accumulatore che parte da <code>1</code>: con <code>n = 0</code> il ciclo non gira e il risultato è <code>1</code>, proprio la definizione di <code>0!</code>. <code>fattoriale = 1</code> sta <strong>dentro</strong> il ciclo esterno: se fosse prima, il secondo fattoriale partirebbe dal risultato del primo.</p></details><h2 id="esercizio-13-35-serie-di-taylor-del-seno">Esercizio 13 · ★ 3.5 Serie di Taylor del seno</h2><p>Mediante la <strong>serie di Taylor</strong> si può approssimare la funzione seno sommando tanti termini, uno per ogni valore di <em>n</em> = 0, 1, 2, ..., <em>N</em>:</p><pre><code class="language-text">sen(x)  ≈  x  -  x³/3!  +  x⁵/5!  -  x⁷/7!  +  ...</code></pre><p>Ogni termine ha questa forma:</p><pre><code class="language-text">         (-1)ⁿ · x^(2n+1)
+termine = ------------------
+             (2n + 1)!</code></pre><p>Per esempio:</p><table><thead><tr><th><em>n</em></th><th>termine</th></tr></thead><tbody><tr><td>0</td><td><code>+ x¹ / 1!</code></td></tr><tr><td>1</td><td><code>- x³ / 3!</code></td></tr><tr><td>2</td><td><code>+ x⁵ / 5!</code></td></tr><tr><td>3</td><td><code>- x⁷ / 7!</code></td></tr></tbody></table><p>Il numeratore è <code>x</code> elevato a <code>2n+1</code>, con il <strong>segno</strong> che alterna (<code>+</code>, <code>-</code>, <code>+</code>, ...); il denominatore è il <strong>fattoriale</strong> di <code>2n+1</code>.</p><p>Con <code>N = 10</code>, calcolare il valore approssimato di sen(x) per <code>x = 0.5</code> e determinare l&#x27;<strong>errore commesso</strong> rispetto a <code>Math.sin(x)</code>.</p><p>N.B.: per ogni valore di <em>n</em> bisogna calcolare <code>(2n+1)!</code> <strong>prima</strong> di usarlo nella sommatoria.</p><p>Suggerimento: usate un ciclo esterno per <code>n</code> e, dentro, un ciclo interno per il fattoriale (come nell&#x27;esercizio 12). Il segno alternato si ottiene con <code>(-1) ** n</code>: vale <code>1</code> se <code>n</code> è pari e <code>-1</code> se è dispari.</p><details><summary>Soluzione</summary><pre><code class="language-js">let x = 0.5;
+let somma = 0;
+for (let n = 0; n &lt;= 10; n++) {
+  let denom = 1;                            // (2n+1)!, ricalcolato a ogni n
+  for (let i = 1; i &lt;= 2 * n + 1; i++) {
+    denom = denom * i;
+  }
+  somma = somma + (-1) ** n * x ** (2 * n + 1) / denom;
+}
+console.log(&quot;sen(x) approssimato =&quot;, somma);
+console.log(&quot;sen(x) preciso      =&quot;, Math.sin(x));
+console.log(&quot;errore              =&quot;, Math.abs(somma - Math.sin(x)));</code></pre><p>Si calcola il denominatore con un ciclo interno che arriva fino a <code>2 * n + 1</code>. L&#x27;errore è praticamente nullo (con <code>x = 0.5</code> risulta <code>0</code>, o comunque dell&#x27;ordine dell&#x27;arrotondamento del computer): bastano pochi termini perché i fattoriali crescano molto in fretta. Provate con <code>x = 3</code> o <code>x = 10</code>: l&#x27;approssimazione peggiora.</p></details><h2 id="recap-7-break-e-i-metodi-iterativi">Recap 7 · <code>break</code> e i metodi iterativi</h2><p><code>break</code> <strong>interrompe subito</strong> il ciclo in cui si trova (come nello <code>switch</code>), e l&#x27;esecuzione prosegue dalla riga dopo la <code>}</code>:</p><pre><code class="language-js">for (let i = 1; i &lt;= 100; i++) {
+  console.log(i);
+  if (i * i &gt; 50) {
+    break;                              // i = 8: 64 &gt; 50, esco dal ciclo
+  }
+}</code></pre><p>Un <strong>metodo iterativo</strong> ripete lo stesso calcolo partendo dal risultato precedente, fino a quando il risultato smette di cambiare in modo apprezzabile:</p><pre><code class="language-js">let x_vecchio = 1;                      // valore di partenza
+for (let i = 1; i &lt;= 1000; i++) {       // limite di sicurezza
+  let x_nuovo = Math.cos(x_vecchio);    // nuovo valore, calcolato dal precedente
+  if (Math.abs(x_nuovo - x_vecchio) &lt; 0.000001) {
+    break;                              // differenza piccola: mi fermo
+  }
+  x_vecchio = x_nuovo;                  // il nuovo diventa il vecchio
+}</code></pre><ul><li><code>Math.abs</code> serve perché la differenza può essere negativa e ci interessa solo la sua <strong>distanza</strong>;</li><li>il limite sul <code>for</code> protegge da un metodo che non converge mai;</li><li>un numero molto piccolo si può scrivere <code>0.000001</code>, oppure <code>10 ** (-6)</code>, oppure <code>1e-6</code>.</li></ul><h2 id="esercizio-14-quando-fermarsi">Esercizio 14 · Quando fermarsi</h2><p>Un rettangolo ha <strong>altezza 3</strong> e una <strong>base</strong> che parte da <code>1</code>. Aumentare la base di 1 alla volta; a ogni passo calcolare l&#x27;<strong>area</strong> e stamparla, nel formato</p><pre><code class="language-text">base 1: area 3
+base 2: area 6
+...</code></pre><p>Il ciclo deve <strong>fermarsi</strong> non appena l&#x27;area <strong>supera 50</strong>. Alla fine stampare la base e l&#x27;area raggiunte.</p><p>Suggerimento: usate un <code>for</code> per la base, con un limite di sicurezza (ad esempio 1000), e un <code>if</code> con <code>break</code> che controlla l&#x27;area.</p><details><summary>Soluzione</summary><pre><code class="language-js">let altezza = 3;
+let base, area;
+for (base = 1; base &lt;= 1000; base++) {
+  area = base * altezza;
+  console.log(&quot;base &quot; + base + &quot;: area &quot; + area);
+  if (area &gt; 50) {
+    break;                              // area abbastanza grande: mi fermo
+  }
+}
+console.log(&quot;Mi sono fermato alla base&quot;, base, &quot;con area&quot;, area);</code></pre><p>Si ferma a <code>base 17: area 51</code>. <code>base</code> e <code>area</code> sono dichiarate <strong>fuori</strong> dal <code>for</code>, altrimenti non esisterebbero più dopo il ciclo. Il <code>for</code> dice <strong>al massimo</strong> quante volte ripetere; il <code>break</code> interrompe prima appena succede ciò che cerchiamo. Nel prossimo esercizio la condizione di arresto non riguarderà un&#x27;area, ma la <strong>differenza tra due risultati consecutivi</strong>.</p></details><h2 id="esercizio-15-approssimazioni-successive">Esercizio 15 · Approssimazioni successive</h2><p>Un <strong>metodo iterativo</strong> parte da un valore iniziale e ripete lo stesso calcolo, usando ogni volta il <strong>risultato precedente</strong>. Partire da <code>x = 1</code> e ripetere <code>x = Math.cos(x)</code>. Il ciclo deve <strong>fermarsi</strong> quando la differenza (in valore assoluto) tra il nuovo valore e il precedente è minore di <code>10 ** (-6)</code>. Mettere un limite di sicurezza di 1000 passi. Alla fine stampare il valore trovato e il <strong>numero di passi</strong> necessari.</p><p>(Risposta attesa: valore circa <code>0.7390855</code>, in 34 passi.)</p><details><summary>Soluzione</summary><pre><code class="language-js">let x_vecchio = 1;
+let x_nuovo;
+let passi;
+for (let i = 1; i &lt;= 1000; i++) {
+  passi = i;                                // ricordo a che passo sono
+  x_nuovo = Math.cos(x_vecchio);
+  if (Math.abs(x_nuovo - x_vecchio) &lt; 10 ** (-6)) {
+    break;                                  // risultato stabile: mi fermo
+  }
+  x_vecchio = x_nuovo;                      // altrimenti il nuovo diventa il vecchio
+}
+console.log(&quot;valore =&quot;, x_nuovo);
+console.log(&quot;passi  =&quot;, passi);</code></pre><p>Le variabili <code>x_nuovo</code> e <code>passi</code> sono dichiarate <strong>fuori</strong> dal <code>for</code>, altrimenti non esisterebbero più dopo il ciclo. L&#x27;ordine conta: prima si calcola <code>x_nuovo</code>, poi si confronta, e solo alla fine si aggiorna <code>x_vecchio</code>.</p></details><h2 id="esercizio-16-36-equazione-non-lineare">Esercizio 16 · ★ 3.6 Equazione non lineare</h2><p>L&#x27;equazione</p><pre><code class="language-text">e^(-x) - x = 0</code></pre><p>non si può risolvere con i metodi che conosciamo (è <strong>non lineare</strong>): si cerca una soluzione approssimata con un <strong>metodo iterativo</strong>. Si parte da un valore <code>x₀</code> e si calcola ogni nuovo valore da quello precedente:</p><pre><code class="language-text">x₁ = e^(-x₀)
+x₂ = e^(-x₁)
+x₃ = e^(-x₂)
+...
+xₙ = e^(-xₙ₋₁)        con n = 1, 2, 3, ...</code></pre><p>In JavaScript, chiamando <code>x_vecchio</code> il valore <code>xₙ₋₁</code> e <code>x_nuovo</code> il valore <code>xₙ</code>:</p><pre><code class="language-js">x_nuovo = Math.exp(-x_vecchio);</code></pre><p>La successione converge alla soluzione. Come <strong>criterio di arresto</strong> si ripete finché non vale la condizione</p><pre><code class="language-text">|xₙ - xₙ₋₁|
+-----------  &lt;  10⁻⁶          cioè   |xₙ - xₙ₋₁| / |xₙ| &lt; 0.000001
+   |xₙ|</code></pre><p>che in JavaScript si scrive:</p><pre><code class="language-js">Math.abs(x_nuovo - x_vecchio) / Math.abs(x_nuovo) &lt; 10 ** (-6)</code></pre><p>Primi passi, partendo da <code>x₀ = 1</code>: <code>x₁ = 0.3679</code>, <code>x₂ = 0.6922</code>, <code>x₃ = 0.5005</code>, <code>x₄ = 0.6062</code>, ...</p><p>Scrivere un programma che, partendo dalla soluzione di primo tentativo <code>x₀ = 1.0</code>, determini la soluzione approssimata e stampi sia il <strong>valore trovato</strong> sia il <strong>numero di iterazioni</strong> necessarie.</p><p>(Risposta attesa: soluzione = 0.56714..., iterazioni = 26.)</p><p>Suggerimento: è l&#x27;esercizio 15, con due cambiamenti: la formula del nuovo valore (<code>Math.exp</code>) e il criterio di arresto (<strong>errore relativo</strong>: la differenza divisa per <code>|x_nuovo|</code>).</p><details><summary>Soluzione</summary><pre><code class="language-js">let x_vecchio = 1;
+let x_nuovo, errore, iterazioni;
+for (let i = 1; i &lt;= 1000; i++) {
+  iterazioni = i;
+  x_nuovo = Math.exp(-x_vecchio);
+  errore = Math.abs(x_nuovo - x_vecchio) / Math.abs(x_nuovo);
+  if (errore &lt; 10 ** (-6)) {
+    break;
+  }
+  x_vecchio = x_nuovo;
+}
+console.log(&quot;soluzione =&quot;, x_nuovo);
+console.log(&quot;iterazioni =&quot;, iterazioni);</code></pre><p>Stessa struttura dell&#x27;esercizio 15. L&#x27;errore è <strong>relativo</strong> perché si divide per <code>|x_nuovo|</code>: misura la differenza in proporzione alla grandezza del valore. Verifica: <code>Math.exp(-0.567143) - 0.567143</code> è praticamente <code>0</code>.</p></details>
+<footer>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license">
+<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0">
+</a>
+Ludovica Pannitto - Università di Pisa -
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>
+</footer>
+</main>
+</body>
+</html>

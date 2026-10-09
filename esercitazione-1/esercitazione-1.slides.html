@@ -129,6 +129,13 @@ a.ex-id:hover { background: rgba(139,63,29,0.18); }
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
+    <h2 id="indice-degli-esercizi">Indice degli esercizi</h2><table><thead><tr><th>Esercizio</th><th>Argomento</th></tr></thead><tbody><tr><td><a href="#esercizio-1">Esercizio 1</a></td><td>Tipi di dato</td></tr><tr><td><a href="#esercizio-21-ciao-x">Esercizio 2.1</a></td><td>Input e output</td></tr><tr><td><a href="#esercizio-22-ciao-x">Esercizio 2.2</a></td><td>Stringhe</td></tr><tr><td><a href="#esercizio-3-dati-anagrafici">Esercizio 3</a></td><td>Variabili</td></tr><tr><td><a href="#esercizio-4">Esercizio 4</a></td><td>Operatori aritmetici</td></tr><tr><td><a href="#esercizio-5">Esercizio 5</a></td><td>Operatori aritmetici</td></tr><tr><td><a href="#esercizio-6">Esercizio 6</a></td><td>Casting</td></tr><tr><td><a href="#esercizio-7">Esercizio 7</a></td><td>Operatori aritmetici</td></tr><tr><td><a href="#esercizio-8">Esercizio 8</a></td><td>Operatori aritmetici</td></tr><tr><td><a href="#esercizio-9">Esercizio 9</a></td><td>Casting</td></tr><tr><td><a href="#esercizio-10">Esercizio 10</a></td><td>Funzioni matematiche</td></tr><tr><td><a href="#esercizio-11">Esercizio 11</a></td><td>Operatori aritmetici</td></tr></tbody></table>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
     <h2 id="come-si-lavora">Come si lavora</h2><ul><li>Facciamo un breve riepilogo della teoria</li><li>Svolgiamo alcuni esercizi insieme (io scrivo il codice live, voi fate lo stesso sui vostri computer)</li><li>Esercizi svolti da voi in autonomia</li><li>Domande</li></ul><p>Importante: confrontate il <em>ragionamento</em>, non solo il codice. Esistono più soluzioni corrette, se la vostra non corrisponde alla mia non è detto che sia sbagliata.</p>
     
   </div>
@@ -397,7 +404,7 @@ console.log(&quot;L&#x27;anno prossimo avrai&quot;, prossimo);   // 3. stampo il
     <button type="button" id="next">Avanti</button>
   </div>
   <div class="progress"><div class="progress-bar" id="progress"></div></div>
-  <div class="counter" id="counter" aria-hidden="true">1 / 28</div>
+  <div class="counter" id="counter" aria-hidden="true">1 / 29</div>
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license" style="display:flex;align-items:center;opacity:0.6;">
     <img src="https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png" alt="CC BY-NC-SA 4.0" style="height:15px;border-radius:0;margin:0;">
   </a>
@@ -454,7 +461,21 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "End") updateSlide(slides.length - 1, { moveFocus: true });
 });
 
-updateSlide(0);
+function slideFromHash() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  const target = id ? document.getElementById(id) : null;
+  const slide = target ? target.closest(".slide") : null;
+  const index = slide ? slides.indexOf(slide) : -1;
+  return index;
+}
+
+window.addEventListener("hashchange", () => {
+  const index = slideFromHash();
+  if (index >= 0 && index !== current) updateSlide(index, { moveFocus: true });
+});
+
+const startIndex = slideFromHash();
+updateSlide(startIndex >= 0 ? startIndex : 0);
 </script>
 </body>
 </html>

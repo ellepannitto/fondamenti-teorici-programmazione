@@ -129,6 +129,13 @@ a.ex-id:hover { background: rgba(139,63,29,0.18); }
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
+    <h2 id="indice-degli-esercizi">Indice degli esercizi</h2><table><thead><tr><th>Esercizio</th><th>Argomento</th></tr></thead><tbody><tr><td><a href="#esercizio-1-affermazioni-su-a-e-b">Esercizio 1</a></td><td>Operatori logici</td></tr><tr><td><a href="#esercizio-2-confronti">Esercizio 2</a></td><td>Operatori di confronto</td></tr><tr><td><a href="#esercizio-3-lancio-di-due-dadi">Esercizio 3</a></td><td>Operatori logici</td></tr><tr><td><a href="#esercizio-4-completa-la-guardia-1">Esercizio 4</a></td><td>Ciclo for</td></tr><tr><td><a href="#esercizio-5-completa-linput-e-la-guardia">Esercizio 5</a></td><td>Ciclo for</td></tr><tr><td><a href="#esercizio-6-potenze-di-2">Esercizio 6</a></td><td>Accumulatori</td></tr><tr><td><a href="#esercizio-7-completa-la-guardia-2">Esercizio 7</a></td><td>Ciclo for</td></tr><tr><td><a href="#esercizio-8-somma-e-prodotto-dei-primi-n-numeri-pari">Esercizio 8</a></td><td>Accumulatori</td></tr><tr><td><a href="#esercizio-9-media-di-n-numeri">Esercizio 9</a></td><td>Accumulatori</td></tr><tr><td><a href="#esercizio-10-una-riga-di-asterischi">Esercizio 10</a></td><td>Ciclo for</td></tr><tr><td><a href="#esercizio-11-i-numeri-da-1-a-n-su-una-riga">Esercizio 11</a></td><td>Accumulatori</td></tr><tr><td><a href="#esercizio-12-conto-alla-rovescia">Esercizio 12</a></td><td>Ciclo for</td></tr><tr><td><a href="#esercizio-13-completa-linput-valido">Esercizio 13</a></td><td>Ciclo while</td></tr><tr><td><a href="#esercizio-14-somma-fino-a-zero">Esercizio 14</a></td><td>Ciclo while</td></tr><tr><td><a href="#esercizio-15-indovina-il-numero">Esercizio 15</a></td><td>Ciclo while</td></tr><tr><td><a href="#esercizio-16-pari-o-dispari">Esercizio 16</a></td><td>Condizionali</td></tr><tr><td><a href="#esercizio-17-radice-quadrata">Esercizio 17</a></td><td>Condizionali</td></tr><tr><td><a href="#esercizio-18-massimo-di-tre-numeri">Esercizio 18</a></td><td>Condizionali</td></tr><tr><td><a href="#esercizio-19-voto-e-giudizio">Esercizio 19</a></td><td>Condizionali</td></tr><tr><td><a href="#esercizio-20-costo-di-una-chiamata">Esercizio 20</a></td><td>Condizionali</td></tr><tr><td><a href="#esercizio-21-somma-di-multipli">Esercizio 21</a></td><td>Cicli e condizionali</td></tr><tr><td><a href="#esercizio-22-tabellina">Esercizio 22</a></td><td>Cicli annidati</td></tr><tr><td><a href="#esercizio-23-polinomio">Esercizio 23</a></td><td>Ciclo for</td></tr><tr><td><a href="#esercizio-24-coppie-con-somma-n">Esercizio 24</a></td><td>Cicli annidati</td></tr><tr><td><a href="#esercizio-25-primi-n-pari-dopo-a">Esercizio 25</a></td><td>Ciclo while</td></tr></tbody></table>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
     <h2 id="come-si-lavora">Come si lavora</h2><ul><li>Brevi <strong>Recap</strong> pratici, alternati agli esercizi</li><li>Svolgiamo alcuni esercizi insieme (io scrivo il codice live, voi fate lo stesso)</li><li>Esercizi svolti da voi in autonomia</li><li>Domande</li></ul><p>Le regole sono le stesse della volta scorsa:</p><ul><li><strong>provare</strong> prima di rinunciare</li><li><strong>commenti</strong> dove il codice non parla da solo</li><li>eseguite <strong>sempre</strong> il programma con più valori, compresi i casi &quot;strani&quot; (0, numeri negativi, decimali).</li></ul>
     
   </div>
@@ -645,7 +652,7 @@ console.log(&quot;Media:&quot;, somma / N);</code></pre><p>Invece di bloccare il
     <button type="button" id="next">Avanti</button>
   </div>
   <div class="progress"><div class="progress-bar" id="progress"></div></div>
-  <div class="counter" id="counter" aria-hidden="true">1 / 33</div>
+  <div class="counter" id="counter" aria-hidden="true">1 / 34</div>
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license" style="display:flex;align-items:center;opacity:0.6;">
     <img src="https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png" alt="CC BY-NC-SA 4.0" style="height:15px;border-radius:0;margin:0;">
   </a>
@@ -702,7 +709,21 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "End") updateSlide(slides.length - 1, { moveFocus: true });
 });
 
-updateSlide(0);
+function slideFromHash() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  const target = id ? document.getElementById(id) : null;
+  const slide = target ? target.closest(".slide") : null;
+  const index = slide ? slides.indexOf(slide) : -1;
+  return index;
+}
+
+window.addEventListener("hashchange", () => {
+  const index = slideFromHash();
+  if (index >= 0 && index !== current) updateSlide(index, { moveFocus: true });
+});
+
+const startIndex = slideFromHash();
+updateSlide(startIndex >= 0 ? startIndex : 0);
 </script>
 </body>
 </html>
