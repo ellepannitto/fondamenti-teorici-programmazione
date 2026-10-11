@@ -5,8 +5,39 @@ Argomenti:
 - tipo `boolean` e operatori di confronto
 - condizioni: `if`, `else if`, `else`
 - operatori logici `&&`, `||`, `!`
+- `&&` e `||` con valori non booleani (truthy e falsy)
 - ciclo `for`: somma e prodotto dei primi *n* numeri
 - ciclo `while`: come alternativa al `for` e per condizioni diverse dal contare
+
+## Indice degli esercizi
+
+| Esercizio | Argomento |
+| --------- | --------- |
+| [Esercizio 1](#esercizio-1-affermazioni-su-a-e-b) | Operatori logici |
+| [Esercizio 2](#esercizio-2-confronti) | Operatori di confronto |
+| [Esercizio 3](#esercizio-3-lancio-di-due-dadi) | Operatori logici |
+| [Esercizio 4](#esercizio-4-completa-la-guardia-1) | Ciclo for |
+| [Esercizio 5](#esercizio-5-completa-linput-e-la-guardia) | Ciclo for |
+| [Esercizio 6](#esercizio-6-potenze-di-2) | Accumulatori |
+| [Esercizio 7](#esercizio-7-completa-la-guardia-2) | Ciclo for |
+| [Esercizio 8](#esercizio-8-somma-e-prodotto-dei-primi-n-numeri-pari) | Accumulatori |
+| [Esercizio 9](#esercizio-9-media-di-n-numeri) | Accumulatori |
+| [Esercizio 10](#esercizio-10-una-riga-di-asterischi) | Ciclo for |
+| [Esercizio 11](#esercizio-11-i-numeri-da-1-a-n-su-una-riga) | Accumulatori |
+| [Esercizio 12](#esercizio-12-conto-alla-rovescia) | Ciclo for |
+| [Esercizio 13](#esercizio-13-completa-linput-valido) | Ciclo while |
+| [Esercizio 14](#esercizio-14-somma-fino-a-zero) | Ciclo while |
+| [Esercizio 15](#esercizio-15-indovina-il-numero) | Ciclo while |
+| [Esercizio 16](#esercizio-16-pari-o-dispari) | Condizionali |
+| [Esercizio 17](#esercizio-17-radice-quadrata) | Condizionali |
+| [Esercizio 18](#esercizio-18-massimo-di-tre-numeri) | Condizionali |
+| [Esercizio 19](#esercizio-19-voto-e-giudizio) | Condizionali |
+| [Esercizio 20](#esercizio-20-costo-di-una-chiamata) | Condizionali |
+| [Esercizio 21](#esercizio-21-somma-di-multipli) | Cicli e condizionali |
+| [Esercizio 22](#esercizio-22-tabellina) | Cicli annidati |
+| [Esercizio 23](#esercizio-23-polinomio) | Ciclo for |
+| [Esercizio 24](#esercizio-24-coppie-con-somma-n) | Cicli annidati |
+| [Esercizio 25](#esercizio-25-primi-n-pari-dopo-a) | Ciclo while |
 
 ## Come si lavora
 
@@ -898,5 +929,62 @@ console.log("Media:", somma / N);
 ```
 
 Invece di bloccare il programma, qui si richiede il valore finché è valido. Il contatore `trovati` cresce solo dentro l'`if`: un `for` da 1 a `N` non basterebbe, perché non tutti i numeri visitati sono pari.
+
+</details>
+
+## Recap 6 · `&&` e `||` con valori non booleani
+
+In JavaScript `&&` e `||` non restituiscono sempre `true` o `false`: restituiscono **uno dei due operandi**. Per decidere, ogni valore viene letto come vero o falso:
+
+- **falsi** (*falsy*): `false`, `0`, `""` (stringa vuota), `NaN`, `null`, `undefined`
+- **veri** (*truthy*): tutto il resto, compresi `5`, `-1`, `"0"` e `"false"` (stringhe non vuote)
+
+Le regole, con valutazione da sinistra a destra:
+
+| Operatore | Se il primo operando è... | Risultato |
+| --------- | ------------------------- | --------- |
+| `a \|\| b` | vero | `a` (b non viene nemmeno valutato) |
+| `a \|\| b` | falso | `b` |
+| `a && b` | falso | `a` (b non viene nemmeno valutato) |
+| `a && b` | vero | `b` |
+
+In pratica, `||` restituisce il **primo operando vero** (o l'ultimo, se sono tutti falsi), mentre `&&` restituisce il **primo operando falso** (o l'ultimo, se sono tutti veri).
+
+Cosa stampano queste istruzioni?
+
+```js
+console.log(5 || true);
+console.log(5 || false);
+console.log(0 || false);
+console.log(0 || true);
+console.log("0" || true);
+console.log("0" || false);
+console.log(5 && true);
+console.log(5 && false);
+console.log(0 && true);
+console.log(0 && false);
+console.log("0" && true);
+```
+
+<details>
+<summary>Soluzione</summary>
+
+| Istruzione       | Stampa  | Perché                                                      |
+| ---------------- | ------- | ----------------------------------------------------------- |
+| `5 \|\| true`    | `5`     | `5` è vero: `\|\|` si ferma e restituisce il primo operando |
+| `5 \|\| false`   | `5`     | come sopra                                                  |
+| `0 \|\| false`   | `false` | `0` è falso, si passa al secondo, che viene restituito      |
+| `0 \|\| true`    | `true`  | `0` è falso, si restituisce il secondo                      |
+| `"0" \|\| true`  | `"0"`   | `"0"` è una stringa non vuota, quindi **vera**: si ferma lì |
+| `"0" \|\| false` | `"0"`   | come sopra                                                  |
+| `5 && true`      | `true`  | `5` è vero: `&&` passa al secondo e lo restituisce          |
+| `5 && false`     | `false` | `5` è vero, si restituisce il secondo                       |
+| `0 && true`      | `0`     | `0` è falso: `&&` si ferma e restituisce il primo operando  |
+| `0 && false`     | `0`     | come sopra (il secondo non viene valutato)                  |
+| `"0" && true`    | `true`  | `"0"` è vera, si restituisce il secondo                     |
+
+Attenzione al caso `"0"`: il **numero** `0` è falso, ma la **stringa** `"0"` è vera, perché non è vuota. È la stessa differenza che c'è tra `Number("0")` e `"0"` quando leggiamo un valore con `prompt`.
+
+Dentro un `if` o un `while` questa differenza si vede poco, perché la condizione viene comunque letta come vera o falsa. Si vede quando stampiamo o salviamo il risultato in una variabile.
 
 </details>

@@ -669,7 +669,21 @@ document.addEventListener("keydown", (event) => {{
   if (event.key === "End") updateSlide(slides.length - 1, {{ moveFocus: true }});
 }});
 
-updateSlide(0);
+function slideFromHash() {{
+  const id = decodeURIComponent(location.hash.slice(1));
+  const target = id ? document.getElementById(id) : null;
+  const slide = target ? target.closest(".slide") : null;
+  const index = slide ? slides.indexOf(slide) : -1;
+  return index;
+}}
+
+window.addEventListener("hashchange", () => {{
+  const index = slideFromHash();
+  if (index >= 0 && index !== current) updateSlide(index, {{ moveFocus: true }});
+}});
+
+const startIndex = slideFromHash();
+updateSlide(startIndex >= 0 ? startIndex : 0);
 </script>
 </body>
 </html>

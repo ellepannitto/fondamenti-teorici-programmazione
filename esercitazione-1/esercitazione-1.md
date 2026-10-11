@@ -8,6 +8,23 @@ Argomenti:
 - variabili e costanti
 - operatori aritmetici
 
+## Indice degli esercizi
+
+| Esercizio | Argomento |
+| --------- | --------- |
+| [Esercizio 1](#esercizio-1) | Tipi di dato |
+| [Esercizio 2.1](#esercizio-21-ciao-x) | Input e output |
+| [Esercizio 2.2](#esercizio-22-ciao-x) | Stringhe |
+| [Esercizio 3](#esercizio-3-dati-anagrafici) | Variabili |
+| [Esercizio 4](#esercizio-4) | Operatori aritmetici |
+| [Esercizio 5](#esercizio-5) | Operatori aritmetici |
+| [Esercizio 6](#esercizio-6) | Casting |
+| [Esercizio 7](#esercizio-7) | Operatori aritmetici |
+| [Esercizio 8](#esercizio-8) | Operatori aritmetici |
+| [Esercizio 9](#esercizio-9) | Casting |
+| [Esercizio 10](#esercizio-10) | Funzioni matematiche |
+| [Esercizio 11](#esercizio-11) | Operatori aritmetici |
+
 ## Come si lavora
 
 - Facciamo un breve riepilogo della teoria
