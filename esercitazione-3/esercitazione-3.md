@@ -14,22 +14,22 @@ Argomenti:
 
 | Esercizio | Argomento |
 | --------- | --------- |
-| [Esercizio 1](#esercizio-1-cosa-stampa-x) | Operatore ++ |
-| [Esercizio 2](#esercizio-2-contatori-con-x) | Operatore ++ e ciclo while |
-| [Esercizio 3](#esercizio-3-cosa-stampa-while-e-do-while) | Ciclo while e do-while |
-| [Esercizio 4](#esercizio-4-logaritmo-ed-esponenziale) | Funzioni matematiche |
-| [Esercizio 5](#esercizio-5-numero-intero-compreso-tra-1-e-100) | Do-while e validazione dell'input |
-| [Esercizio 6 (★ 3.1)](#esercizio-6-31-logaritmo-in-base-a-con-controllo) | Do-while e funzioni matematiche |
-| [Esercizio 7 (★ 3.2)](#esercizio-7-32-numero-primo) | Variabili flag (numeri primi) |
-| [Esercizio 8 (★ 3.3)](#esercizio-8-33-tabella-di-conversione) | Ciclo for |
-| [Esercizio 9](#esercizio-9-switch-cosa-stampa-e-completa) | Switch |
-| [Esercizio 10 (★ 3.4)](#esercizio-10-34-il-nome-del-mese) | Switch |
-| [Esercizio 11](#esercizio-11-completa-loperatore-ternario) | Operatore ternario |
-| [Esercizio 12](#esercizio-12-tabella-dei-fattoriali) | Cicli annidati |
-| [Esercizio 13 (★ 3.5)](#esercizio-13-35-serie-di-taylor-del-seno) | Cicli annidati |
-| [Esercizio 14](#esercizio-14-quando-fermarsi) | Break |
-| [Esercizio 15](#esercizio-15-approssimazioni-successive) | Metodi iterativi |
-| [Esercizio 16 (★ 3.6)](#esercizio-16-36-equazione-non-lineare) | Metodi iterativi |
+| [Esercizio 1](#esercizio-1) | Operatore ++ |
+| [Esercizio 2](#esercizio-2) | Operatore ++ e ciclo while |
+| [Esercizio 3](#esercizio-3) | Ciclo while e do-while |
+| [Esercizio 4](#esercizio-4) | Funzioni matematiche |
+| [Esercizio 5](#esercizio-5) | Do-while e validazione dell'input |
+| [Esercizio 6 (★ 3.1)](#esercizio-6-31) | Do-while e funzioni matematiche |
+| [Esercizio 7 (★ 3.2)](#esercizio-7-32) | Variabili flag (numeri primi) |
+| [Esercizio 8 (★ 3.3)](#esercizio-8-33) | Ciclo for |
+| [Esercizio 9](#esercizio-9) | Switch |
+| [Esercizio 10 (★ 3.4)](#esercizio-10-34) | Switch |
+| [Esercizio 11](#esercizio-11) | Operatore ternario |
+| [Esercizio 12](#esercizio-12) | Cicli annidati |
+| [Esercizio 13 (★ 3.5)](#esercizio-13-35) | Cicli annidati |
+| [Esercizio 14](#esercizio-14) | Break |
+| [Esercizio 15](#esercizio-15) | Metodi iterativi |
+| [Esercizio 16 (★ 3.6)](#esercizio-16-36) | Metodi iterativi |
 
 ## Come si lavora
 
@@ -48,7 +48,7 @@ Le regole sono le stesse delle volte scorse:
 
 Gli esercizi con il simbolo ★ sono quelli del foglio di esercitazione; gli altri servono per arrivarci un passo alla volta.
 
-## Esercizio 1 · Cosa stampa? (`x++`)
+## Esercizio 1
 
 `x++` **aumenta** `x` di 1, come `x = x + 1`. Come espressione, `x++` vale il valore **di prima** dell'aumento.
 
@@ -94,7 +94,7 @@ console.log("fine", i);
 
 </details>
 
-## Esercizio 2 · Contatori con `x++`
+## Esercizio 2
 
 Il programma legge numeri finché l'utente non inserisce `0`, e alla fine stampa **quanti numeri** sono stati inseriti (lo `0` escluso) e **quanti** di essi erano **positivi**. Completate (al posto di `______`) la condizione del ciclo, le due istruzioni con `++` e la condizione dell'`if`:
 
@@ -156,7 +156,7 @@ console.log("Hai inserito:", x);
 - la condizione descrive il caso **sbagliato**, come nel `while`;
 - si ricorda il `;` dopo la parentesi del `while`.
 
-## Esercizio 3 · Cosa stampa? (`while` e `do ... while`)
+## Esercizio 3
 
 Per ogni programma, dite cosa stampa **senza eseguirlo**.
 
@@ -230,7 +230,7 @@ La condizione descrive il caso **sbagliato** (`x <= 0`): il ciclo si ripete finc
 
 Una funzione si usa **scrivendo il suo nome** e, tra parentesi, il valore su cui lavora. Il risultato si può salvare in una variabile oppure stampare direttamente.
 
-## Esercizio 4 · Logaritmo ed esponenziale
+## Esercizio 4
 
 Leggere un numero `x` e stampare, su due righe, il suo logaritmo naturale e *e* elevato a `x`. Con `x = 1`:
 
@@ -261,7 +261,7 @@ Provate `x = 0` (il logaritmo vale `-Infinity`) e `x = -1` (il risultato è `NaN
 
 </details>
 
-## Esercizio 5 · Numero intero compreso tra 1 e 100
+## Esercizio 5
 
 Con un `do ... while`, chiedere all'utente un numero **intero compreso tra 1 e 100** (estremi inclusi) e ripetere la domanda finché non è valido. Alla fine stampare il numero.
 
@@ -283,7 +283,7 @@ Il valore è sbagliato se è **troppo piccolo**, **oppure** troppo grande, **opp
 
 </details>
 
-## Esercizio 6 · ★ 3.1 Logaritmo in base *a* con controllo
+## Esercizio 6 · ★ 3.1
 
 Sapendo che log_a(b) = ln(b) / ln(a), scrivere un programma che legga due numeri `a` e `b` e stampi il valore di log_a(b). Una volta inseriti `a` e `b`, verificare che `a` sia un **intero maggiore di 1** e `b` sia un **reale positivo**. Se così non fosse, far **ripetere l'inserimento di entrambi** i valori all'utente. Alla fine stampare il risultato. Con `a = 2` e `b = 8` il risultato è `3`.
 
@@ -335,7 +335,7 @@ Con `3, 7, 0, 4, 9` stampa `true`; con `3, 7, 2, 4, 9` stampa `false`. Con `0, 5
 - il flag **non torna indietro**: una volta cambiato, nessun altro giro la rimette com'era;
 - il risultato si usa **dopo** il ciclo.
 
-## Esercizio 7 · ★ 3.2 Numero primo
+## Esercizio 7 · ★ 3.2
 
 Un numero intero `N > 1` è **primo** se è divisibile solo per 1 e per se stesso. Scrivere un programma che legga `N` e stampi se è primo oppure no.
 
@@ -367,7 +367,7 @@ Una versione più efficiente: appena si trova un divisore, si può uscire dal ci
 
 </details>
 
-## Esercizio 8 · ★ 3.3 Tabella di conversione
+## Esercizio 8 · ★ 3.3
 
 La formula per convertire gradi Celsius `C` in gradi Fahrenheit `F` è F = 32 + (9/5) · C. Visualizzare la tabella di conversione da Celsius a Fahrenheit per l'intervallo **50 – 60 °C** con passi di un grado, nel formato:
 
@@ -430,7 +430,7 @@ if (giorno == 1) {
 }
 ```
 
-## Esercizio 9 · `switch`: cosa stampa e completa
+## Esercizio 9
 
 **A.** Senza eseguirlo, cosa stampa questo programma?
 
@@ -502,7 +502,7 @@ Provate a **togliere** un `break`: con `n = 1` e il `break` mancante nel primo `
 
 </details>
 
-## Esercizio 10 · ★ 3.4 Il nome del mese
+## Esercizio 10 · ★ 3.4
 
 Realizzare un programma che, ricevuto in input un numero `N` compreso tra 1 e 12 (estremi inclusi), stampi il corrispondente **mese dell'anno**: con `1` stampi `gennaio`, con `2` `febbraio`, e così via.
 
@@ -632,7 +632,7 @@ if (eta >= 18) {
 - è un'**espressione**: ha un valore, che si può assegnare a una variabile o stampare direttamente;
 - va bene per scelte **semplici**; con più di due casi usate `if` / `else if` o `switch`.
 
-## Esercizio 11 · Completa l'operatore ternario
+## Esercizio 11
 
 Il programma legge un numero e stampa `pari` oppure `dispari`. Completate (al posto di `______`) la condizione e i due valori.
 
@@ -681,7 +681,7 @@ for (let i = 1; i <= 3; i++) {          // esterno: 3 giri
 - le variabili che servono "da capo" a ogni giro esterno (come `riga`) vanno **inizializzate dentro** il ciclo esterno, prima del ciclo interno;
 - il numero di giri interni può dipendere dalla variabile del ciclo esterno.
 
-## Esercizio 12 · Tabella dei fattoriali
+## Esercizio 12
 
 Il **fattoriale** di un numero naturale *n* è il prodotto di tutti gli interi da 1 a *n*: `0! = 1`, `1! = 1`, `2! = 2 · 1`, `3! = 3 · 2 · 1`, ... Stampare i fattoriali di **tutti i numeri da 0 a 6**, una riga per numero:
 
@@ -712,7 +712,7 @@ Il ciclo interno è un **prodotto accumulato** (come nell'esercitazione 2), con 
 
 </details>
 
-## Esercizio 13 · ★ 3.5 Serie di Taylor del seno
+## Esercizio 13 · ★ 3.5
 
 Mediante la **serie di Taylor** si può approssimare la funzione seno sommando tanti termini, uno per ogni valore di *n* = 0, 1, 2, ..., *N*:
 
@@ -797,7 +797,7 @@ for (let i = 1; i <= 1000; i++) {       // limite di sicurezza
 - il limite sul `for` protegge da un metodo che non converge mai;
 - un numero molto piccolo si può scrivere `0.000001`, oppure `10 ** (-6)`, oppure `1e-6`.
 
-## Esercizio 14 · Quando fermarsi
+## Esercizio 14
 
 Un rettangolo ha **altezza 3** e una **base** che parte da `1`. Aumentare la base di 1 alla volta; a ogni passo calcolare l'**area** e stamparla, nel formato
 
@@ -831,7 +831,7 @@ Si ferma a `base 17: area 51`. `base` e `area` sono dichiarate **fuori** dal `fo
 
 </details>
 
-## Esercizio 15 · Approssimazioni successive
+## Esercizio 15
 
 Un **metodo iterativo** parte da un valore iniziale e ripete lo stesso calcolo, usando ogni volta il **risultato precedente**. Partire da `x = 1` e ripetere `x = Math.cos(x)`. Il ciclo deve **fermarsi** quando la differenza (in valore assoluto) tra il nuovo valore e il precedente è minore di `10 ** (-6)`. Mettere un limite di sicurezza di 1000 passi. Alla fine stampare il valore trovato e il **numero di passi** necessari.
 
@@ -860,7 +860,7 @@ Le variabili `x_nuovo` e `passi` sono dichiarate **fuori** dal `for`, altrimenti
 
 </details>
 
-## Esercizio 16 · ★ 3.6 Equazione non lineare
+## Esercizio 16 · ★ 3.6
 
 L'equazione
 

@@ -50,7 +50,9 @@
   .titolo { display: flex; flex-direction: column; gap: 4px; }
   .titolo strong { color: #1c2a39; font-size: 1.05rem; }
   .data { font-size: 0.88rem; color: #6b6b6b; }
-  .link-group { display: flex; gap: 10px; flex-wrap: wrap; }
+  .link-group { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin-left: auto; }
+  .versione { display: flex; align-items: center; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+  .etichetta { min-width: 8.5rem; font-size: 0.88rem; color: #6b6b6b; }
   a.bottone {
     display: inline-block;
     text-decoration: none;
@@ -123,8 +125,18 @@
         <span class="data">28 settembre</span>
       </div>
       <div class="link-group">
-        <a class="bottone" href="esercitazione-1/esercitazione-1.slides.html">Slide</a>
-        <a class="bottone secondario" href="esercitazione-1/esercitazione-1.html">Testo</a>
+        <div class="versione">
+          <span class="etichetta">Senza soluzioni</span>
+          <a class="bottone" href="esercitazione-1/esercitazione-1-senza-soluzioni.slides.html">Slide</a>
+          <a class="bottone secondario" href="esercitazione-1/esercitazione-1-senza-soluzioni.html">Testo</a>
+          <a class="bottone secondario" href="esercitazione-1/esercitazione-1-senza-soluzioni.pdf">PDF</a>
+        </div>
+        <div class="versione">
+          <span class="etichetta">Con soluzioni</span>
+          <a class="bottone" href="esercitazione-1/esercitazione-1.slides.html">Slide</a>
+          <a class="bottone secondario" href="esercitazione-1/esercitazione-1.html">Testo</a>
+          <a class="bottone secondario" href="esercitazione-1/esercitazione-1.pdf">PDF</a>
+        </div>
       </div>
     </li>
     <li>
@@ -133,10 +145,18 @@
         <span class="data">5 ottobre</span>
       </div>
       <div class="link-group">
-        <a class="bottone" href="esercitazione-2/esercitazione-2-senza-soluzioni.slides.html">Slide (senza soluzioni)</a>
-        <a class="bottone secondario" href="esercitazione-2/esercitazione-2-senza-soluzioni.html">Testo (senza soluzioni)</a>
-        <a class="bottone" href="esercitazione-2/esercitazione-2.slides.html">Slide (con soluzioni)</a>
-        <a class="bottone secondario" href="esercitazione-2/esercitazione-2.html">Testo (con soluzioni)</a>
+        <div class="versione">
+          <span class="etichetta">Senza soluzioni</span>
+          <a class="bottone" href="esercitazione-2/esercitazione-2-senza-soluzioni.slides.html">Slide</a>
+          <a class="bottone secondario" href="esercitazione-2/esercitazione-2-senza-soluzioni.html">Testo</a>
+          <a class="bottone secondario" href="esercitazione-2/esercitazione-2-senza-soluzioni.pdf">PDF</a>
+        </div>
+        <div class="versione">
+          <span class="etichetta">Con soluzioni</span>
+          <a class="bottone" href="esercitazione-2/esercitazione-2.slides.html">Slide</a>
+          <a class="bottone secondario" href="esercitazione-2/esercitazione-2.html">Testo</a>
+          <a class="bottone secondario" href="esercitazione-2/esercitazione-2.pdf">PDF</a>
+        </div>
       </div>
     </li>
     <li>
@@ -145,8 +165,12 @@
         <span class="data">12 ottobre</span>
       </div>
       <div class="link-group">
-        <a class="bottone" href="esercitazione-3/esercitazione-3-senza-soluzioni.slides.html">Slide (senza soluzioni)</a>
-        <a class="bottone secondario" href="esercitazione-3/esercitazione-3-senza-soluzioni.html">Testo (senza soluzioni)</a>
+        <div class="versione">
+          <span class="etichetta">Senza soluzioni</span>
+          <a class="bottone" href="esercitazione-3/esercitazione-3-senza-soluzioni.slides.html">Slide</a>
+          <a class="bottone secondario" href="esercitazione-3/esercitazione-3-senza-soluzioni.html">Testo</a>
+          <a class="bottone secondario" href="esercitazione-3/esercitazione-3-senza-soluzioni.pdf">PDF</a>
+        </div>
       </div>
     </li>
   </ol>
