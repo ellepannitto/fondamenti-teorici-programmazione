@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1010" height="445" viewBox="0 0 1010 445" font-family="Avenir Next,Arial,sans-serif" font-size="15">
+<rect width="1010" height="445" fill="#fff"/>
+<defs><marker id="fr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5d6770"/></marker></defs>
+<line x1="250" y1="28" x2="250" y2="87" stroke="#e3e6ea"/>
+<line x1="338" y1="28" x2="338" y2="87" stroke="#e3e6ea"/>
+<line x1="426" y1="28" x2="426" y2="87" stroke="#e3e6ea"/>
+<line x1="514" y1="28" x2="514" y2="87" stroke="#e3e6ea"/>
+<line x1="602" y1="28" x2="602" y2="87" stroke="#e3e6ea"/>
+<line x1="690" y1="28" x2="690" y2="87" stroke="#e3e6ea"/>
+<line x1="778" y1="28" x2="778" y2="87" stroke="#e3e6ea"/>
+<line x1="866" y1="28" x2="866" y2="87" stroke="#e3e6ea"/>
+<line x1="954" y1="28" x2="954" y2="87" stroke="#e3e6ea"/>
+<line x1="240" y1="87" x2="964" y2="87" stroke="#5d6770" stroke-width="1.5"/>
+<text x="14" y="44" font-weight="700" fill="#17212b" font-size="13" fill-opacity=".7">1</text>
+<text x="14" y="65" font-family="Menlo,Consolas,monospace" font-size="14" fill="#17212b">Math.random()</text>
+<text x="976" y="48" fill="#5d6770" font-size="14" text-anchor="start"></text>
+<rect x="250" y="50" width="88" height="18" fill="#4f8fb5" fill-opacity="1" rx="3"/>
+<circle cx="250" cy="59" r="5" fill="#4f8fb5" fill-opacity="1"/>
+<circle cx="338" cy="59" r="8" fill="#fff" stroke="#4f8fb5" stroke-width="2.5"/>
+<text x="250" y="18" fill="#17212b" font-size="15">un <tspan font-weight="700">decimale</tspan> in [0, 1): lungo <tspan font-weight="700">1</tspan>, lo 0 c'è, l'1 no</text>
+<line x1="250" y1="113" x2="250" y2="172" stroke="#e3e6ea"/>
+<line x1="338" y1="113" x2="338" y2="172" stroke="#e3e6ea"/>
+<line x1="426" y1="113" x2="426" y2="172" stroke="#e3e6ea"/>
+<line x1="514" y1="113" x2="514" y2="172" stroke="#e3e6ea"/>
+<line x1="602" y1="113" x2="602" y2="172" stroke="#e3e6ea"/>
+<line x1="690" y1="113" x2="690" y2="172" stroke="#e3e6ea"/>
+<line x1="778" y1="113" x2="778" y2="172" stroke="#e3e6ea"/>
+<line x1="866" y1="113" x2="866" y2="172" stroke="#e3e6ea"/>
+<line x1="954" y1="113" x2="954" y2="172" stroke="#e3e6ea"/>
+<line x1="240" y1="172" x2="964" y2="172" stroke="#5d6770" stroke-width="1.5"/>
+<text x="14" y="129" font-weight="700" fill="#17212b" font-size="13" fill-opacity=".7">2</text>
+<text x="14" y="150" font-family="Menlo,Consolas,monospace" font-size="14" fill="#17212b">Math.random() * 5</text>
+<text x="976" y="133" fill="#5d6770" font-size="14" text-anchor="start"></text>
+<rect x="250" y="135" width="88" height="18" stroke-dasharray="6 4" fill="none" stroke="#4f8fb5" stroke-width="2" rx="3"/>
+<rect x="250" y="135" width="440" height="18" fill="#4f8fb5" fill-opacity="1" rx="3"/>
+<circle cx="250" cy="144" r="5" fill="#4f8fb5" fill-opacity="1"/>
+<circle cx="690" cy="144" r="8" fill="#fff" stroke="#4f8fb5" stroke-width="2.5"/>
+<path d="M 342 121 H 684" stroke="#5d6770" stroke-width="2" marker-end="url(#fr)" fill="none"/>
+<text x="250" y="103" fill="#17212b" font-size="15"><tspan font-weight="700">stretch</tspan>: moltiplico per 5 e l'intervallo diventa lungo 5: [0, 5)</text>
+<line x1="250" y1="198" x2="250" y2="257" stroke="#e3e6ea"/>
+<line x1="338" y1="198" x2="338" y2="257" stroke="#e3e6ea"/>
+<line x1="426" y1="198" x2="426" y2="257" stroke="#e3e6ea"/>
+<line x1="514" y1="198" x2="514" y2="257" stroke="#e3e6ea"/>
+<line x1="602" y1="198" x2="602" y2="257" stroke="#e3e6ea"/>
+<line x1="690" y1="198" x2="690" y2="257" stroke="#e3e6ea"/>
+<line x1="778" y1="198" x2="778" y2="257" stroke="#e3e6ea"/>
+<line x1="866" y1="198" x2="866" y2="257" stroke="#e3e6ea"/>
+<line x1="954" y1="198" x2="954" y2="257" stroke="#e3e6ea"/>
+<line x1="240" y1="257" x2="964" y2="257" stroke="#5d6770" stroke-width="1.5"/>
+<text x="14" y="214" font-weight="700" fill="#17212b" font-size="13" fill-opacity=".7">3</text>
+<text x="14" y="235" font-family="Menlo,Consolas,monospace" font-size="14" fill="#17212b">Math.floor(</text>
+<text x="14" y="253" font-family="Menlo,Consolas,monospace" font-size="14" fill="#17212b">  Math.random() * 5)</text>
+<text x="976" y="218" fill="#5d6770" font-size="14" text-anchor="start"></text>
+<rect x="250" y="220" width="88" height="18" fill="#4f8fb5" fill-opacity="0.18" rx="3"/>
+<path d="M 294.0 229 H 264" stroke="#5d6770" stroke-width="1.5" marker-end="url(#fr)" fill="none"/>
+<circle cx="250" cy="229" r="8" fill="#d9822b" fill-opacity="1"/>
+<rect x="338" y="220" width="88" height="18" fill="#4f8fb5" fill-opacity="0.18" rx="3"/>
+<path d="M 382.0 229 H 352" stroke="#5d6770" stroke-width="1.5" marker-end="url(#fr)" fill="none"/>
+<circle cx="338" cy="229" r="8" fill="#d9822b" fill-opacity="1"/>
+<rect x="426" y="220" width="88" height="18" fill="#4f8fb5" fill-opacity="0.18" rx="3"/>
+<path d="M 470.0 229 H 440" stroke="#5d6770" stroke-width="1.5" marker-end="url(#fr)" fill="none"/>
+<circle cx="426" cy="229" r="8" fill="#d9822b" fill-opacity="1"/>
+<rect x="514" y="220" width="88" height="18" fill="#4f8fb5" fill-opacity="0.18" rx="3"/>
+<path d="M 558.0 229 H 528" stroke="#5d6770" stroke-width="1.5" marker-end="url(#fr)" fill="none"/>
+<circle cx="514" cy="229" r="8" fill="#d9822b" fill-opacity="1"/>
+<rect x="602" y="220" width="88" height="18" fill="#4f8fb5" fill-opacity="0.18" rx="3"/>
+<path d="M 646.0 229 H 616" stroke="#5d6770" stroke-width="1.5" marker-end="url(#fr)" fill="none"/>
+<circle cx="602" cy="229" r="8" fill="#d9822b" fill-opacity="1"/>
+<text x="250" y="188" fill="#17212b" font-size="15"><tspan font-weight="700">floor</tspan>: ogni pezzo [k, k+1) diventa il suo estremo sinistro k → solo <tspan font-weight="700">5 valori interi</tspan>: 0, 1, 2, 3, 4</text>
+<line x1="250" y1="288" x2="250" y2="347" stroke="#e3e6ea"/>
+<text x="250" y="366" text-anchor="middle" fill="#5d6770">0</text>
+<line x1="338" y1="288" x2="338" y2="347" stroke="#e3e6ea"/>
+<text x="338" y="366" text-anchor="middle" fill="#5d6770">1</text>
+<line x1="426" y1="288" x2="426" y2="347" stroke="#e3e6ea"/>
+<text x="426" y="366" text-anchor="middle" fill="#5d6770">2</text>
+<line x1="514" y1="288" x2="514" y2="347" stroke="#e3e6ea"/>
+<text x="514" y="366" text-anchor="middle" fill="#5d6770">3</text>
+<line x1="602" y1="288" x2="602" y2="347" stroke="#e3e6ea"/>
+<text x="602" y="366" text-anchor="middle" fill="#5d6770">4</text>
+<line x1="690" y1="288" x2="690" y2="347" stroke="#e3e6ea"/>
+<text x="690" y="366" text-anchor="middle" fill="#5d6770">5</text>
+<line x1="778" y1="288" x2="778" y2="347" stroke="#e3e6ea"/>
+<text x="778" y="366" text-anchor="middle" fill="#5d6770">6</text>
+<line x1="866" y1="288" x2="866" y2="347" stroke="#e3e6ea"/>
+<text x="866" y="366" text-anchor="middle" fill="#5d6770">7</text>
+<line x1="954" y1="288" x2="954" y2="347" stroke="#e3e6ea"/>
+<text x="954" y="366" text-anchor="middle" fill="#5d6770">8</text>
+<line x1="240" y1="347" x2="964" y2="347" stroke="#5d6770" stroke-width="1.5"/>
+<text x="14" y="304" font-weight="700" fill="#17212b" font-size="13" fill-opacity=".7">4</text>
+<text x="14" y="325" font-family="Menlo,Consolas,monospace" font-size="14" fill="#17212b">Math.floor(</text>
+<text x="14" y="343" font-family="Menlo,Consolas,monospace" font-size="14" fill="#17212b">  Math.random() * 5) + 3</text>
+<text x="976" y="308" fill="#5d6770" font-size="14" text-anchor="start"></text>
+<circle cx="250" cy="319" r="8" fill="#d9822b" fill-opacity="0.25"/>
+<circle cx="338" cy="319" r="8" fill="#d9822b" fill-opacity="0.25"/>
+<circle cx="426" cy="319" r="8" fill="#d9822b" fill-opacity="0.25"/>
+<circle cx="514" cy="319" r="8" fill="#d9822b" fill-opacity="0.25"/>
+<circle cx="602" cy="319" r="8" fill="#d9822b" fill-opacity="0.25"/>
+<circle cx="514" cy="319" r="8" fill="#d9822b" fill-opacity="1"/>
+<circle cx="602" cy="319" r="8" fill="#d9822b" fill-opacity="1"/>
+<circle cx="690" cy="319" r="8" fill="#d9822b" fill-opacity="1"/>
+<circle cx="778" cy="319" r="8" fill="#d9822b" fill-opacity="1"/>
+<circle cx="866" cy="319" r="8" fill="#d9822b" fill-opacity="1"/>
+<path d="M 294.0 300 H 552.0" stroke="#5d6770" stroke-width="2" marker-end="url(#fr)" fill="none"/>
+<text x="560.0" y="304" text-anchor="start" fill="#5d6770" font-size="14">+ 3</text>
+<text x="250" y="278" fill="#17212b" font-size="15"><tspan font-weight="700">shift</tspan>: sommo 3 e i valori scivolano sulla retta → interi tra <tspan font-weight="700">3</tspan> e <tspan font-weight="700">7</tspan></text>
+<text x="505.0" y="407" text-anchor="middle" fill="#17212b" font-size="19" font-family="Menlo,Consolas,monospace" font-weight="700">Math.floor(Math.random() * (max - min + 1)) + min</text>
+<text x="505.0" y="433" text-anchor="middle" fill="#5d6770" font-size="16">stretch di (max − min + 1) valori, poi shift di min</text>
+</svg>
