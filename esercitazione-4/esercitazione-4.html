@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esercitazione 4 - 19/10</title>
+<style>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; background: #f6f3ee; color: #1f1f1f; line-height: 1.65; }
+.page { max-width: 900px; margin: 0 auto; padding: 40px 20px 72px; }
+h1, h2, h3, h4 { font-family: "Avenir Next", "Segoe UI", Arial, sans-serif; line-height: 1.2; color: #1c2a39; }
+h1 { font-size: 2.1rem; margin: 0 0 1.5rem; }
+h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; padding-top: 0.25rem; border-top: 1px solid #d8d1c7; }
+h3 { font-size: 1.2rem; margin: 2rem 0 0.8rem; }
+p, ul, ol, blockquote, table, pre { margin: 0 0 1rem; }
+img { max-width: 100%; height: auto; display: block; margin: 1rem auto; border-radius: 12px; }
+ul, ol { padding-left: 1.4rem; }
+li { margin: 0.3rem 0; }
+blockquote { border-top: 3px solid #c97f31; border-bottom: 3px solid #c97f31; padding: 0.75rem 1.5rem; background: #fff8ef; color: #503521; text-align: center; max-width: 82%; margin-left: auto; margin-right: auto; }
+details { margin: 0 0 1rem; border: 1px solid #ddd5ca; border-radius: 10px; background: #fffdfa; overflow: hidden; }
+summary { cursor: pointer; font-weight: 600; padding: 0.8rem 1rem; background: #f3ece2; }
+details > :not(summary) { padding-left: 1rem; padding-right: 1rem; }
+pre { background: #1f2430; color: #f3f4f6; padding: 1rem; border-radius: 10px; overflow-x: auto; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95em; }
+p code, li code, td code, th code, blockquote code { background: rgba(28, 42, 57, 0.08); padding: 0.08rem 0.35rem; border-radius: 4px; color: #18212d; }
+table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
+th, td { border: 1px solid #ddd5ca; padding: 0.55rem 0.7rem; vertical-align: top; text-align: left; }
+th { background: #efe7db; }
+hr { border: 0; border-top: 1px solid #d8d1c7; margin: 2rem 0; }
+a { color: #8b3f1d; }
+[id] { scroll-margin-top: 20px; }
+ol.exercise-list { list-style: none; padding-left: 0; }
+ol.exercise-list > li { display: flex; align-items: baseline; gap: 0.5em; flex-wrap: wrap; }
+a.ex-id { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82em; font-weight: 600; background: #f3ece2; border: 1px solid #ddd5ca; color: #8b3f1d; padding: 0.05rem 0.4rem; border-radius: 5px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+a.ex-id:hover { background: #e8d9c5; border-color: #c9b89e; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #d8d1c7; font-size: 0.82rem; color: #595959; display: flex; align-items: center; gap: 0.6rem; }
+footer img { margin: 0; border-radius: 0; height: 22px; width: auto; display: inline; }
+@media (max-width: 700px) {
+  .page { padding: 24px 14px 56px; }
+  table { display: block; overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+<h1 id="esercitazione-4---1910">Esercitazione 4 - 19/10</h1><p>Argomenti:</p><ul><li>&quot;cosa stampa?&quot;, tracciamento delle variabili e ricerca degli errori</li><li>funzioni: senza parametri, con parametri, con <code>return</code></li></ul><h2 id="indice-degli-esercizi">Indice degli esercizi</h2><table><thead><tr><th>Esercizio</th><th>Argomento</th></tr></thead><tbody><tr><td><a href="#esercizio-1">Esercizio 1</a></td><td>Numeri casuali: cosa restituisce</td></tr><tr><td><a href="#esercizio-2">Esercizio 2</a></td><td>Numeri casuali: costruire l&#x27;intervallo</td></tr><tr><td><a href="#esercizio-3">Esercizio 3</a></td><td>Numeri casuali: il gioco del dado</td></tr><tr><td><a href="#esercizio-4">Esercizio 4</a></td><td>Numeri casuali e massimo</td></tr><tr><td><a href="#esercizio-5">Esercizio 5</a></td><td>Do-while: cosa succede durante l&#x27;esecuzione</td></tr><tr><td><a href="#esercizio-6">Esercizio 6</a></td><td>Do-while: scrivere la condizione</td></tr><tr><td><a href="#esercizio-7">Esercizio 7</a></td><td>Condizioni e variabili: cosa stampa</td></tr><tr><td><a href="#esercizio-8">Esercizio 8</a></td><td>Funzioni senza return</td></tr><tr><td><a href="#esercizio-9">Esercizio 9</a></td><td>Funzioni: return</td></tr><tr><td><a href="#esercizio-10">Esercizio 10</a></td><td>Funzioni e variabili locali</td></tr><tr><td><a href="#esercizio-11">Esercizio 11</a></td><td>Funzioni e controllo dell&#x27;input: potenza</td></tr><tr><td><a href="#esercizio-12">Esercizio 12</a></td><td>Funzioni e accumulatori: somma dei pari</td></tr><tr><td><a href="#esercizio-13">Esercizio 13</a></td><td>Funzioni, numeri casuali e do-while</td></tr><tr><td><a href="#esercizio-14">Esercizio 14</a></td><td>Indovina il numero</td></tr></tbody></table><h2 id="come-si-lavora">Come si lavora</h2><ul><li>Brevi <strong>Recap</strong> pratici, alternati agli esercizi</li><li>Svolgiamo alcuni esercizi insieme (io scrivo il codice live, voi fate lo stesso)</li><li>Esercizi svolti da voi in autonomia</li><li>Domande</li></ul><p>Le regole sono le stesse delle volte scorse:</p><ul><li><strong>provare</strong> prima di rinunciare</li><li><strong>commenti</strong> dove il codice non parla da solo</li><li>eseguite <strong>sempre</strong> il programma con più valori, compresi i casi &quot;strani&quot; (0, numeri negativi, decimali).</li></ul><h2 id="esercizio-1">Esercizio 1</h2><p>Per ciascuna espressione dite: se i valori sono <strong>interi o decimali</strong>, qual è il <strong>minimo</strong> e il <strong>massimo</strong> possibile (e se il massimo può uscire davvero) e <strong>quanti valori diversi</strong> possono uscire, se sono in numero finito.</p><p><strong>A.</strong> <code>Math.random() * 10</code></p><p><strong>B.</strong> <code>Math.floor(Math.random() * 10)</code></p><p><strong>C.</strong> <code>Math.floor(Math.random() * 10) + 1</code></p><p><strong>D.</strong> <code>Math.floor(Math.random() * 6) + 1</code></p><p><strong>E.</strong> <code>Math.floor(Math.random() * 10) * 2</code></p><p><strong>F.</strong> <code>Math.floor(Math.random() * 3) - 1</code></p><p><strong>G.</strong> <code>Math.floor(Math.random() * 10 + 1)</code></p><p><strong>H.</strong> <code>Math.floor(Math.random() * 51) + 50</code></p><p>Poi rispondete:</p><ul><li>se volete un intero tra <code>50</code> e <code>100</code>, perché si moltiplica per <code>51</code> e non per <code>50</code>?</li></ul><details><summary>Soluzione</summary><table><thead><tr><th></th><th>Tipo</th><th>Minimo</th><th>Massimo</th><th>Valori possibili</th></tr></thead><tbody><tr><td>A</td><td>decimale</td><td><code>0</code></td><td>vicino a <code>10</code>, ma mai <code>10</code></td><td>infiniti</td></tr><tr><td>B</td><td>intero</td><td><code>0</code></td><td><code>9</code></td><td>10</td></tr><tr><td>C</td><td>intero</td><td><code>1</code></td><td><code>10</code></td><td>10</td></tr><tr><td>D</td><td>intero</td><td><code>1</code></td><td><code>6</code></td><td>6</td></tr><tr><td>E</td><td>intero (solo <strong>pari</strong>)</td><td><code>0</code></td><td><code>18</code></td><td>10: <code>0, 2, 4, ..., 18</code></td></tr><tr><td>F</td><td>intero</td><td><code>-1</code></td><td><code>1</code></td><td>3: <code>-1, 0, 1</code></td></tr><tr><td>G</td><td>intero</td><td><code>1</code></td><td><code>10</code></td><td>10</td></tr><tr><td>H</td><td>intero</td><td><code>50</code></td><td><code>100</code></td><td>51</td></tr></tbody></table><ul><li><strong>Dado:</strong> la D.</li><li><strong>Equivalenti:</strong> C e G. In G, <code>Math.random() * 10 + 1</code> è un decimale in <code>[1, 11)</code>, e <code>Math.floor</code> lo porta a un intero tra <code>1</code> e <code>10</code>: lo stesso risultato di C, dove si somma 1 <em>dopo</em> aver tolto i decimali. Attenzione invece a E: moltiplicare <em>dopo</em> <code>Math.floor</code> allarga i valori ma non li rende più numerosi, e restano solo i pari.</li><li><strong>Perché 51:</strong> i valori tra 50 e 100 sono <code>100 - 50 + 1 = 51</code>. Moltiplicando per <code>50</code> (e sommando <code>50</code>) si otterrebbero interi tra <code>50</code> e <code>99</code>, e il <code>100</code> non uscirebbe mai.</li></ul><p>La regola, in generale: per un intero tra <code>min</code> e <code>max</code> (estremi inclusi) si usa</p><pre><code class="language-js">Math.floor(Math.random() * (max - min + 1)) + min</code></pre><p>dove <code>max - min + 1</code> è <strong>quanti valori</strong> sono possibili, e <code>min</code> è il valore da cui si parte.</p></details><h2 id="da-mathrandom-a-un-intervallo">Da <code>Math.random()</code> a un intervallo</h2><p>Un intero casuale in un intervallo si costruisce in due mosse: prima si <strong>allunga</strong> l&#x27;intervallo di <code>Math.random()</code> (che è lungo 1), poi lo si <strong>sposta</strong> sulla retta. Esempio: un intero tra <code>3</code> e <code>7</code>.</p><p><img src="imgs/intervalli.svg" alt="Da Math.random() a un intero tra 3 e 7: stretch, floor e shift sulla retta"></p><h2 id="esercizio-2">Esercizio 2</h2><p>Usate lo stesso schema della figura precedente negli intervalli seguenti. Completate (al posto di <code>______</code>) i due numeri, in modo che l&#x27;espressione dia un <strong>intero</strong> nell&#x27;intervallo indicato (estremi inclusi):</p><pre><code class="language-js">Math.floor(Math.random() * ______) + ______</code></pre><p><strong>A.</strong> tra <code>0</code> e <code>3</code> (il secondo numero sarà <code>0</code>)</p><p><strong>B.</strong> tra <code>1</code> e <code>20</code></p><p><strong>C.</strong> tra <code>3</code> e <code>7</code></p><p><strong>D.</strong> tra <code>10</code> e <code>20</code></p><p><strong>E.</strong> tra <code>-5</code> e <code>5</code></p><details><summary>Soluzione</summary><p>Il primo numero è <strong>quanti valori</strong> sono possibili (<code>max - min + 1</code>), il secondo è il <strong>minimo</strong>.</p><p><strong>A.</strong> <code>Math.floor(Math.random() * 4) + 0</code>: i valori sono 0, 1, 2, 3, quindi 4; il minimo è <code>0</code> (e il <code>+ 0</code> si può omettere).</p><p><strong>B.</strong> <code>Math.floor(Math.random() * 20) + 1</code>: 20 valori, minimo 1.</p><p><strong>C.</strong> <code>Math.floor(Math.random() * 5) + 3</code>: i valori sono 3, 4, 5, 6, 7, cioè 5; minimo 3.</p><p><strong>D.</strong> <code>Math.floor(Math.random() * 11) + 10</code>: <code>20 - 10 + 1 = 11</code> valori, minimo 10.</p><p><strong>E.</strong> <code>Math.floor(Math.random() * 11) - 5</code>: <code>5 - (-5) + 1 = 11</code> valori, minimo <code>-5</code> (si somma <code>-5</code>, cioè si sottrae 5).</p><p>Errore classico: nell&#x27;intervallo 10–20 moltiplicare per <code>10</code> (la differenza) invece che per <code>11</code>: il <code>20</code> non uscirebbe mai.</p></details><h2 id="esercizio-3">Esercizio 3</h2><p><strong>Il gioco del dado.</strong> L&#x27;utente sceglie un numero tra 1 e 6, e il programma lancia un dado finché non esce <strong>proprio quel numero</strong>, contando quanti <strong>tentativi</strong> servono. A passi:</p><p><strong>A.</strong> Simulare <strong>un lancio</strong> di dado: salvare il risultato in una variabile <code>lancio</code> e stampare <code>È uscito: ...</code>.</p><p><strong>B.</strong> Il numero da ottenere è fisso: il <code>6</code>. Ripetere i lanci <strong>finché non esce un 6</strong>, stampando ogni lancio e, alla fine, quanti tentativi sono serviti. Completate (al posto di <code>______</code>):</p><pre><code class="language-js">let tentativi = ______;
+let lancio;
+______ {
+  lancio = Math.floor(Math.random() * ______) + ______;
+  tentativi++;
+  console.log(&quot;Tentativo&quot;, tentativi + &quot;:&quot;, lancio);
+} ______ (______);
+console.log(&quot;Ci sono voluti&quot;, tentativi, &quot;tentativi&quot;);</code></pre><p><strong>C.</strong> Ora il numero lo sceglie l&#x27;utente: chiedere un <strong>intero tra 1 e 6</strong> (se non lo è, ripetere la domanda) e poi lanciare il dado finché non esce quel numero. Stampare i tentativi alla fine.</p><p>Esempio di esecuzione (i lanci cambiano a ogni esecuzione), con <code>4</code> come numero scelto:</p><pre><code class="language-text">Tentativo 1: 2
+Tentativo 2: 6
+Tentativo 3: 4
+Ci sono voluti 3 tentativi</code></pre><details><summary>Soluzione</summary><pre><code class="language-js">// A.
+let lancio = Math.floor(Math.random() * 6) + 1;
+console.log(&quot;È uscito:&quot;, lancio);
+
+// B.
+let tentativi = 0;
+let lancio;
+do {
+  lancio = Math.floor(Math.random() * 6) + 1;
+  tentativi++;
+  console.log(&quot;Tentativo&quot;, tentativi + &quot;:&quot;, lancio);
+} while (lancio != 6);
+console.log(&quot;Ci sono voluti&quot;, tentativi, &quot;tentativi&quot;);
+
+// C.
+let scelto;
+do {
+  scelto = Number(prompt(&quot;Scegli un numero intero tra 1 e 6:&quot;));
+} while (scelto &lt; 1 || scelto &gt; 6 || !Number.isInteger(scelto));
+
+let tentativi = 0;
+let lancio;
+do {
+  lancio = Math.floor(Math.random() * 6) + 1;
+  tentativi++;
+  console.log(&quot;Tentativo&quot;, tentativi + &quot;:&quot;, lancio);
+} while (lancio != scelto);
+console.log(&quot;Ci sono voluti&quot;, tentativi, &quot;tentativi&quot;);</code></pre><p>(Le tre versioni sono alternative: provatele una alla volta, perché dichiarano le stesse variabili.)</p><p>Il numero casuale va generato <strong>dentro</strong> il ciclo: un nuovo lancio a ogni giro. Il ciclo si ripete finché il lancio è <strong>diverso</strong> dal numero scelto (la condizione descrive il caso in cui si deve continuare). Il <code>do ... while</code> è adatto perché il primo lancio va fatto <strong>sempre</strong>, e il contatore <code>tentativi</code> aumenta a ogni giro. Nella C ci sono <strong>due</strong> <code>do ... while</code>: il primo controlla l&#x27;input (intero tra 1 e 6), il secondo fa i lanci. In media servono 6 tentativi, ma può andare molto meglio o molto peggio: eseguite più volte.</p></details><h2 id="esercizio-4">Esercizio 4</h2><p>Generare <strong>10 numeri casuali interi tra 50 e 100</strong> (estremi inclusi), stamparli e, alla fine, stampare il <strong>più grande</strong>. A passi:</p><p><strong>A.</strong> Per trovare il più grande si usa un accumulatore, <code>massimo</code>. Compilate la tabella per i numeri <code>7, 3, 9, 4</code> che arrivano nell&#x27;ordine:</p><pre><code class="language-js">let massimo = 0;
+// per ogni numero:
+if (numero &gt; massimo) {
+  massimo = numero;
+}</code></pre><table><thead><tr><th>Numero</th><th><code>numero &gt; massimo</code></th><th><code>massimo</code> dopo</th></tr></thead><tbody><tr><td>7</td><td></td><td></td></tr><tr><td>3</td><td></td><td></td></tr><tr><td>9</td><td></td><td></td></tr><tr><td>4</td><td></td><td></td></tr></tbody></table><p><strong>B.</strong> Scrivete il programma completo: 10 numeri casuali tra 50 e 100, stampati uno per riga, e alla fine il più grande.</p><details><summary>Soluzione</summary><p><strong>A.</strong></p><table><thead><tr><th>Numero</th><th><code>numero &gt; massimo</code></th><th><code>massimo</code> dopo</th></tr></thead><tbody><tr><td>7</td><td><code>7 &gt; 0</code>: vero</td><td>7</td></tr><tr><td>3</td><td><code>3 &gt; 7</code>: falso</td><td>7</td></tr><tr><td>9</td><td><code>9 &gt; 7</code>: vero</td><td>9</td></tr><tr><td>4</td><td><code>4 &gt; 9</code>: falso</td><td>9</td></tr></tbody></table><p>Il massimo si aggiorna solo quando arriva un numero <strong>più grande</strong> di quello salvato.</p><p><strong>B.</strong></p><pre><code class="language-js">let massimo = 0;                                // più piccolo di qualsiasi valore possibile
+for (let i = 1; i &lt;= 10; i++) {
+  let numero = Math.floor(Math.random() * 51) + 50;
+  console.log(numero);
+  if (numero &gt; massimo) {
+    massimo = numero;
+  }
+}
+console.log(&quot;Il più grande è&quot;, massimo);</code></pre><p>I valori possibili sono <code>100 - 50 + 1 = 51</code>: si moltiplica per <code>51</code> e si somma <code>50</code>. Tutti i numeri sono almeno <code>50</code>, quindi <code>0</code> va bene come punto di partenza. Il numero casuale va generato <strong>dentro</strong> il ciclo.</p></details><h2 id="esercizio-5">Esercizio 5</h2><p>Questo programma chiede un numero positivo finché l&#x27;utente non ne inserisce uno:</p><pre><code class="language-js">let x;
+do {
+  x = Number(prompt(&quot;Numero positivo:&quot;));
+  console.log(&quot;letto&quot;, x);
+} while (x &lt;= 0);
+console.log(&quot;fine&quot;, x);</code></pre><p><strong>A.</strong> L&#x27;utente inserisce, nell&#x27;ordine, la sequenza <code>0</code>, <code>-2</code>, <code>5</code>. Cosa succede durante l&#x27;esecuzione? Per ogni giro dite quale valore viene letto, se il ciclo <strong>continua o si ferma</strong> e perché, e cosa viene <strong>stampato</strong>.</p><p><strong>B.</strong> Stessa domanda con la sequenza <code>-7</code>, <code>0</code>, <code>1.5</code>, <code>4</code>. Tutti i numeri della sequenza vengono letti?</p><p><strong>C.</strong> Con quale sequenza di input il ciclo fa <strong>un solo giro</strong>?</p><details><summary>Soluzione</summary><p><strong>A.</strong> Sequenza <code>0</code>, <code>-2</code>, <code>5</code>:</p><ul><li><strong>Giro 1</strong>: legge <code>0</code>, stampa <code>letto 0</code>. La condizione <code>0 &lt;= 0</code> è vera: il ciclo <strong>continua</strong>.</li><li><strong>Giro 2</strong>: legge <code>-2</code>, stampa <code>letto -2</code>. <code>-2 &lt;= 0</code> è vera: <strong>continua</strong>.</li><li><strong>Giro 3</strong>: legge <code>5</code>, stampa <code>letto 5</code>. <code>5 &lt;= 0</code> è falsa: il ciclo <strong>si ferma</strong>.</li><li>Dopo il ciclo stampa <code>fine 5</code>.</li></ul><p><strong>B.</strong> Sequenza <code>-7</code>, <code>0</code>, <code>1.5</code>, <code>4</code>:</p><ul><li><strong>Giro 1</strong>: legge <code>-7</code>, stampa <code>letto -7</code>. <code>-7 &lt;= 0</code> è vera: <strong>continua</strong>.</li><li><strong>Giro 2</strong>: legge <code>0</code>, stampa <code>letto 0</code>. <code>0 &lt;= 0</code> è vera: <strong>continua</strong>.</li><li><strong>Giro 3</strong>: legge <code>1.5</code>, stampa <code>letto 1.5</code>. <code>1.5 &lt;= 0</code> è falsa: il ciclo <strong>si ferma</strong>.</li><li>Dopo il ciclo stampa <code>fine 1.5</code>.</li></ul><p>Il <code>4</code> <strong>non viene mai letto</strong>: il programma si ferma al primo valore valido. E <code>1.5</code> è accettato, perché si chiede solo un numero positivo, non intero.</p><p><strong>C.</strong> Con qualsiasi sequenza che <strong>inizia</strong> con un numero positivo, ad esempio <code>8</code>: il corpo si esegue <strong>sempre una volta</strong>, poi la condizione <code>8 &lt;= 0</code> è falsa e il ciclo termina. Stampa <code>letto 8</code> e <code>fine 8</code>.</p><p>Il ciclo continua finché la condizione è <strong>vera</strong>, e la condizione descrive il caso <strong>sbagliato</strong>.</p></details><h2 id="esercizio-6">Esercizio 6</h2><p>Per ciascuna richiesta, scrivete la <strong>condizione del <code>while</code></strong>: deve essere vera quando il valore <code>n</code> è <strong>sbagliato</strong>, e quindi si richiede l&#x27;input.</p><p><strong>A.</strong> Un numero qualsiasi (anche decimale) <strong>maggiore di 0</strong>. Completate: <code>while (______)</code></p><p><strong>B.</strong> Un numero (anche decimale) tra <code>0</code> e <code>1</code>, estremi <strong>inclusi</strong>. Completate: <code>while (______ || ______)</code></p><p><strong>C.</strong> Un numero <strong>intero</strong>, qualsiasi. Completate: <code>while (______)</code></p><p><strong>D.</strong> Un numero <strong>intero</strong> tra <code>1</code> e <code>12</code> (estremi inclusi).</p><p><strong>E.</strong> Un numero <strong>intero</strong> tra <code>1</code> e <code>12</code> (estremi <strong>esclusi</strong>).</p><p>Poi per ciascuna controllate la condizione con questi valori: <code>0</code>, <code>1</code>, <code>2.5</code>, <code>12</code>, <code>-3</code> (quali vengono accettati?).</p><p><strong>Per casa.</strong> Stessa richiesta (scrivete la condizione del <code>while</code>) per queste altre situazioni. Controllate ogni condizione con qualche valore valido e qualche valore sbagliato, specialmente agli estremi.</p><p><strong>F.</strong> Un numero <strong>pari</strong> (quindi intero). Suggerimento: <code>%</code> dà il resto della divisione. Provate con <code>0</code>, <code>12</code>, <code>7</code>, <code>2.5</code>, <code>-10</code>.</p><p><strong>G.</strong> Un numero <strong>intero positivo di 3 cifre</strong> (da <code>100</code> a <code>999</code>). Provate con <code>99</code>, <code>100</code>, <code>999</code>, <code>1000</code>, <code>150.5</code>.</p><p><strong>H.</strong> Un numero <strong>negativo oppure maggiore di 10</strong>. Attenzione: qui i valori accettati sono due intervalli separati. Provate con <code>-5</code>, <code>0</code>, <code>10</code>, <code>10.5</code>, <code>12</code>.</p><p><strong>I.</strong> Un numero <strong>intero tra 1 e 100</strong> (estremi inclusi) che <strong>non sia un multiplo di 10</strong>. Provate con <code>0</code>, <code>7</code>, <code>10</code>, <code>55</code>, <code>100</code>.</p><p><strong>J.</strong> Un numero (anche decimale) compreso tra <code>-10</code> e <code>10</code> (estremi inclusi) ma <strong>non compreso tra <code>-1</code> e <code>1</code></strong> (estremi esclusi, cioè <code>-1</code> e <code>1</code> sono accettati). Provate con <code>-10</code>, <code>-1</code>, <code>-0.5</code>, <code>0</code>, <code>1</code>, <code>5</code>, <code>10</code>, <code>10.5</code>.</p><details><summary>Soluzione</summary><p><strong>A.</strong> <code>n &lt;= 0</code>: lo <code>0</code> non è maggiore di 0, quindi va scartato. Accetta <code>1</code>, <code>2.5</code>, <code>12</code>.</p><p><strong>B.</strong> <code>n &lt; 0 || n &gt; 1</code>. Accetta <code>0</code> e <code>1</code> (estremi inclusi); scarta <code>2.5</code>, <code>12</code>, <code>-3</code>.</p><p><strong>C.</strong> <code>!Number.isInteger(n)</code>. Accetta <code>0</code>, <code>1</code>, <code>12</code>, <code>-3</code>; scarta <code>2.5</code>.</p><p><strong>D.</strong> <code>n &lt; 1 || n &gt; 12 || !Number.isInteger(n)</code>. Accetta <code>1</code> e <code>12</code>; scarta <code>0</code>, <code>2.5</code>, <code>-3</code>.</p><p><strong>E.</strong> <code>n &lt;= 1 || n &gt;= 12 || !Number.isInteger(n)</code>. Accetta solo i valori interi da <code>2</code> a <code>11</code>: scarta sia <code>1</code> sia <code>12</code>.</p><p><strong>F.</strong> <code>!Number.isInteger(n) || n % 2 != 0</code>. Accetta <code>0</code>, <code>12</code>, <code>-10</code>; scarta <code>7</code> (dispari) e <code>2.5</code> (non intero). In realtà basta <code>n % 2 != 0</code>: per un decimale come <code>2.5</code> il resto è <code>0.5</code>, quindi già diverso da <code>0</code>.</p><p><strong>G.</strong> <code>n &lt; 100 || n &gt; 999 || !Number.isInteger(n)</code>. Accetta <code>100</code> e <code>999</code>; scarta <code>99</code>, <code>1000</code>, <code>150.5</code>.</p><p><strong>H.</strong> <code>n &gt;= 0 &amp;&amp; n &lt;= 10</code>. Il valore è <strong>sbagliato</strong> quando sta nell&#x27;intervallo <em>tra</em> i due ammessi, ed essendo un intervallo unico si usa <code>&amp;&amp;</code>. Accetta <code>-5</code>, <code>10.5</code>, <code>12</code>; scarta <code>0</code> e <code>10</code>.</p><p><strong>I.</strong> <code>n &lt; 1 || n &gt; 100 || !Number.isInteger(n) || n % 10 == 0</code>. Accetta <code>7</code> e <code>55</code>; scarta <code>0</code>, <code>10</code>, <code>100</code> (tutti multipli di 10 o fuori intervallo).</p><p><strong>J.</strong> <code>n &lt; -10 || n &gt; 10 || (n &gt; -1 &amp;&amp; n &lt; 1)</code>. Accetta <code>-10</code>, <code>-1</code>, <code>1</code>, <code>5</code>, <code>10</code>; scarta <code>-0.5</code>, <code>0</code> (nel &quot;buco&quot; tra <code>-1</code> e <code>1</code>) e <code>10.5</code> (fuori da <code>[-10, 10]</code>). Le parentesi non sono obbligatorie, ma chiariscono che il caso del &quot;buco&quot; è un <code>&amp;&amp;</code>.</p><p>Per H e J, se l&#x27;utente scrive del testo (ad esempio <code>abc</code>, che <code>Number</code> trasforma in <code>NaN</code>) il valore viene <strong>accettato</strong>, perché ogni confronto con <code>NaN</code> è <code>false</code>: per evitarlo si può aggiungere <code>|| Number.isNaN(n)</code> alla condizione.</p><p>Un modo per controllare: per ogni condizione provate un valore <strong>sbagliato</strong> (deve dare <code>true</code>) e uno <strong>valido</strong> (deve dare <code>false</code>), specialmente agli estremi.</p></details><h2 id="esercizio-7">Esercizio 7</h2><p>Per ogni programma, dite cosa stampa <strong>senza eseguirlo</strong>.</p><p><strong>A.</strong></p><pre><code class="language-js">let x = 7;
+if (x &gt; 5 &amp;&amp; x &lt; 10) {
+  console.log(&quot;dentro&quot;);
+} else {
+  console.log(&quot;fuori&quot;);
+}</code></pre><p><strong>B.</strong> Riguardate il programma A: cosa stampa se <code>x</code> vale <code>10</code>? E se vale <code>5</code>?</p><p><strong>C.</strong></p><pre><code class="language-js">let x = 7;
+if (x &lt; 5 || x &gt; 10) {
+  console.log(&quot;fuori&quot;);
+} else {
+  console.log(&quot;dentro&quot;);
+}</code></pre><p><strong>D.</strong> Che cosa stampano <code>y</code> e <code>z</code>?</p><pre><code class="language-js">let x = 3;
+let y = x &gt; 2 &amp;&amp; x &lt; 5;
+let z = !y || x == 3;
+console.log(y, z);</code></pre><p><strong>E.</strong> Quali giri del ciclo fanno <code>n = n + i</code>? Cosa stampa?</p><pre><code class="language-js">let n = 0;
+for (let i = 1; i &lt;= 5; i++) {
+  if (i % 2 == 0 || i == 5) {
+    n = n + i;
+  }
+}
+console.log(n);</code></pre><p><strong>F.</strong> Compilate la tabella con il valore di <code>a</code> e <code>b</code> dopo ogni istruzione. Cosa stampa?</p><pre><code class="language-js">let a = 4;
+let b = 9;
+a = a + b;
+b = a - b;
+a = a - b;
+console.log(a, b);</code></pre><table><thead><tr><th>Passo</th><th>Istruzione</th><th><code>a</code></th><th><code>b</code></th></tr></thead><tbody><tr><td>1</td><td><code>let a = 4;</code></td><td></td><td></td></tr><tr><td>2</td><td><code>let b = 9;</code></td><td></td><td></td></tr><tr><td>3</td><td><code>a = a + b;</code></td><td></td><td></td></tr><tr><td>4</td><td><code>b = a - b;</code></td><td></td><td></td></tr><tr><td>5</td><td><code>a = a - b;</code></td><td></td><td></td></tr></tbody></table><details><summary>Soluzione</summary><p><strong>A.</strong> Stampa <code>dentro</code>: <code>7 &gt; 5</code> è vera e <code>7 &lt; 10</code> è vera.</p><p><strong>B.</strong> Con <code>x = 10</code>: <code>10 &gt; 5 &amp;&amp; 10 &lt; 10</code> è <code>true &amp;&amp; false</code>, quindi <code>false</code>, e stampa <strong><code>fuori</code></strong>. Con <code>x = 5</code>: <code>5 &gt; 5</code> è falsa, quindi stampa <code>fuori</code>. Gli estremi sono <strong>esclusi</strong>, perché si usano <code>&lt;</code> e <code>&gt;</code> e non <code>&lt;=</code> e <code>&gt;=</code>. Gli estremi sono il caso in cui si sbaglia più spesso.</p><p><strong>C.</strong> Stampa <code>dentro</code>: <code>7 &lt; 5</code> è falsa e <code>7 &gt; 10</code> è falsa, quindi la condizione è falsa e va nell&#x27;<code>else</code>. A e C differiscono solo agli <strong>estremi</strong>: con <code>x = 10</code> o <code>x = 5</code>, A stampa <code>fuori</code> e C stampa <code>dentro</code>.</p><p><strong>D.</strong> Stampa <code>true true</code>: <code>y</code> è <code>true &amp;&amp; true</code>, cioè <code>true</code>; <code>z</code> è <code>!true || (3 == 3)</code>, cioè <code>false || true</code>, quindi <code>true</code>.</p><p><strong>E.</strong> Stampa <code>11</code>. Per <code>i = 1</code> e <code>i = 3</code> la condizione è falsa. Per <code>i = 2</code> e <code>i = 4</code> (pari) e per <code>i = 5</code> (perché <code>i == 5</code>) è vera: <code>2 + 4 + 5 = 11</code>.</p><p><strong>F.</strong></p><table><thead><tr><th>Passo</th><th>Istruzione</th><th><code>a</code></th><th><code>b</code></th></tr></thead><tbody><tr><td>1</td><td><code>let a = 4;</code></td><td>4</td><td></td></tr><tr><td>2</td><td><code>let b = 9;</code></td><td>4</td><td>9</td></tr><tr><td>3</td><td><code>a = a + b;</code></td><td>13</td><td>9</td></tr><tr><td>4</td><td><code>b = a - b;</code></td><td>13</td><td>4</td></tr><tr><td>5</td><td><code>a = a - b;</code></td><td>9</td><td>4</td></tr></tbody></table><p>Stampa <code>9 4</code>: i valori di <code>a</code> e <code>b</code> sono <strong>scambiati</strong>.</p></details><h2 id="recap-1-funzioni">Recap 1 · Funzioni</h2><p>Una <strong>funzione</strong> è un blocco di istruzioni con un nome, che si può <strong>richiamare</strong> quante volte si vuole. Si definisce una volta con <code>function</code>; si usa scrivendo il nome con le parentesi.</p><pre><code class="language-js">function messaggio() {                          // senza parametri
+  console.log(&quot;Benvenuti!&quot;);
+}
+
+messaggio();                                    // stampa: Benvenuti!
+messaggio();                                    // stampa: Benvenuti!</code></pre><p><strong>Attenzione:</strong> la sola definizione <strong>non esegue</strong> niente; il codice nella funzione parte quando la si <strong>richiama</strong>.</p><p>I <strong>parametri</strong> sono i valori che la funzione riceve; quelli passati alla chiamata sono gli <strong>argomenti</strong>:</p><pre><code class="language-js">function saluta(nome) {                         // con un parametro
+  console.log(&quot;Ciao &quot; + nome + &quot;!&quot;);
+}
+
+saluta(&quot;Giulia&quot;);                               // stampa: Ciao Giulia!
+saluta(&quot;Marco&quot;);                                // stampa: Ciao Marco!</code></pre><p>Le variabili dichiarate in una funzione (compresi i parametri) esistono <strong>solo dentro</strong> la funzione.</p><p>Per far <strong>restituire</strong> un valore si usa <code>return</code>:</p><pre><code class="language-js">function quadrato(x) {
+  return x * x;
+}
+
+let q = quadrato(5);                            // q vale 25
+console.log(quadrato(3) + 1);                   // stampa 10</code></pre><ul><li><code>return</code> <strong>termina</strong> la funzione e consegna il valore a chi l&#x27;ha chiamata, che può salvarlo o usarlo in un&#x27;espressione;</li><li><code>console.log</code> invece <strong>stampa</strong> e basta: non restituisce niente (il risultato di una funzione senza <code>return</code> è <code>undefined</code>);</li><li>le istruzioni scritte dopo un <code>return</code> non vengono eseguite.</li></ul><p>Due tipi di funzione, quindi: quelle che <strong>fanno qualcosa</strong> (come stampare), e quelle che <strong>calcolano un valore</strong> e lo restituiscono.</p><h2 id="esercizio-8">Esercizio 8</h2><p><strong>A.</strong> Cosa stampa questo programma? E se si <strong>toglie</strong> l&#x27;ultima riga?</p><pre><code class="language-js">function messaggio() {
+  console.log(&quot;Benvenuti!&quot;);
+}
+console.log(&quot;inizio&quot;);
+messaggio();
+console.log(&quot;fine&quot;);
+messaggio();</code></pre><p><strong>B.</strong> Scrivere la funzione <code>ripeti(testo, n)</code>, che stampa <code>testo</code> per <code>n</code> volte (una per riga). Ad esempio <code>ripeti(&quot;ciao&quot;, 3)</code> stampa <code>ciao</code> tre volte. Poi chiamatela con altri valori, ad esempio <code>ripeti(&quot;ok&quot;, 5)</code>.</p><details><summary>Soluzione</summary><p><strong>A.</strong> Stampa, nell&#x27;ordine: <code>inizio</code>, <code>Benvenuti!</code>, <code>fine</code>, <code>Benvenuti!</code>. Il corpo della funzione si esegue a ogni chiamata, nel punto in cui la chiamata compare. Se si toglie l&#x27;ultima riga, <code>Benvenuti!</code> compare una sola volta; se si tolgono <strong>tutte</strong> le chiamate, la funzione è definita ma <strong>non stampa niente</strong>.</p><p><strong>B.</strong></p><pre><code class="language-js">function ripeti(testo, n) {
+  for (let i = 1; i &lt;= n; i++) {
+    console.log(testo);
+  }
+}
+ripeti(&quot;ciao&quot;, 3);
+ripeti(&quot;ok&quot;, 5);</code></pre><p>Questa funzione <strong>fa</strong> qualcosa (stampa) e non restituisce niente. I parametri <code>testo</code> e <code>n</code> esistono solo <strong>durante</strong> la chiamata, e valgono quello che è stato passato. Con due parametri, gli argomenti vanno nello <strong>stesso ordine</strong>: <code>ripeti(3, &quot;ciao&quot;)</code> non funzionerebbe.</p></details><h2 id="esercizio-9">Esercizio 9</h2><p><strong>A.</strong> Cosa stampa? Qual è la differenza tra le due funzioni?</p><pre><code class="language-js">function raddoppia(x) {
+  return x * 2;
+}
+function stampaDoppio(x) {
+  console.log(x * 2);
+}
+raddoppia(4);
+stampaDoppio(4);</code></pre><p><strong>B.</strong> Cosa stampa? Attenzione a quello che succede nella variabile <code>b</code>.</p><pre><code class="language-js">function stampaDoppio(x) {
+  console.log(x * 2);
+}
+let b = stampaDoppio(4);
+console.log(b);</code></pre><p><strong>C.</strong> Il parametro è una copia. Cosa stampano le due <code>console.log</code>?</p><pre><code class="language-js">function aumenta(n) {
+  n = n + 1;
+  return n;
+}
+let n = 5;
+aumenta(n);
+console.log(n);
+let m = aumenta(n);
+console.log(m, n);</code></pre><p><strong>D.</strong> Cosa stampa? Quale <code>return</code> viene eseguito in ciascuna chiamata?</p><pre><code class="language-js">function segno(x) {
+  if (x &gt; 0) {
+    return &quot;positivo&quot;;
+  }
+  if (x &lt; 0) {
+    return &quot;negativo&quot;;
+  }
+  return &quot;zero&quot;;
+}
+console.log(segno(-3), segno(0), segno(8));</code></pre><details><summary>Soluzione</summary><p><strong>A.</strong> Stampa solo <code>8</code>, una volta. <code>raddoppia(4)</code> <strong>restituisce</strong> <code>8</code>, ma il valore non viene né salvato né stampato, e va perso. <code>stampaDoppio(4)</code> invece <strong>stampa</strong> <code>8</code>.</p><p><strong>B.</strong> Stampa <code>8</code> (durante la chiamata) e poi <code>undefined</code>: <code>stampaDoppio</code> non ha <code>return</code>, quindi <code>b</code> vale <code>undefined</code>.</p><p><strong>C.</strong> Stampa <code>5</code> e poi <code>6 5</code>. La funzione lavora su una <strong>copia</strong>: <code>n</code> dentro <code>aumenta</code> è diverso dalla <code>n</code> di fuori, che resta <code>5</code>. Nella prima chiamata il risultato viene scartato; nella seconda finisce in <code>m</code>.</p><p><strong>D.</strong> Stampa <code>negativo zero positivo</code>. A ogni chiamata la funzione si ferma al <strong>primo</strong> <code>return</code> raggiunto: per <code>-3</code> il primo <code>if</code> è falso, il secondo vero e restituisce <code>&quot;negativo&quot;</code>. Il <code>return &quot;zero&quot;</code> si raggiunge solo se nessuna condizione è vera.</p></details><h2 id="esercizio-10">Esercizio 10</h2><p>Scrivere le seguenti funzioni, che <strong>restituiscono</strong> un valore (non lo stampano). Provarle con qualche chiamata, stampando il risultato con <code>console.log</code>.</p><p><strong>A.</strong> <code>maggiore(a, b)</code> restituisce il maggiore tra due numeri. Ad esempio <code>maggiore(3, 8)</code> vale <code>8</code>.</p><p><strong>B.</strong> <code>perimetro(base, altezza)</code> restituisce il perimetro di un rettangolo; poi usatela per stampare il perimetro di un rettangolo <code>4 x 6</code>.</p><p>Nelle prossime serve una <strong>variabile locale</strong>: una variabile dichiarata <strong>dentro</strong> la funzione, in cui salvare un risultato intermedio.</p><p><strong>C.</strong> <code>media_aritmetica(a, b, c, d)</code> restituisce la media aritmetica di quattro numeri: prima calcolate la loro somma in una variabile locale <code>somma</code>, poi restituite la media. Provatela con <code>31, 27, 18, 25</code>. Poi provate a stampare <code>somma</code> <strong>fuori</strong> dalla funzione: cosa succede?</p><p><strong>D.</strong> <code>sconto(prezzo, percentuale)</code> restituisce il prezzo scontato. Calcolate in una variabile locale <code>risparmio</code> quanto si risparmia, e restituite <code>prezzo - risparmio</code>. Ad esempio <code>sconto(80, 25)</code> vale <code>60</code>.</p><p><strong>E.</strong> Una festa ha <code>p</code> partecipanti e <code>b</code> bottiglie di birra, ciascuna da <code>c</code> cl. Un bicchiere contiene 100 ml (cioè 10 cl). Scrivete la funzione <code>festa(p, b, c)</code> che restituisce <strong>quanti bicchieri</strong> può bere in media ogni partecipante. Usate variabili locali per i passaggi intermedi (ad esempio i bicchieri totali). Provatela con <code>festa(10, 3, 75)</code> (risultato <code>2.25</code>), <code>festa(50, 15, 50)</code> e <code>festa(3, 2, 75)</code>.</p><details><summary>Soluzione</summary><pre><code class="language-js">// A.
+function maggiore(a, b) {
+  if (a &gt; b) {
+    return a;
+  }
+  return b;
+}
+console.log(maggiore(3, 8));                    // 8
+
+// B.
+function perimetro(base, altezza) {
+  return 2 * (base + altezza);
+}
+console.log(&quot;Perimetro:&quot;, perimetro(4, 6));     // 20
+
+// C.
+function media_aritmetica(a, b, c, d) {
+  let somma = a + b + c + d;
+  return somma / 4;
+}
+console.log(media_aritmetica(31, 27, 18, 25));  // 25.25
+
+// D.
+function sconto(prezzo, percentuale) {
+  let risparmio = prezzo * percentuale / 100;
+  return prezzo - risparmio;
+}
+console.log(sconto(80, 25));                    // 60
+
+// E.
+function festa(p, b, c) {
+  let ml_totali = b * c * 10;                   // 1 cl = 10 ml
+  let bicchieri_totali = ml_totali / 100;       // un bicchiere = 100 ml
+  return bicchieri_totali / p;
+}
+console.log(festa(10, 3, 75));                  // 2.25
+console.log(festa(50, 15, 50));                 // 1.5
+console.log(festa(3, 2, 75));                   // 5</code></pre><p>In A, se <code>a &gt; b</code> il primo <code>return</code> termina la funzione: non serve l&#x27;<code>else</code>.</p><p>Le variabili locali (<code>somma</code>, <code>risparmio</code>, <code>ml_totali</code>, <code>bicchieri_totali</code>) <strong>esistono solo dentro la funzione</strong>: in C, scrivere <code>console.log(somma)</code> fuori dalla funzione dà <code>ReferenceError: somma is not defined</code>. Servono per spezzare il calcolo in passaggi chiari.</p></details><h2 id="esercizio-11">Esercizio 11</h2><p>La funzione <code>potenza(base, esponente)</code> restituisce <code>base</code> elevato a <code>esponente</code>, <strong>senza usare <code>**</code></strong>: si moltiplica <code>base</code> per se stesso <code>esponente</code> volte. Funziona solo se <code>esponente</code> è un numero <strong>intero non negativo</strong> (anche <code>0</code>).</p><p>Scrivere la funzione <code>potenza</code>, con una variabile locale <code>risultato</code> che accumula i prodotti. Poi scrivere il programma che chiede all&#x27;utente la <code>base</code> e l&#x27;<code>esponente</code>: <strong>prima di passare l&#x27;esponente alla funzione</strong>, controllare che sia un <strong>intero non negativo</strong>, e se non lo è ripetere la domanda. Alla fine stampare il risultato.</p><p>Provatelo con base <code>2</code> ed esponente <code>10</code> (risultato <code>1024</code>), poi con esponente <code>0</code> (risultato <code>1</code>) e con esponenti non validi: <code>-3</code>, <code>2.5</code>, <code>abc</code>.</p><p>Suggerimento: per accumulare un <strong>prodotto</strong>, da quale valore deve partire <code>risultato</code>?</p><details><summary>Soluzione</summary><pre><code class="language-js">function potenza(base, esponente) {
+  let risultato = 1;
+  for (let i = 1; i &lt;= esponente; i++) {
+    risultato = risultato * base;
+  }
+  return risultato;
+}
+
+let base = Number(prompt(&quot;Base:&quot;));
+let esponente;
+do {
+  esponente = Number(prompt(&quot;Esponente (intero, non negativo):&quot;));
+} while (esponente &lt; 0 || !Number.isInteger(esponente));
+
+console.log(base, &quot;^&quot;, esponente, &quot;=&quot;, potenza(base, esponente));</code></pre><p>Il controllo sull&#x27;input sta <strong>fuori</strong> dalla funzione: la funzione calcola e basta, e il programma principale si assicura di darle valori adatti. L&#x27;esponente è sbagliato se è negativo <strong>oppure</strong> non è intero (con <code>abc</code>, <code>Number</code> dà <code>NaN</code> e <code>Number.isInteger(NaN)</code> è <code>false</code>, quindi viene scartato).</p><p>Per un <strong>prodotto</strong>, <code>risultato</code> parte da <code>1</code> (l&#x27;elemento neutro della moltiplicazione), non da <code>0</code>, altrimenti resterebbe sempre <code>0</code>. L&#x27;accumulatore è dichiarato <strong>dentro</strong> la funzione e <strong>prima</strong> del ciclo, e il <code>return</code> è <strong>dopo</strong> il ciclo. Con esponente <code>0</code> il ciclo non gira e si restituisce <code>1</code>, che è il valore giusto. Senza il controllo, con <code>2.5</code> il ciclo farebbe 2 giri e darebbe <code>base * base</code>, un risultato sbagliato senza alcun errore.</p></details><h2 id="esercizio-12">Esercizio 12</h2><p>Scrivere la funzione <code>sommaPari(n)</code> che <strong>restituisce</strong> la somma dei numeri <strong>pari</strong> compresi tra <code>1</code> e <code>n</code> (estremi inclusi), cioè <code>2 + 4 + 6 + ...</code> fino a <code>n</code>. Ad esempio <code>sommaPari(10)</code> restituisce <code>30</code> (<code>2 + 4 + 6 + 8 + 10</code>) e <code>sommaPari(7)</code> restituisce <code>12</code>.</p><p>Poi, nel programma principale: chiedere <code>n</code> all&#x27;utente e stampare <code>sommaPari(n)</code>; stampare inoltre <code>sommaPari(10) - sommaPari(5)</code> e dire cosa rappresenta.</p><details><summary>Soluzione</summary><pre><code class="language-js">function sommaPari(n) {
+  let somma = 0;
+  for (let i = 1; i &lt;= n; i++) {
+    if (i % 2 == 0) {
+      somma = somma + i;
+    }
+  }
+  return somma;
+}
+
+let n = Number(prompt(&quot;n:&quot;));
+console.log(&quot;Somma dei pari fino a&quot;, n, &quot;:&quot;, sommaPari(n));
+console.log(&quot;Somma dei pari da 6 a 10:&quot;, sommaPari(10) - sommaPari(5));    // 30 - 6 = 24</code></pre><p>È l&#x27;accumulatore di sempre con un <code>if</code> dentro il ciclo, in una funzione: l&#x27;accumulatore è dichiarato <strong>dentro</strong> la funzione (e a <code>0</code>) e il <code>return</code> è <strong>dopo</strong> il ciclo. Se fosse dentro il ciclo, la funzione si fermerebbe al primo giro e restituirebbe sempre <code>0</code>. La differenza <code>sommaPari(10) - sommaPari(5)</code> è la somma dei pari da 6 a 10 (<code>6 + 8 + 10 = 24</code>). <code>sommaPari(1)</code> restituisce <code>0</code>: nessun numero pari tra 1 e 1.</p></details><h2 id="esercizio-13">Esercizio 13</h2><p>Scrivere due funzioni:</p><ul><li><code>casuale(min, max)</code>, che <strong>restituisce</strong> un intero casuale tra <code>min</code> e <code>max</code> (estremi inclusi);</li><li><code>leggiIntero(min, max)</code>, che chiede all&#x27;utente un <strong>intero tra <code>min</code> e <code>max</code></strong> (estremi inclusi), ripete la domanda finché il valore non è valido e <strong>restituisce</strong> il valore valido.</li></ul><p>Poi usarle nel programma principale: chiedere il numero di un mese con <code>leggiIntero(1, 12)</code> e stampare un lancio di dado con <code>casuale(1, 6)</code>. Provare anche <code>casuale(50, 100)</code> e <code>casuale(-5, 5)</code>.</p><details><summary>Soluzione</summary><pre><code class="language-js">function casuale(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function leggiIntero(min, max) {
+  let n;
+  do {
+    n = Number(prompt(&quot;Inserisci un intero tra &quot; + min + &quot; e &quot; + max + &quot;:&quot;));
+  } while (n &lt; min || n &gt; max || !Number.isInteger(n));
+  return n;
+}
+
+let mese = leggiIntero(1, 12);
+console.log(&quot;Mese:&quot;, mese);
+console.log(&quot;Dado:&quot;, casuale(1, 6));
+console.log(casuale(50, 100));
+console.log(casuale(-5, 5));</code></pre><p>Il codice è lo stesso che avevamo nei primi esercizi, ma gli estremi sono diventati <strong>parametri</strong>: le funzioni si possono riusare con qualsiasi intervallo. In <code>leggiIntero</code> la variabile <code>n</code> è dichiarata <strong>prima</strong> del <code>do</code> e il <code>return</code> è <strong>dopo</strong> il ciclo: la funzione restituisce solo un valore valido.</p></details><h2 id="esercizio-14">Esercizio 14</h2><p><strong>Indovina il numero.</strong> Il programma sceglie un numero segreto <strong>casuale tra 1 e 100</strong> (senza stamparlo!). L&#x27;utente prova a indovinarlo: a ogni tentativo il programma risponde <code>Troppo basso</code> oppure <code>Troppo alto</code>, finché l&#x27;utente non indovina. Alla fine il programma stampa in <strong>quanti tentativi</strong> ci è riuscito. Ogni tentativo deve essere un <strong>intero tra 1 e 100</strong>.</p><p>Suggerimento: usate le funzioni <code>casuale</code> e <code>leggiIntero</code> dell&#x27;esercizio 13.</p><details><summary>Soluzione</summary><pre><code class="language-js">function casuale(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function leggiIntero(min, max) {
+  let n;
+  do {
+    n = Number(prompt(&quot;Inserisci un intero tra &quot; + min + &quot; e &quot; + max + &quot;:&quot;));
+  } while (n &lt; min || n &gt; max || !Number.isInteger(n));
+  return n;
+}
+
+let segreto = casuale(1, 100);
+let tentativi = 0;
+let numero;
+do {
+  numero = leggiIntero(1, 100);
+  tentativi++;
+  if (numero &lt; segreto) {
+    console.log(&quot;Troppo basso&quot;);
+  } else if (numero &gt; segreto) {
+    console.log(&quot;Troppo alto&quot;);
+  }
+} while (numero != segreto);
+console.log(&quot;Indovinato in&quot;, tentativi, &quot;tentativi!&quot;);</code></pre><p>Il programma principale è breve, perché i dettagli (come si genera un numero casuale, come si controlla l&#x27;input) sono nelle funzioni. Il <code>do ... while</code> esterno ripete finché il tentativo è <strong>diverso</strong> dal segreto; <code>tentativi++</code> conta i giri. Strategia migliore: dividere a metà l&#x27;intervallo a ogni tentativo; con 100 numeri bastano al massimo 7 tentativi.</p></details>
+<footer>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license">
+<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0">
+</a>
+Ludovica Pannitto - Università di Pisa -
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>
+</footer>
+</main>
+</body>
+</html>
