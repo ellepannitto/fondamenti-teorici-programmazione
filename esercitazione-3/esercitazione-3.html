@@ -81,7 +81,20 @@ while (x != 0) {
   x_input = prompt(&quot;Numero (0 per terminare):&quot;);
   x = Number(x_input);
 }
-console.log(&quot;Inseriti:&quot;, totale, &quot;positivi:&quot;, positivi);</code></pre><p><code>totale++</code> e <code>positivi++</code> sono <strong>contatori</strong>: partono da <code>0</code> e aumentano di 1 ogni volta che succede qualcosa. <code>positivi++</code> sta dentro l&#x27;<code>if</code>, <code>totale++</code> no. Il valore letto viene aggiornato <strong>alla fine</strong> di ogni giro; se il primo numero è <code>0</code> il ciclo non parte e il risultato è <code>0</code> e <code>0</code>. Provate <code>5, -2, 3, 0</code>: <code>Inseriti: 3 positivi: 2</code>.</p></details><h2 id="recap-1-il-ciclo-do-while">Recap 1 · Il ciclo <code>do ... while</code></h2><p>Nel <code>while</code> la condizione viene controllata <strong>prima</strong> di eseguire il corpo. Nel <code>do ... while</code> il corpo viene eseguito <strong>almeno una volta</strong>, e la condizione si controlla <strong>dopo</strong>:</p><pre><code class="language-js">let x;
+console.log(&quot;Inseriti:&quot;, totale, &quot;positivi:&quot;, positivi);</code></pre><p><code>totale++</code> e <code>positivi++</code> sono <strong>contatori</strong>: partono da <code>0</code> e aumentano di 1 ogni volta che succede qualcosa. <code>positivi++</code> sta dentro l&#x27;<code>if</code>, <code>totale++</code> no. Il valore letto viene aggiornato <strong>alla fine</strong> di ogni giro; se il primo numero è <code>0</code> il ciclo non parte e il risultato è <code>0</code> e <code>0</code>. Provate <code>5, -2, 3, 0</code>: <code>Inseriti: 3 positivi: 2</code>.</p><p><strong>Alternativa con <code>do ... while</code>.</strong> Il corpo parte sempre, quindi lo <code>0</code> finale va escluso con un <code>if</code>:</p><pre><code class="language-js">let totale = 0;
+let positivi = 0;
+let x;
+do {
+  let x_input = prompt(&quot;Numero (0 per terminare):&quot;);
+  x = Number(x_input);
+  if (x != 0) {
+    totale++;
+    if (x &gt; 0) {
+      positivi++;
+    }
+  }
+} while (x != 0);
+console.log(&quot;Inseriti:&quot;, totale, &quot;positivi:&quot;, positivi);</code></pre><p>Si legge in un solo punto, ma servono un <code>if</code> in più e la condizione <code>x != 0</code> compare due volte: con questo problema il <code>while</code> è più lineare.</p></details><h2 id="recap-1-il-ciclo-do-while">Recap 1 · Il ciclo <code>do ... while</code></h2><p>Nel <code>while</code> la condizione viene controllata <strong>prima</strong> di eseguire il corpo. Nel <code>do ... while</code> il corpo viene eseguito <strong>almeno una volta</strong>, e la condizione si controlla <strong>dopo</strong>:</p><pre><code class="language-js">let x;
 do {
   let x_input = prompt(&quot;Inserisci un numero positivo:&quot;);
   x = Number(x_input);
@@ -116,7 +129,12 @@ do {
   let n_input = prompt(&quot;Inserisci un intero tra 1 e 100:&quot;);
   n = Number(n_input);
 } while (n &lt; 1 || n &gt; 100 || !Number.isInteger(n));
-console.log(&quot;Hai inserito:&quot;, n);</code></pre><p>Il valore è sbagliato se è <strong>troppo piccolo</strong>, <strong>oppure</strong> troppo grande, <strong>oppure</strong> non intero: tre casi uniti da <code>||</code>. Provate <code>2.5</code>, <code>0</code>, <code>101</code>, <code>abc</code> (che <code>Number</code> trasforma in <code>NaN</code>: <code>Number.isInteger(NaN)</code> è <code>false</code>, quindi viene scartato).</p></details><h2 id="esercizio-6-31">Esercizio 6 · ★ 3.1</h2><p>Sapendo che log_a(b) = ln(b) / ln(a), scrivere un programma che legga due numeri <code>a</code> e <code>b</code> e stampi il valore di log_a(b). Una volta inseriti <code>a</code> e <code>b</code>, verificare che <code>a</code> sia un <strong>intero maggiore di 1</strong> e <code>b</code> sia un <strong>reale positivo</strong>. Se così non fosse, far <strong>ripetere l&#x27;inserimento di entrambi</strong> i valori all&#x27;utente. Alla fine stampare il risultato. Con <code>a = 2</code> e <code>b = 8</code> il risultato è <code>3</code>.</p><p>Suggerimento: usate <code>Math.log</code> (esercizio 4) per il logaritmo e il <code>do ... while</code> dell&#x27;esercizio 5 per ripetere l&#x27;input.</p><details><summary>Soluzione</summary><pre><code class="language-js">let a, b;
+console.log(&quot;Hai inserito:&quot;, n);</code></pre><p>Il valore è sbagliato se è <strong>troppo piccolo</strong>, <strong>oppure</strong> troppo grande, <strong>oppure</strong> non intero: tre casi uniti da <code>||</code>. Provate <code>2.5</code>, <code>0</code>, <code>101</code>, <code>abc</code> (che <code>Number</code> trasforma in <code>NaN</code>: <code>Number.isInteger(NaN)</code> è <code>false</code>, quindi viene scartato).</p><p><strong>Alternativa con <code>while</code>.</strong> Si parte da un valore <strong>non valido</strong> per entrare nel ciclo (<code>NaN</code> non è un intero) e si legge solo dentro il ciclo:</p><pre><code class="language-js">let n = NaN;
+while (n &lt; 1 || n &gt; 100 || !Number.isInteger(n)) {
+  let n_input = prompt(&quot;Inserisci un intero tra 1 e 100:&quot;);
+  n = Number(n_input);
+}
+console.log(&quot;Hai inserito:&quot;, n);</code></pre><p>È equivalente, ma il <code>do ... while</code> è più naturale: la domanda va fatta almeno una volta.</p></details><h2 id="esercizio-6-31">Esercizio 6 · ★ 3.1</h2><p>Sapendo che log_a(b) = ln(b) / ln(a), scrivere un programma che legga due numeri <code>a</code> e <code>b</code> e stampi il valore di log_a(b). Una volta inseriti <code>a</code> e <code>b</code>, verificare che <code>a</code> sia un <strong>intero maggiore di 1</strong> e <code>b</code> sia un <strong>reale positivo</strong>. Se così non fosse, far <strong>ripetere l&#x27;inserimento di entrambi</strong> i valori all&#x27;utente. Alla fine stampare il risultato. Con <code>a = 2</code> e <code>b = 8</code> il risultato è <code>3</code>.</p><p>Suggerimento: usate <code>Math.log</code> (esercizio 4) per il logaritmo e il <code>do ... while</code> dell&#x27;esercizio 5 per ripetere l&#x27;input.</p><details><summary>Soluzione</summary><pre><code class="language-js">let a, b;
 do {
   let a_input = prompt(&quot;Inserire a (intero, maggiore di 1):&quot;);
   a = Number(a_input);
@@ -143,13 +161,54 @@ for (let i = 2; i &lt; N; i++) {
     primo = false;                  // ho trovato un divisore: non è primo
   }
 }
-console.log(&quot;N è un numero primo?&quot;, primo);</code></pre><p>Il ciclo parte da 2 (il divisore 1 non conta) e finisce a <code>N - 1</code> (nemmeno <code>N</code> conta): per questo <code>i &lt; N</code>. Provate <code>2</code> (primo, il ciclo non gira), <code>9</code>, <code>13</code>, <code>15</code>.</p><p>Una versione più efficiente: appena si trova un divisore, si può uscire dal ciclo con <code>break</code>, di cui parliamo più avanti.</p></details><h2 id="esercizio-8-33">Esercizio 8 · ★ 3.3</h2><p>La formula per convertire gradi Celsius <code>C</code> in gradi Fahrenheit <code>F</code> è F = 32 + (9/5) · C. Visualizzare la tabella di conversione da Celsius a Fahrenheit per l&#x27;intervallo <strong>50 – 60 °C</strong> con passi di un grado, nel formato:</p><pre><code class="language-text">50°C = 122°F
+console.log(&quot;N è un numero primo?&quot;, primo);</code></pre><p>Il ciclo parte da 2 (il divisore 1 non conta) e finisce a <code>N - 1</code> (nemmeno <code>N</code> conta): per questo <code>i &lt; N</code>. Provate <code>2</code> (primo, il ciclo non gira), <code>9</code>, <code>13</code>, <code>15</code>.</p><p>Una versione più efficiente: appena si trova un divisore, si può uscire dal ciclo con <code>break</code>, di cui parliamo più avanti.</p><p><strong>Alternative.</strong> Tre modi di scrivere la ricerca del divisore (l&#x27;input resta uguale):</p><pre><code class="language-js">// con break: si esce appena si trova un divisore
+let primo = true;
+for (let i = 2; i &lt; N; i++) {
+  if (N % i == 0) {
+    primo = false;
+    break;
+  }
+}
+
+// con while: il flag stesso ferma il ciclo, senza break
+let primo = true;
+let i = 2;
+while (i &lt; N &amp;&amp; primo) {
+  if (N % i == 0) {
+    primo = false;
+  }
+  i++;
+}
+
+// con for: bastano i divisori fino alla radice quadrata (i * i &lt;= N)
+let primo = true;
+for (let i = 2; i * i &lt;= N; i++) {
+  if (N % i == 0) {
+    primo = false;
+    break;
+  }
+}</code></pre><p>Se <code>N</code> ha un divisore <code>i</code>, ne ha anche uno <code>N / i</code>: uno dei due è per forza minore o uguale alla radice quadrata di <code>N</code>, quindi non serve controllare oltre. Per <code>N = 1000003</code> il ciclo fa circa 1000 giri invece di un milione.</p></details><h2 id="esercizio-8-33">Esercizio 8 · ★ 3.3</h2><p>La formula per convertire gradi Celsius <code>C</code> in gradi Fahrenheit <code>F</code> è F = 32 + (9/5) · C. Visualizzare la tabella di conversione da Celsius a Fahrenheit per l&#x27;intervallo <strong>50 – 60 °C</strong> con passi di un grado, nel formato:</p><pre><code class="language-text">50°C = 122°F
 51°C = 123.8°F
 ...</code></pre><details><summary>Soluzione</summary><pre><code class="language-js">let F;
 for (let C = 50; C &lt;= 60; C++) {
   F = 32 + 9 / 5 * C;
   console.log(C + &quot;°C = &quot; + F + &quot;°F&quot;);
-}</code></pre><p>Il <code>for</code> fa variare <code>C</code> (qui il ciclo parte da 50, non da 1, e finisce a 60 <strong>incluso</strong>, per questo <code>&lt;=</code>), il corpo applica la formula.</p><p>Varianti da provare: la tabella da 0 a 100 con passi di 10 (<code>C = C + 10</code> al posto di <code>C++</code>) e la tabella al contrario, da 60 a 50 (<code>C--</code> con la condizione <code>C &gt;= 50</code>).</p></details><h2 id="recap-4-listruzione-switch">Recap 4 · L&#x27;istruzione <code>switch</code></h2><p>Quando una variabile può avere <strong>tanti valori fissi</strong> e per ognuno si fa una cosa diversa, <code>switch</code> è più leggibile di una lunga catena di <code>if</code> / <code>else if</code>:</p><pre><code class="language-js">let giorno = 3;
+}</code></pre><p>Il <code>for</code> fa variare <code>C</code> (qui il ciclo parte da 50, non da 1, e finisce a 60 <strong>incluso</strong>, per questo <code>&lt;=</code>), il corpo applica la formula.</p><p>Varianti da provare: la tabella da 0 a 100 con passi di 10 (<code>C = C + 10</code> al posto di <code>C++</code>) e la tabella al contrario, da 60 a 50 (<code>C--</code> con la condizione <code>C &gt;= 50</code>).</p><p>Le tre tabelle con il <code>for</code>, e la prima con un <code>while</code>:</p><pre><code class="language-js">// da 0 a 100, passi di 10
+for (let C = 0; C &lt;= 100; C = C + 10) {
+  console.log(C + &quot;°C = &quot; + (32 + 9 / 5 * C) + &quot;°F&quot;);
+}
+
+// da 60 a 50, al contrario
+for (let C = 60; C &gt;= 50; C--) {
+  console.log(C + &quot;°C = &quot; + (32 + 9 / 5 * C) + &quot;°F&quot;);
+}
+
+// la tabella 50-60 con while
+let C = 50;
+while (C &lt;= 60) {
+  console.log(C + &quot;°C = &quot; + (32 + 9 / 5 * C) + &quot;°F&quot;);
+  C++;
+}</code></pre><p>Qualche valore (ad esempio <code>52°C</code>) mostra una lunga coda di decimali (<code>125.60000000000001</code>): è l&#x27;arrotondamento dei numeri decimali nel computer.</p></details><h2 id="recap-4-listruzione-switch">Recap 4 · L&#x27;istruzione <code>switch</code></h2><p>Quando una variabile può avere <strong>tanti valori fissi</strong> e per ognuno si fa una cosa diversa, <code>switch</code> è più leggibile di una lunga catena di <code>if</code> / <code>else if</code>:</p><pre><code class="language-js">let giorno = 3;
 let nome;
 switch (giorno) {
   case 1:
@@ -313,7 +372,23 @@ console.log(n + &quot; è &quot; + tipo);</code></pre><p>Si può anche stampare 
     fattoriale = fattoriale * i;
   }
   console.log(n + &quot;! = &quot; + fattoriale);
-}</code></pre><p>Il ciclo interno è un <strong>prodotto accumulato</strong> (come nell&#x27;esercitazione 2), con l&#x27;accumulatore che parte da <code>1</code>: con <code>n = 0</code> il ciclo non gira e il risultato è <code>1</code>, proprio la definizione di <code>0!</code>. <code>fattoriale = 1</code> sta <strong>dentro</strong> il ciclo esterno: se fosse prima, il secondo fattoriale partirebbe dal risultato del primo.</p></details><h2 id="esercizio-13-35">Esercizio 13 · ★ 3.5</h2><p>Mediante la <strong>serie di Taylor</strong> si può approssimare la funzione seno sommando tanti termini, uno per ogni valore di <em>n</em> = 0, 1, 2, ..., <em>N</em>:</p><pre><code class="language-text">sen(x)  ≈  x  -  x³/3!  +  x⁵/5!  -  x⁷/7!  +  ...</code></pre><p>Ogni termine ha questa forma:</p><pre><code class="language-text">         (-1)ⁿ · x^(2n+1)
+}</code></pre><p>Il ciclo interno è un <strong>prodotto accumulato</strong> (come nell&#x27;esercitazione 2), con l&#x27;accumulatore che parte da <code>1</code>: con <code>n = 0</code> il ciclo non gira e il risultato è <code>1</code>, proprio la definizione di <code>0!</code>. <code>fattoriale = 1</code> sta <strong>dentro</strong> il ciclo esterno: se fosse prima, il secondo fattoriale partirebbe dal risultato del primo.</p><p><strong>Alternative.</strong> Con un solo ciclo: ogni fattoriale si ottiene dal <strong>precedente</strong>, <code>n! = n * (n-1)!</code>, quindi non serve ricalcolare tutto da capo con il ciclo interno.</p><pre><code class="language-js">// con for: un ciclo solo
+let fattoriale = 1;                         // 0! = 1
+for (let n = 0; n &lt;= 6; n++) {
+  if (n &gt; 0) {
+    fattoriale = fattoriale * n;            // da (n-1)! a n!
+  }
+  console.log(n + &quot;! = &quot; + fattoriale);
+}
+
+// con while
+let fattoriale = 1;
+let n = 0;
+while (n &lt;= 6) {
+  console.log(n + &quot;! = &quot; + fattoriale);
+  n++;
+  fattoriale = fattoriale * n;              // già il fattoriale del prossimo n
+}</code></pre><p>Qui <code>fattoriale</code> è dichiarato <strong>fuori</strong> dal ciclo e <strong>non</strong> riparte da <code>1</code>: è quello che permette di riusare il risultato precedente. La versione con i due cicli fa più lavoro, ma è più vicina alla definizione.</p></details><h2 id="esercizio-13-35">Esercizio 13 · ★ 3.5</h2><p>Mediante la <strong>serie di Taylor</strong> si può approssimare la funzione seno sommando tanti termini, uno per ogni valore di <em>n</em> = 0, 1, 2, ..., <em>N</em>:</p><pre><code class="language-text">sen(x)  ≈  x  -  x³/3!  +  x⁵/5!  -  x⁷/7!  +  ...</code></pre><p>Ogni termine ha questa forma:</p><pre><code class="language-text">         (-1)ⁿ · x^(2n+1)
 termine = ------------------
              (2n + 1)!</code></pre><p>Per esempio:</p><table><thead><tr><th><em>n</em></th><th>termine</th></tr></thead><tbody><tr><td>0</td><td><code>+ x¹ / 1!</code></td></tr><tr><td>1</td><td><code>- x³ / 3!</code></td></tr><tr><td>2</td><td><code>+ x⁵ / 5!</code></td></tr><tr><td>3</td><td><code>- x⁷ / 7!</code></td></tr></tbody></table><p>Il numeratore è <code>x</code> elevato a <code>2n+1</code>, con il <strong>segno</strong> che alterna (<code>+</code>, <code>-</code>, <code>+</code>, ...); il denominatore è il <strong>fattoriale</strong> di <code>2n+1</code>.</p><p>Con <code>N = 10</code>, calcolare il valore approssimato di sen(x) per <code>x = 0.5</code> e determinare l&#x27;<strong>errore commesso</strong> rispetto a <code>Math.sin(x)</code>.</p><p>N.B.: per ogni valore di <em>n</em> bisogna calcolare <code>(2n+1)!</code> <strong>prima</strong> di usarlo nella sommatoria.</p><p>Suggerimento: usate un ciclo esterno per <code>n</code> e, dentro, un ciclo interno per il fattoriale (come nell&#x27;esercizio 12). Il segno alternato si ottiene con <code>(-1) ** n</code>: vale <code>1</code> se <code>n</code> è pari e <code>-1</code> se è dispari.</p><details><summary>Soluzione</summary><pre><code class="language-js">let x = 0.5;
 let somma = 0;
@@ -326,7 +401,14 @@ for (let n = 0; n &lt;= 10; n++) {
 }
 console.log(&quot;sen(x) approssimato =&quot;, somma);
 console.log(&quot;sen(x) preciso      =&quot;, Math.sin(x));
-console.log(&quot;errore              =&quot;, Math.abs(somma - Math.sin(x)));</code></pre><p>Si calcola il denominatore con un ciclo interno che arriva fino a <code>2 * n + 1</code>. L&#x27;errore è praticamente nullo (con <code>x = 0.5</code> risulta <code>0</code>, o comunque dell&#x27;ordine dell&#x27;arrotondamento del computer): bastano pochi termini perché i fattoriali crescano molto in fretta. Provate con <code>x = 3</code> o <code>x = 10</code>: l&#x27;approssimazione peggiora.</p></details><h2 id="recap-7-break-e-i-metodi-iterativi">Recap 7 · <code>break</code> e i metodi iterativi</h2><p><code>break</code> <strong>interrompe subito</strong> il ciclo in cui si trova (come nello <code>switch</code>), e l&#x27;esecuzione prosegue dalla riga dopo la <code>}</code>:</p><pre><code class="language-js">for (let i = 1; i &lt;= 100; i++) {
+console.log(&quot;errore              =&quot;, Math.abs(somma - Math.sin(x)));</code></pre><p>Si calcola il denominatore con un ciclo interno che arriva fino a <code>2 * n + 1</code>. L&#x27;errore è praticamente nullo (con <code>x = 0.5</code> risulta <code>0</code>, o comunque dell&#x27;ordine dell&#x27;arrotondamento del computer): bastano pochi termini perché i fattoriali crescano molto in fretta. Provate con <code>x = 3</code> o <code>x = 10</code>: l&#x27;approssimazione peggiora.</p><p><strong>Alternativa con un solo ciclo.</strong> Ogni termine si ottiene dal <strong>precedente</strong>: da <code>(-1)ⁿ · x^(2n+1) / (2n+1)!</code> a quello dopo si moltiplica per <code>-x²</code> e si divide per <code>(2n+2) · (2n+3)</code>:</p><pre><code class="language-js">let x = 0.5;
+let somma = 0;
+let termine = x;                            // il termine per n = 0
+for (let n = 0; n &lt;= 10; n++) {
+  somma = somma + termine;
+  termine = -termine * x * x / ((2 * n + 2) * (2 * n + 3));   // il termine successivo
+}
+console.log(&quot;sen(x) approssimato =&quot;, somma);</code></pre><p>Dà lo stesso risultato, con meno calcoli: non si ricalcolano fattoriale e potenza da capo a ogni <code>n</code>. Va però ricavata la formula del termine successivo.</p></details><h2 id="recap-7-break-e-i-metodi-iterativi">Recap 7 · <code>break</code> e i metodi iterativi</h2><p><code>break</code> <strong>interrompe subito</strong> il ciclo in cui si trova (come nello <code>switch</code>), e l&#x27;esecuzione prosegue dalla riga dopo la <code>}</code>:</p><pre><code class="language-js">for (let i = 1; i &lt;= 100; i++) {
   console.log(i);
   if (i * i &gt; 50) {
     break;                              // i = 8: 64 &gt; 50, esco dal ciclo
@@ -349,7 +431,16 @@ for (base = 1; base &lt;= 1000; base++) {
     break;                              // area abbastanza grande: mi fermo
   }
 }
-console.log(&quot;Mi sono fermato alla base&quot;, base, &quot;con area&quot;, area);</code></pre><p>Si ferma a <code>base 17: area 51</code>. <code>base</code> e <code>area</code> sono dichiarate <strong>fuori</strong> dal <code>for</code>, altrimenti non esisterebbero più dopo il ciclo. Il <code>for</code> dice <strong>al massimo</strong> quante volte ripetere; il <code>break</code> interrompe prima appena succede ciò che cerchiamo. Nel prossimo esercizio la condizione di arresto non riguarderà un&#x27;area, ma la <strong>differenza tra due risultati consecutivi</strong>.</p></details><h2 id="esercizio-15">Esercizio 15</h2><p>Un <strong>metodo iterativo</strong> parte da un valore iniziale e ripete lo stesso calcolo, usando ogni volta il <strong>risultato precedente</strong>. Partire da <code>x = 1</code> e ripetere <code>x = Math.cos(x)</code>. Il ciclo deve <strong>fermarsi</strong> quando la differenza (in valore assoluto) tra il nuovo valore e il precedente è minore di <code>10 ** (-6)</code>. Mettere un limite di sicurezza di 1000 passi. Alla fine stampare il valore trovato e il <strong>numero di passi</strong> necessari.</p><p>(Risposta attesa: valore circa <code>0.7390855</code>, in 34 passi.)</p><details><summary>Soluzione</summary><pre><code class="language-js">let x_vecchio = 1;
+console.log(&quot;Mi sono fermato alla base&quot;, base, &quot;con area&quot;, area);</code></pre><p>Si ferma a <code>base 17: area 51</code>. <code>base</code> e <code>area</code> sono dichiarate <strong>fuori</strong> dal <code>for</code>, altrimenti non esisterebbero più dopo il ciclo. Il <code>for</code> dice <strong>al massimo</strong> quante volte ripetere; il <code>break</code> interrompe prima appena succede ciò che cerchiamo. Nel prossimo esercizio la condizione di arresto non riguarderà un&#x27;area, ma la <strong>differenza tra due risultati consecutivi</strong>.</p><p><strong>Alternativa con <code>while</code>.</strong> La condizione di arresto diventa la condizione del ciclo (si continua <strong>finché</strong> l&#x27;area non supera 50), senza <code>break</code>:</p><pre><code class="language-js">let altezza = 3;
+let base = 1;
+let area = base * altezza;
+console.log(&quot;base &quot; + base + &quot;: area &quot; + area);
+while (area &lt;= 50) {
+  base++;
+  area = base * altezza;
+  console.log(&quot;base &quot; + base + &quot;: area &quot; + area);
+}
+console.log(&quot;Mi sono fermato alla base&quot;, base, &quot;con area&quot;, area);</code></pre><p>Il risultato è lo stesso (si ferma a <code>base 17: area 51</code>), ma si scrive due volte il calcolo e la stampa: il <code>for</code> con <code>break</code> è più compatto, il <code>while</code> più vicino alla frase «finché l&#x27;area non supera 50». Il <code>while</code> non ha il limite di sicurezza: con una condizione che non diventa mai falsa non si fermerebbe.</p></details><h2 id="esercizio-15">Esercizio 15</h2><p>Un <strong>metodo iterativo</strong> parte da un valore iniziale e ripete lo stesso calcolo, usando ogni volta il <strong>risultato precedente</strong>. Partire da <code>x = 1</code> e ripetere <code>x = Math.cos(x)</code>. Il ciclo deve <strong>fermarsi</strong> quando la differenza (in valore assoluto) tra il nuovo valore e il precedente è minore di <code>10 ** (-6)</code>. Mettere un limite di sicurezza di 1000 passi. Alla fine stampare il valore trovato e il <strong>numero di passi</strong> necessari.</p><p>(Risposta attesa: valore circa <code>0.7390855</code>, in 34 passi.)</p><details><summary>Soluzione</summary><pre><code class="language-js">let x_vecchio = 1;
 let x_nuovo;
 let passi;
 for (let i = 1; i &lt;= 1000; i++) {
@@ -361,7 +452,16 @@ for (let i = 1; i &lt;= 1000; i++) {
   x_vecchio = x_nuovo;                      // altrimenti il nuovo diventa il vecchio
 }
 console.log(&quot;valore =&quot;, x_nuovo);
-console.log(&quot;passi  =&quot;, passi);</code></pre><p>Le variabili <code>x_nuovo</code> e <code>passi</code> sono dichiarate <strong>fuori</strong> dal <code>for</code>, altrimenti non esisterebbero più dopo il ciclo. L&#x27;ordine conta: prima si calcola <code>x_nuovo</code>, poi si confronta, e solo alla fine si aggiorna <code>x_vecchio</code>.</p></details><h2 id="esercizio-16-36">Esercizio 16 · ★ 3.6</h2><p>L&#x27;equazione</p><pre><code class="language-text">e^(-x) - x = 0</code></pre><p>non si può risolvere con i metodi che conosciamo (è <strong>non lineare</strong>): si cerca una soluzione approssimata con un <strong>metodo iterativo</strong>. Si parte da un valore <code>x₀</code> e si calcola ogni nuovo valore da quello precedente:</p><pre><code class="language-text">x₁ = e^(-x₀)
+console.log(&quot;passi  =&quot;, passi);</code></pre><p>Le variabili <code>x_nuovo</code> e <code>passi</code> sono dichiarate <strong>fuori</strong> dal <code>for</code>, altrimenti non esisterebbero più dopo il ciclo. L&#x27;ordine conta: prima si calcola <code>x_nuovo</code>, poi si confronta, e solo alla fine si aggiorna <code>x_vecchio</code>.</p><p><strong>Alternativa con <code>while</code>.</strong> Si calcola il primo valore prima del ciclo, e si continua finché la differenza è ancora grande:</p><pre><code class="language-js">let x_vecchio = 1;
+let x_nuovo = Math.cos(x_vecchio);
+let passi = 1;
+while (Math.abs(x_nuovo - x_vecchio) &gt;= 10 ** (-6)) {
+  x_vecchio = x_nuovo;
+  x_nuovo = Math.cos(x_vecchio);
+  passi++;
+}
+console.log(&quot;valore =&quot;, x_nuovo);
+console.log(&quot;passi  =&quot;, passi);</code></pre><p>Attenzione alla condizione: nel <code>for</code> con <code>break</code> si esce quando la differenza è <strong>minore</strong> di <code>10 ** (-6)</code>; nel <code>while</code> si <strong>continua</strong> quando è ancora <strong>maggiore o uguale</strong>, cioè la condizione opposta. Senza il limite di 1000 passi, un metodo che non converge girerebbe all&#x27;infinito.</p></details><h2 id="esercizio-16-36">Esercizio 16 · ★ 3.6</h2><p>L&#x27;equazione</p><pre><code class="language-text">e^(-x) - x = 0</code></pre><p>non si può risolvere con i metodi che conosciamo (è <strong>non lineare</strong>): si cerca una soluzione approssimata con un <strong>metodo iterativo</strong>. Si parte da un valore <code>x₀</code> e si calcola ogni nuovo valore da quello precedente:</p><pre><code class="language-text">x₁ = e^(-x₀)
 x₂ = e^(-x₁)
 x₃ = e^(-x₂)
 ...
@@ -379,7 +479,16 @@ for (let i = 1; i &lt;= 1000; i++) {
   x_vecchio = x_nuovo;
 }
 console.log(&quot;soluzione =&quot;, x_nuovo);
-console.log(&quot;iterazioni =&quot;, iterazioni);</code></pre><p>Stessa struttura dell&#x27;esercizio 15. L&#x27;errore è <strong>relativo</strong> perché si divide per <code>|x_nuovo|</code>: misura la differenza in proporzione alla grandezza del valore. Verifica: <code>Math.exp(-0.567143) - 0.567143</code> è praticamente <code>0</code>.</p></details>
+console.log(&quot;iterazioni =&quot;, iterazioni);</code></pre><p>Stessa struttura dell&#x27;esercizio 15. L&#x27;errore è <strong>relativo</strong> perché si divide per <code>|x_nuovo|</code>: misura la differenza in proporzione alla grandezza del valore. Verifica: <code>Math.exp(-0.567143) - 0.567143</code> è praticamente <code>0</code>.</p><p><strong>Alternativa con <code>while</code>:</strong></p><pre><code class="language-js">let x_vecchio = 1;
+let x_nuovo = Math.exp(-x_vecchio);
+let iterazioni = 1;
+while (Math.abs(x_nuovo - x_vecchio) / Math.abs(x_nuovo) &gt;= 10 ** (-6)) {
+  x_vecchio = x_nuovo;
+  x_nuovo = Math.exp(-x_vecchio);
+  iterazioni++;
+}
+console.log(&quot;soluzione =&quot;, x_nuovo);
+console.log(&quot;iterazioni =&quot;, iterazioni);</code></pre><p>Stessa struttura dell&#x27;alternativa dell&#x27;esercizio 15, con la condizione &quot;ancora <strong>non</strong> abbastanza vicini&quot; (<code>&gt;=</code>) al posto del <code>break</code>.</p></details>
 <footer>
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license">
 <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0">

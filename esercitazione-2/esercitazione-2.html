@@ -91,7 +91,17 @@ for (i = 0; ______; i = i + 1) {
 }</code></pre><details><summary>Soluzione</summary><pre><code class="language-js">let i;
 for (i = 0; i &lt; 5; i = i + 1) {
   console.log(&quot;Ciao!&quot;);
-}</code></pre><p>Partendo da 0, <code>i</code> vale 0, 1, 2, 3, 4: cinque giri. Con <code>i &lt;= 5</code> i giri sarebbero 6! Regola pratica: partendo da 0 con <code>&lt;</code> il numero di giri è il valore a destra.</p></details><h2 id="esercizio-5-completa-linput-e-la-guardia">Esercizio 5 · Completa l&#x27;input e la guardia</h2><p>Il numero di ripetizioni lo sceglie l&#x27;utente. Completate il programma (al posto di <code>______</code>) in modo che chieda <code>n</code> all&#x27;utente, lo converta in numero e stampi <code>Ciao!</code> <strong>n volte</strong>.</p><pre><code class="language-js">let n_input = ______(&quot;Quante volte?&quot;);     // chiedo il valore all&#x27;utente
+}</code></pre><p>Partendo da 0, <code>i</code> vale 0, 1, 2, 3, 4: cinque giri. Con <code>i &lt;= 5</code> i giri sarebbero 6! Regola pratica: partendo da 0 con <code>&lt;</code> il numero di giri è il valore a destra.</p><p><strong>Alternative.</strong> Con un <code>while</code> i tre pezzi del <code>for</code> si separano; e partendo da <code>1</code> la condizione deve diventare <code>&lt;=</code>:</p><pre><code class="language-js">// con while
+let i = 0;
+while (i &lt; 5) {
+  console.log(&quot;Ciao!&quot;);
+  i = i + 1;
+}
+
+// con for, partendo da 1
+for (i = 1; i &lt;= 5; i = i + 1) {
+  console.log(&quot;Ciao!&quot;);
+}</code></pre><p>Sono tutte versioni da 5 giri: cambiano il <strong>punto di partenza</strong> e il <strong>confronto</strong> (<code>&lt; 5</code> da 0, <code>&lt;= 5</code> da 1).</p></details><h2 id="esercizio-5-completa-linput-e-la-guardia">Esercizio 5 · Completa l&#x27;input e la guardia</h2><p>Il numero di ripetizioni lo sceglie l&#x27;utente. Completate il programma (al posto di <code>______</code>) in modo che chieda <code>n</code> all&#x27;utente, lo converta in numero e stampi <code>Ciao!</code> <strong>n volte</strong>.</p><pre><code class="language-js">let n_input = ______(&quot;Quante volte?&quot;);     // chiedo il valore all&#x27;utente
 let n = ______(n_input);                   // lo converto in numero
 let i;
 for (i = 1; ______; i = i + 1) {
@@ -101,9 +111,25 @@ let n = Number(n_input);                   // lo converto in numero
 let i;
 for (i = 1; i &lt;= n; i = i + 1) {
   console.log(&quot;Ciao!&quot;);
-}</code></pre><p><code>prompt</code> restituisce sempre una stringa: senza <code>Number</code>, la condizione <code>i &lt;= n</code> confronterebbe un numero con un testo. La condizione può contenere una <strong>variabile</strong>, non solo un numero fisso. Provate <code>n = 0</code>: il corpo non viene mai eseguito.</p></details><h2 id="esercizio-6-potenze-di-2">Esercizio 6 · Potenze di 2</h2><p>Scrivere un programma che visualizzi le potenze di 2 partendo dall&#x27;esponente 0 fino all&#x27;esponente 8, una per riga.</p><details><summary>Soluzione</summary><pre><code class="language-js">for (let i = 0; i &lt;= 8; i++) {        // i è l&#x27;esponente
+}</code></pre><p><code>prompt</code> restituisce sempre una stringa: senza <code>Number</code>, la condizione <code>i &lt;= n</code> confronterebbe un numero con un testo. La condizione può contenere una <strong>variabile</strong>, non solo un numero fisso. Provate <code>n = 0</code>: il corpo non viene mai eseguito.</p><p><strong>Alternativa con <code>while</code>:</strong></p><pre><code class="language-js">let n_input = prompt(&quot;Quante volte?&quot;);
+let n = Number(n_input);
+let i = 1;
+while (i &lt;= n) {
+  console.log(&quot;Ciao!&quot;);
+  i = i + 1;
+}</code></pre></details><h2 id="esercizio-6-potenze-di-2">Esercizio 6 · Potenze di 2</h2><p>Scrivere un programma che visualizzi le potenze di 2 partendo dall&#x27;esponente 0 fino all&#x27;esponente 8, una per riga.</p><details><summary>Soluzione</summary><pre><code class="language-js">for (let i = 0; i &lt;= 8; i++) {        // i è l&#x27;esponente
   console.log(2 ** i);
-}</code></pre><p>Stampa <code>1, 2, 4, 8, ..., 256</code>. Notate che il ciclo parte da <code>0</code>, non da <code>1</code>.</p></details><h2 id="esercizio-7-completa-la-guardia-2">Esercizio 7 · Completa la guardia (2)</h2><p>Il programma deve chiedere all&#x27;utente quanti numeri vuole sommare, poi chiedere i numeri uno alla volta e stampare la loro <strong>somma</strong>. Il corpo del ciclo c&#x27;è già: completate la <strong>condizione</strong> (al posto di <code>______</code>).</p><pre><code class="language-js">let n_input = prompt(&quot;Quanti numeri vuoi sommare?&quot;);
+}</code></pre><p>Stampa <code>1, 2, 4, 8, ..., 256</code>. Notate che il ciclo parte da <code>0</code>, non da <code>1</code>.</p><p><strong>Alternative.</strong> Con un <code>while</code>, oppure facendo variare <strong>direttamente la potenza</strong> (che raddoppia a ogni giro) invece dell&#x27;esponente:</p><pre><code class="language-js">// con while
+let i = 0;
+while (i &lt;= 8) {
+  console.log(2 ** i);
+  i++;
+}
+
+// con for: l&#x27;aggiornamento è p = p * 2, non p++
+for (let p = 1; p &lt;= 256; p = p * 2) {
+  console.log(p);
+}</code></pre><p>Nell&#x27;ultima versione non serve <code>**</code>: il <code>for</code> non conta più gli esponenti, ma moltiplica per 2 a ogni giro (e <code>256</code> è <code>2 ** 8</code>).</p></details><h2 id="esercizio-7-completa-la-guardia-2">Esercizio 7 · Completa la guardia (2)</h2><p>Il programma deve chiedere all&#x27;utente quanti numeri vuole sommare, poi chiedere i numeri uno alla volta e stampare la loro <strong>somma</strong>. Il corpo del ciclo c&#x27;è già: completate la <strong>condizione</strong> (al posto di <code>______</code>).</p><pre><code class="language-js">let n_input = prompt(&quot;Quanti numeri vuoi sommare?&quot;);
 let n = Number(n_input);
 let somma = 0;                                   // accumulatore
 let i;
@@ -121,7 +147,17 @@ for (i = 1; i &lt;= n; i = i + 1) {
   let x = Number(x_input);
   somma = somma + x;
 }
-console.log(&quot;Somma:&quot;, somma);</code></pre><p>Con <code>n = 3</code> e numeri <code>4</code>, <code>5</code>, <code>6</code> la somma è 15. Con <code>i &lt; n</code> l&#x27;utente verrebbe interrogato una volta di meno: è l&#x27;errore più comune. Qui <code>i</code> serve solo a contare i giri (e a numerare le domande), i numeri da sommare sono quelli inseriti.</p></details><h2 id="esercizio-8-somma-e-prodotto-dei-primi-n-numeri-pari">Esercizio 8 · Somma e prodotto dei primi <em>n</em> numeri pari</h2><p>Leggere un numero naturale <code>n</code> e calcolare la <strong>somma</strong> e il <strong>prodotto</strong> dei primi <code>n</code> numeri pari positivi. Stampare i due risultati alla fine.</p><p>Esempio: con <code>n = 4</code> i numeri sono <code>2, 4, 6, 8</code>, quindi la somma è <code>20</code> e il prodotto è <code>384</code>.</p><details><summary>Soluzione</summary><pre><code class="language-js">let n_input = prompt(&quot;n:&quot;);
+console.log(&quot;Somma:&quot;, somma);</code></pre><p>Con <code>n = 3</code> e numeri <code>4</code>, <code>5</code>, <code>6</code> la somma è 15. Con <code>i &lt; n</code> l&#x27;utente verrebbe interrogato una volta di meno: è l&#x27;errore più comune. Qui <code>i</code> serve solo a contare i giri (e a numerare le domande), i numeri da sommare sono quelli inseriti.</p><p><strong>Alternativa con <code>while</code>:</strong></p><pre><code class="language-js">let n_input = prompt(&quot;Quanti numeri vuoi sommare?&quot;);
+let n = Number(n_input);
+let somma = 0;
+let i = 1;
+while (i &lt;= n) {
+  let x_input = prompt(&quot;Numero &quot; + i + &quot;:&quot;);
+  let x = Number(x_input);
+  somma = somma + x;
+  i = i + 1;
+}
+console.log(&quot;Somma:&quot;, somma);</code></pre></details><h2 id="esercizio-8-somma-e-prodotto-dei-primi-n-numeri-pari">Esercizio 8 · Somma e prodotto dei primi <em>n</em> numeri pari</h2><p>Leggere un numero naturale <code>n</code> e calcolare la <strong>somma</strong> e il <strong>prodotto</strong> dei primi <code>n</code> numeri pari positivi. Stampare i due risultati alla fine.</p><p>Esempio: con <code>n = 4</code> i numeri sono <code>2, 4, 6, 8</code>, quindi la somma è <code>20</code> e il prodotto è <code>384</code>.</p><details><summary>Soluzione</summary><pre><code class="language-js">let n_input = prompt(&quot;n:&quot;);
 let n = Number(n_input);
 let somma = 0;                       // accumulatore della somma: parte da 0
 let prodotto = 1;                    // accumulatore del prodotto: parte da 1 (non da 0!)
@@ -131,7 +167,19 @@ for (let i = 1; i &lt;= n; i++) {
   prodotto = prodotto * pari;
 }
 console.log(&quot;Somma:&quot;, somma);
-console.log(&quot;Prodotto:&quot;, prodotto);</code></pre><p>Due accumulatori nello stesso ciclo: ognuno parte dall&#x27;elemento neutro della sua operazione (<code>0</code> per la somma, <code>1</code> per il prodotto). Se partisse da <code>0</code>, il prodotto resterebbe sempre <code>0</code>.</p><p>Alternativa: far partire <code>pari</code> da <code>2</code> e incrementarlo di <code>2</code> a ogni giro (<code>pari = pari + 2</code>).</p><p>Cosa succede con <code>n = 0</code>? Il ciclo non viene mai eseguito: somma <code>0</code> e prodotto <code>1</code>.</p></details><h2 id="esercizio-9-media-di-n-numeri">Esercizio 9 · Media di <em>n</em> numeri</h2><p>Leggere un numero <code>n</code> e poi <code>n</code> numeri, uno alla volta. Stampare la loro <strong>media</strong>.</p><details><summary>Soluzione</summary><pre><code class="language-js">let n_input = prompt(&quot;Quanti numeri vuoi inserire?&quot;);
+console.log(&quot;Prodotto:&quot;, prodotto);</code></pre><p>Due accumulatori nello stesso ciclo: ognuno parte dall&#x27;elemento neutro della sua operazione (<code>0</code> per la somma, <code>1</code> per il prodotto). Se partisse da <code>0</code>, il prodotto resterebbe sempre <code>0</code>.</p><p>Alternativa: far partire <code>pari</code> da <code>2</code> e incrementarlo di <code>2</code> a ogni giro (<code>pari = pari + 2</code>).</p><pre><code class="language-js">// il for conta direttamente i numeri pari: da 2 a 2 * n, di 2 in 2
+for (let pari = 2; pari &lt;= 2 * n; pari = pari + 2) {
+  somma = somma + pari;
+  prodotto = prodotto * pari;
+}
+
+// con while
+let pari = 2;
+while (pari &lt;= 2 * n) {
+  somma = somma + pari;
+  prodotto = prodotto * pari;
+  pari = pari + 2;
+}</code></pre><p>(Le altre righe del programma, compresa la lettura di <code>n</code>, restano uguali.) In questa versione <code>i</code> non esiste più: si conta con <code>pari</code>, e il ciclo si ferma quando <code>pari</code> supera l&#x27;ultimo pari che serve, cioè <code>2 * n</code>.</p><p>Cosa succede con <code>n = 0</code>? Il ciclo non viene mai eseguito: somma <code>0</code> e prodotto <code>1</code>.</p></details><h2 id="esercizio-9-media-di-n-numeri">Esercizio 9 · Media di <em>n</em> numeri</h2><p>Leggere un numero <code>n</code> e poi <code>n</code> numeri, uno alla volta. Stampare la loro <strong>media</strong>.</p><details><summary>Soluzione</summary><pre><code class="language-js">let n_input = prompt(&quot;Quanti numeri vuoi inserire?&quot;);
 let n = Number(n_input);
 let somma = 0;
 for (let i = 1; i &lt;= n; i++) {
@@ -139,7 +187,17 @@ for (let i = 1; i &lt;= n; i++) {
   let x = Number(x_input);
   somma = somma + x;
 }
-console.log(&quot;Media:&quot;, somma / n);</code></pre><p>Il numero di ripetizioni è noto (<code>n</code>), quindi è un caso da <code>for</code>. Cosa succede con <code>n = 0</code>? <code>0 / 0</code> dà <code>NaN</code>: come lo gestireste con un <code>if</code>?</p></details><h2 id="esercizio-10-una-riga-di-asterischi">Esercizio 10 · Una riga di asterischi</h2><p>Leggere un numero <code>n</code> e stampare <strong>una sola riga</strong> composta da <code>n</code> asterischi. Con <code>n = 5</code>:</p><pre><code class="language-text">*****</code></pre><p>Il ciclo e la stampa ci sono già: completate il corpo (al posto di <code>______</code>) in modo da <strong>aggiungere</strong> un asterisco alla stringa <code>riga</code> a ogni giro.</p><pre><code class="language-js">let n_input = prompt(&quot;n:&quot;);
+console.log(&quot;Media:&quot;, somma / n);</code></pre><p>Il numero di ripetizioni è noto (<code>n</code>), quindi è un caso da <code>for</code>. Cosa succede con <code>n = 0</code>? <code>0 / 0</code> dà <code>NaN</code>: come lo gestireste con un <code>if</code>?</p><p><strong>Alternativa con <code>while</code>:</strong></p><pre><code class="language-js">let n_input = prompt(&quot;Quanti numeri vuoi inserire?&quot;);
+let n = Number(n_input);
+let somma = 0;
+let i = 1;
+while (i &lt;= n) {
+  let x_input = prompt(&quot;Numero &quot; + i + &quot;:&quot;);
+  let x = Number(x_input);
+  somma = somma + x;
+  i++;
+}
+console.log(&quot;Media:&quot;, somma / n);</code></pre></details><h2 id="esercizio-10-una-riga-di-asterischi">Esercizio 10 · Una riga di asterischi</h2><p>Leggere un numero <code>n</code> e stampare <strong>una sola riga</strong> composta da <code>n</code> asterischi. Con <code>n = 5</code>:</p><pre><code class="language-text">*****</code></pre><p>Il ciclo e la stampa ci sono già: completate il corpo (al posto di <code>______</code>) in modo da <strong>aggiungere</strong> un asterisco alla stringa <code>riga</code> a ogni giro.</p><pre><code class="language-js">let n_input = prompt(&quot;n:&quot;);
 let n = Number(n_input);
 let riga = &quot;&quot;;                        // stringa vuota: l&#x27;accumulatore
 let i;
@@ -153,14 +211,26 @@ let i;
 for (i = 1; i &lt;= n; i = i + 1) {
   riga = riga + &quot;*&quot;;                  // riga di prima + un asterisco
 }
-console.log(riga);</code></pre><p>Come per la somma, ma con le stringhe: <code>riga</code> parte da <code>&quot;&quot;</code> e a ogni giro diventa <code>&quot;&quot;</code>, poi <code>&quot;*&quot;</code>, <code>&quot;**&quot;</code>, <code>&quot;***&quot;</code>... Si stampa <strong>una volta sola, dopo il ciclo</strong>: un <code>console.log</code> dentro il ciclo stamperebbe <code>n</code> righe.</p></details><h2 id="esercizio-11-i-numeri-da-1-a-n-su-una-riga">Esercizio 11 · I numeri da 1 a <em>n</em> su una riga</h2><p>Leggere un numero <code>n</code> e stampare <strong>su una sola riga</strong> i numeri da 1 a <code>n</code>, separati da uno spazio. Con <code>n = 5</code>:</p><pre><code class="language-text">1 2 3 4 5</code></pre><p>Suggerimento: partite dall&#x27;esercizio precedente!</p><details><summary>Soluzione</summary><pre><code class="language-js">let n_input = prompt(&quot;n:&quot;);
+console.log(riga);</code></pre><p>Come per la somma, ma con le stringhe: <code>riga</code> parte da <code>&quot;&quot;</code> e a ogni giro diventa <code>&quot;&quot;</code>, poi <code>&quot;*&quot;</code>, <code>&quot;**&quot;</code>, <code>&quot;***&quot;</code>... Si stampa <strong>una volta sola, dopo il ciclo</strong>: un <code>console.log</code> dentro il ciclo stamperebbe <code>n</code> righe.</p><p><strong>Alternativa con <code>while</code>:</strong></p><pre><code class="language-js">let riga = &quot;&quot;;
+let i = 1;
+while (i &lt;= n) {
+  riga = riga + &quot;*&quot;;
+  i = i + 1;
+}
+console.log(riga);</code></pre></details><h2 id="esercizio-11-i-numeri-da-1-a-n-su-una-riga">Esercizio 11 · I numeri da 1 a <em>n</em> su una riga</h2><p>Leggere un numero <code>n</code> e stampare <strong>su una sola riga</strong> i numeri da 1 a <code>n</code>, separati da uno spazio. Con <code>n = 5</code>:</p><pre><code class="language-text">1 2 3 4 5</code></pre><p>Suggerimento: partite dall&#x27;esercizio precedente!</p><details><summary>Soluzione</summary><pre><code class="language-js">let n_input = prompt(&quot;n:&quot;);
 let n = Number(n_input);
 let riga = &quot;&quot;;
 let i;
 for (i = 1; i &lt;= n; i = i + 1) {
   riga = riga + i + &quot; &quot;;              // aggiungo il numero e uno spazio
 }
-console.log(riga);</code></pre><p>Passo per passo, con <code>n = 3</code>:</p><ol><li><code>riga</code> vale <code>&quot;&quot;</code>;</li><li><code>&quot;&quot; + 1 + &quot; &quot;</code> → <code>&quot;1 &quot;</code>: il numero <code>1</code> viene trasformato in testo, perché a sinistra c&#x27;è una stringa;</li><li><code>&quot;1 &quot; + 2 + &quot; &quot;</code> → <code>&quot;1 2 &quot;</code>;</li><li><code>&quot;1 2 &quot; + 3 + &quot; &quot;</code> → <code>&quot;1 2 3 &quot;</code>.</li></ol><p><code>i</code> resta un numero, ma <code>riga</code> è una stringa: il <code>+</code> concatena. Alla fine c&#x27;è uno spazio in più, che a schermo non si vede.</p></details><h2 id="esercizio-12-conto-alla-rovescia">Esercizio 12 · Conto alla rovescia</h2><p>Completate (al posto di <code>______</code>) in modo che il programma stampi <code>5</code>, <code>4</code>, <code>3</code>, <code>2</code>, <code>1</code> e infine <code>Via!</code>.</p><pre><code class="language-js">let i = 5;                              // inizializzazione
+console.log(riga);</code></pre><p>Passo per passo, con <code>n = 3</code>:</p><ol><li><code>riga</code> vale <code>&quot;&quot;</code>;</li><li><code>&quot;&quot; + 1 + &quot; &quot;</code> → <code>&quot;1 &quot;</code>: il numero <code>1</code> viene trasformato in testo, perché a sinistra c&#x27;è una stringa;</li><li><code>&quot;1 &quot; + 2 + &quot; &quot;</code> → <code>&quot;1 2 &quot;</code>;</li><li><code>&quot;1 2 &quot; + 3 + &quot; &quot;</code> → <code>&quot;1 2 3 &quot;</code>.</li></ol><p><code>i</code> resta un numero, ma <code>riga</code> è una stringa: il <code>+</code> concatena. Alla fine c&#x27;è uno spazio in più, che a schermo non si vede.</p><p><strong>Alternativa con <code>while</code>:</strong></p><pre><code class="language-js">let riga = &quot;&quot;;
+let i = 1;
+while (i &lt;= n) {
+  riga = riga + i + &quot; &quot;;
+  i = i + 1;
+}
+console.log(riga);</code></pre></details><h2 id="esercizio-12-conto-alla-rovescia">Esercizio 12 · Conto alla rovescia</h2><p>Completate (al posto di <code>______</code>) in modo che il programma stampi <code>5</code>, <code>4</code>, <code>3</code>, <code>2</code>, <code>1</code> e infine <code>Via!</code>.</p><pre><code class="language-js">let i = 5;                              // inizializzazione
 while (______) {                        // condizione
   console.log(i);
   i = ______;                           // aggiornamento
@@ -170,7 +240,10 @@ while (i &gt;= 1) {                        // condizione
   console.log(i);
   i = i - 1;                            // aggiornamento: si scende
 }
-console.log(&quot;Via!&quot;);</code></pre><p>Se dimenticate l&#x27;aggiornamento, <code>i</code> resta sempre <code>5</code> e il ciclo non finisce mai. Con <code>i &gt; 1</code> l&#x27;<code>1</code> non verrebbe stampato.</p></details><h2 id="esercizio-13-completa-linput-valido">Esercizio 13 · Completa l&#x27;input valido</h2><p>Il programma chiede un numero <strong>positivo</strong> e ripete la domanda finché il valore non è valido. Completate la <strong>condizione</strong> e la riga che <strong>rilegge</strong> il valore (al posto di <code>______</code>).</p><pre><code class="language-js">let x_input = prompt(&quot;Inserisci un numero positivo:&quot;);
+console.log(&quot;Via!&quot;);</code></pre><p>Se dimenticate l&#x27;aggiornamento, <code>i</code> resta sempre <code>5</code> e il ciclo non finisce mai. Con <code>i &gt; 1</code> l&#x27;<code>1</code> non verrebbe stampato.</p><p><strong>Alternativa con <code>for</code>.</strong> Qui il numero di giri è noto (5), quindi il <code>for</code> è adatto, con l&#x27;aggiornamento <code>i--</code> che fa scendere:</p><pre><code class="language-js">for (let i = 5; i &gt;= 1; i--) {
+  console.log(i);
+}
+console.log(&quot;Via!&quot;);</code></pre></details><h2 id="esercizio-13-completa-linput-valido">Esercizio 13 · Completa l&#x27;input valido</h2><p>Il programma chiede un numero <strong>positivo</strong> e ripete la domanda finché il valore non è valido. Completate la <strong>condizione</strong> e la riga che <strong>rilegge</strong> il valore (al posto di <code>______</code>).</p><pre><code class="language-js">let x_input = prompt(&quot;Inserisci un numero positivo:&quot;);
 let x = Number(x_input);
 while (______) {                                       // finché NON è valido
   x_input = ______(&quot;Non valido. Riprova:&quot;);
@@ -182,7 +255,12 @@ while (x &lt;= 0) {                                       // finché NON è vali
   x_input = prompt(&quot;Non valido. Riprova:&quot;);
   x = Number(x_input);
 }
-console.log(&quot;Hai inserito:&quot;, x);</code></pre><p>La condizione descrive il caso <strong>sbagliato</strong> (<code>x &lt;= 0</code>), non quello giusto. Il valore si legge una volta prima del ciclo e di nuovo a ogni giro: senza la rilettura, <code>x</code> non cambierebbe mai.</p></details><h2 id="esercizio-14-somma-fino-a-zero">Esercizio 14 · Somma fino a zero</h2><p>Leggere numeri dall&#x27;input e sommarli, finché l&#x27;utente non inserisce <code>0</code>. Alla fine stampare la somma e quanti numeri sono stati inseriti (lo <code>0</code> finale escluso).</p><details><summary>Soluzione</summary><pre><code class="language-js">let somma = 0;
+console.log(&quot;Hai inserito:&quot;, x);</code></pre><p>La condizione descrive il caso <strong>sbagliato</strong> (<code>x &lt;= 0</code>), non quello giusto. Il valore si legge una volta prima del ciclo e di nuovo a ogni giro: senza la rilettura, <code>x</code> non cambierebbe mai.</p><p><strong>Alternativa con <code>do ... while</code>.</strong> La domanda va fatta almeno una volta, quindi si legge <strong>una sola volta</strong>, dentro il ciclo (con un solo messaggio, <code>&quot;Inserisci un numero positivo:&quot;</code>):</p><pre><code class="language-js">let x;
+do {
+  let x_input = prompt(&quot;Inserisci un numero positivo:&quot;);
+  x = Number(x_input);
+} while (x &lt;= 0);
+console.log(&quot;Hai inserito:&quot;, x);</code></pre></details><h2 id="esercizio-14-somma-fino-a-zero">Esercizio 14 · Somma fino a zero</h2><p>Leggere numeri dall&#x27;input e sommarli, finché l&#x27;utente non inserisce <code>0</code>. Alla fine stampare la somma e quanti numeri sono stati inseriti (lo <code>0</code> finale escluso).</p><details><summary>Soluzione</summary><pre><code class="language-js">let somma = 0;
 let quanti = 0;
 let x_input = prompt(&quot;Numero (0 per terminare):&quot;);
 let x = Number(x_input);
@@ -193,7 +271,19 @@ while (x != 0) {
   x = Number(x_input);    // si rilegge a ogni giro
 }
 console.log(&quot;Somma:&quot;, somma);
-console.log(&quot;Numeri inseriti:&quot;, quanti);</code></pre><p>Se l&#x27;utente inserisce subito <code>0</code>, il corpo non viene mai eseguito e il risultato è <code>0</code> e <code>0</code>.</p></details><h2 id="esercizio-15-indovina-il-numero">Esercizio 15 · Indovina il numero</h2><p>Il programma sceglie un numero casuale tra 1 e 10. L&#x27;utente prova a indovinarlo, finché non ci riesce. Alla fine stampare in quanti tentativi ci è riuscito.</p><details><summary>Soluzione</summary><pre><code class="language-js">let segreto = Math.floor(Math.random() * 10) + 1;          // intero tra 1 e 10
+console.log(&quot;Numeri inseriti:&quot;, quanti);</code></pre><p>Se l&#x27;utente inserisce subito <code>0</code>, il corpo non viene mai eseguito e il risultato è <code>0</code> e <code>0</code>.</p><p><strong>Alternativa con <code>do ... while</code>.</strong> Il corpo parte sempre, quindi va protetto con un <code>if</code>: lo <code>0</code> finale viene letto ma <strong>non</strong> va contato né sommato.</p><pre><code class="language-js">let somma = 0;
+let quanti = 0;
+let x;
+do {
+  let x_input = prompt(&quot;Numero (0 per terminare):&quot;);
+  x = Number(x_input);
+  if (x != 0) {
+    somma = somma + x;
+    quanti++;
+  }
+} while (x != 0);
+console.log(&quot;Somma:&quot;, somma);
+console.log(&quot;Numeri inseriti:&quot;, quanti);</code></pre><p>Si legge in un solo punto, ma la condizione <code>x != 0</code> compare <strong>due volte</strong>: la versione con <code>while</code> è più lineare.</p></details><h2 id="esercizio-15-indovina-il-numero">Esercizio 15 · Indovina il numero</h2><p>Il programma sceglie un numero casuale tra 1 e 10. L&#x27;utente prova a indovinarlo, finché non ci riesce. Alla fine stampare in quanti tentativi ci è riuscito.</p><details><summary>Soluzione</summary><pre><code class="language-js">let segreto = Math.floor(Math.random() * 10) + 1;          // intero tra 1 e 10
 let tentativo_input = prompt(&quot;Indovina il numero (1-10):&quot;);
 let tentativo = Number(tentativo_input);
 let tentativi = 1;
@@ -202,7 +292,15 @@ while (tentativo != segreto) {
   tentativo = Number(tentativo_input);
   tentativi++;
 }
-console.log(&quot;Indovinato in&quot;, tentativi, &quot;tentativi&quot;);</code></pre><p>Non sappiamo quanti tentativi serviranno: è un caso da <code>while</code>. Come bonus, aggiungete dentro il ciclo un <code>if</code> che dica &quot;più alto&quot; o &quot;più basso&quot;.</p></details><h2 id="recap-5-if-else-if-else">Recap 5 · <code>if</code> / <code>else if</code> / <code>else</code></h2><pre><code class="language-js">if (condizione1) {
+console.log(&quot;Indovinato in&quot;, tentativi, &quot;tentativi&quot;);</code></pre><p>Non sappiamo quanti tentativi serviranno: è un caso da <code>while</code>. Come bonus, aggiungete dentro il ciclo un <code>if</code> che dica &quot;più alto&quot; o &quot;più basso&quot;.</p><p><strong>Alternativa con <code>do ... while</code>:</strong></p><pre><code class="language-js">let segreto = Math.floor(Math.random() * 10) + 1;
+let tentativi = 0;
+let tentativo;
+do {
+  let tentativo_input = prompt(&quot;Indovina il numero (1-10):&quot;);
+  tentativo = Number(tentativo_input);
+  tentativi++;
+} while (tentativo != segreto);
+console.log(&quot;Indovinato in&quot;, tentativi, &quot;tentativi&quot;);</code></pre><p>Qui il primo tentativo è sempre necessario, quindi il <code>do ... while</code> è naturale; con un solo messaggio per tutti i tentativi.</p></details><h2 id="recap-5-if-else-if-else">Recap 5 · <code>if</code> / <code>else if</code> / <code>else</code></h2><pre><code class="language-js">if (condizione1) {
   // eseguito se condizione1 è true
 } else if (condizione2) {
   // eseguito se condizione1 è false e condizione2 è true
@@ -265,7 +363,27 @@ for (let i = 1; i &lt;= n; i++) {
     somma = somma + i;
   }
 }
-console.log(&quot;Somma:&quot;, somma);</code></pre><p>Un numero come 15 è multiplo di entrambi, ma viene sommato <strong>una sola volta</strong>: l&#x27;<code>||</code> valuta la condizione, non conta i casi.</p></details><h2 id="esercizio-22-tabellina">Esercizio 22 · Tabellina</h2><p>Leggere un numero <code>n</code> e stampare la sua tabellina (da <code>n · 1</code> a <code>n · 10</code>) <strong>in un&#x27;unica stringa</strong>.</p><p>Se <code>n</code> non è un numero intero compreso tra 1 e 10, stampare un messaggio di errore.</p><p>Esempio con <code>n = 5</code>: <code>5 10 15 20 25 30 35 40 45 50</code></p><p>Scrivere due versioni: una con <code>for</code>, una con <code>while</code>.</p><details><summary>Soluzione con <code>for</code></summary><pre><code class="language-js">// versione con for
+console.log(&quot;Somma:&quot;, somma);</code></pre><p>Un numero come 15 è multiplo di entrambi, ma viene sommato <strong>una sola volta</strong>: l&#x27;<code>||</code> valuta la condizione, non conta i casi.</p><p><strong>Alternative.</strong> Con un <code>while</code>; oppure <strong>senza l&#x27;<code>if</code></strong>, facendo saltare il contatore di 3 in 3 e di 5 in 5 (e togliendo i multipli di 15, che sarebbero contati due volte):</p><pre><code class="language-js">// con while
+let somma = 0;
+let i = 1;
+while (i &lt;= n) {
+  if (i % 3 == 0 || i % 5 == 0) {
+    somma = somma + i;
+  }
+  i++;
+}
+
+// senza if: tre cicli, ognuno con il suo passo
+let somma = 0;
+for (let i = 3; i &lt;= n; i = i + 3) {            // multipli di 3
+  somma = somma + i;
+}
+for (let i = 5; i &lt;= n; i = i + 5) {            // multipli di 5
+  somma = somma + i;
+}
+for (let i = 15; i &lt;= n; i = i + 15) {          // multipli di 15: contati due volte, si tolgono una volta
+  somma = somma - i;
+}</code></pre><p>Con <code>n = 10</code>: <code>3 + 6 + 9 = 18</code>, <code>5 + 10 = 15</code>, nessun multiplo di 15: <code>18 + 15 = 33</code>. La versione con <code>if</code> è più corta e più facile da cambiare; quella a tre cicli fa molti meno giri.</p></details><h2 id="esercizio-22-tabellina">Esercizio 22 · Tabellina</h2><p>Leggere un numero <code>n</code> e stampare la sua tabellina (da <code>n · 1</code> a <code>n · 10</code>) <strong>in un&#x27;unica stringa</strong>.</p><p>Se <code>n</code> non è un numero intero compreso tra 1 e 10, stampare un messaggio di errore.</p><p>Esempio con <code>n = 5</code>: <code>5 10 15 20 25 30 35 40 45 50</code></p><p>Scrivere due versioni: una con <code>for</code>, una con <code>while</code>.</p><details><summary>Soluzione con <code>for</code></summary><pre><code class="language-js">// versione con for
 let n_input = prompt(&quot;n (da 1 a 10):&quot;);
 let n = Number(n_input);
 if (Number.isInteger(n) &amp;&amp; n &gt;= 1 &amp;&amp; n &lt;= 10) {
@@ -289,7 +407,11 @@ if (Number.isInteger(n) &amp;&amp; n &gt;= 1 &amp;&amp; n &lt;= 10) {
   console.log(riga);
 } else {
   console.log(&quot;Errore: n deve essere un intero tra 1 e 10&quot;);
-}</code></pre><p>Le parentesi in <code>(n * i)</code> non sono obbligatorie, ma rendono chiaro che prima si moltiplica e poi si concatena.</p></details><h2 id="esercizio-23-polinomio">Esercizio 23 · Polinomio</h2><p>Leggere un numero reale <code>x</code> e un numero naturale <code>n</code> (con <code>n ≥ 1</code>) e calcolare</p><p><code>x + x² + x³ + ... + xⁿ</code></p><details><summary>Soluzione</summary><pre><code class="language-js">let x_input = prompt(&quot;x:&quot;);
+}</code></pre><p>Le parentesi in <code>(n * i)</code> non sono obbligatorie, ma rendono chiaro che prima si moltiplica e poi si concatena.</p><p><strong>Alternativa con <code>for</code> senza il prodotto.</strong> I numeri della tabellina sono <code>n, 2n, 3n, ...</code>: invece di moltiplicare <code>n * i</code>, si può far partire il contatore da <code>n</code> e <strong>aumentarlo di <code>n</code></strong> a ogni giro (<code>m = m + n</code>):</p><pre><code class="language-js">let riga = &quot;&quot;;
+for (let m = n; m &lt;= 10 * n; m = m + n) {
+  riga = riga + m + &quot; &quot;;
+}
+console.log(riga);</code></pre></details><h2 id="esercizio-23-polinomio">Esercizio 23 · Polinomio</h2><p>Leggere un numero reale <code>x</code> e un numero naturale <code>n</code> (con <code>n ≥ 1</code>) e calcolare</p><p><code>x + x² + x³ + ... + xⁿ</code></p><details><summary>Soluzione</summary><pre><code class="language-js">let x_input = prompt(&quot;x:&quot;);
 let x = Number(x_input);
 let n_input = prompt(&quot;n (&gt;= 1):&quot;);
 let n = Number(n_input);
@@ -301,7 +423,21 @@ if (n &gt;= 1 &amp;&amp; Number.isInteger(n)) {
   console.log(&quot;Risultato:&quot;, risultato);
 } else {
   console.log(&quot;Errore: n deve essere un intero &gt;= 1&quot;);
-}</code></pre><p>Controllo: con <code>x = 2</code> e <code>n = 3</code> il risultato è <code>2 + 4 + 8 = 14</code>.</p></details><h2 id="esercizio-24-coppie-con-somma-n">Esercizio 24 · Coppie con somma <em>n</em></h2><p>Realizzare un programma che stampi tutte le coppie di numeri interi positivi (diversi tra loro) la cui somma è un numero naturale <code>n</code> a scelta, maggiore di 2.</p><p>Ad esempio, con <code>n = 3</code> le coppie da visualizzare sono:</p><pre><code class="language-text">1, 2
+}</code></pre><p>Controllo: con <code>x = 2</code> e <code>n = 3</code> il risultato è <code>2 + 4 + 8 = 14</code>.</p><p><strong>Alternative.</strong> Con un <code>while</code>; oppure senza <code>**</code>, tenendo in una variabile la <strong>potenza corrente</strong>, che a ogni giro si moltiplica per <code>x</code>:</p><pre><code class="language-js">// con while
+let risultato = 0;
+let i = 1;
+while (i &lt;= n) {
+  risultato = risultato + x ** i;
+  i++;
+}
+
+// senza **: potenza = x, x², x³, ...
+let risultato = 0;
+let potenza = 1;
+for (let i = 1; i &lt;= n; i++) {
+  potenza = potenza * x;                        // x^i, calcolata dalla potenza del giro prima
+  risultato = risultato + potenza;
+}</code></pre><p>Con <code>x = 2</code> e <code>n = 3</code> la <code>potenza</code> vale <code>2</code>, <code>4</code>, <code>8</code> e il risultato è <code>14</code>, come prima.</p></details><h2 id="esercizio-24-coppie-con-somma-n">Esercizio 24 · Coppie con somma <em>n</em></h2><p>Realizzare un programma che stampi tutte le coppie di numeri interi positivi (diversi tra loro) la cui somma è un numero naturale <code>n</code> a scelta, maggiore di 2.</p><p>Ad esempio, con <code>n = 3</code> le coppie da visualizzare sono:</p><pre><code class="language-text">1, 2
 2, 1</code></pre><p>Accertarsi inizialmente che <code>n</code> sia effettivamente un numero naturale maggiore di 2. Fare uso del ciclo <code>for</code>.</p><details><summary>Soluzione</summary><pre><code class="language-js">let n_input = prompt(&quot;n (intero &gt; 2):&quot;);
 let n = Number(n_input);
 while (n &lt;= 2 || !Number.isInteger(n)) {            // si richiede finché non è valido
@@ -313,7 +449,22 @@ for (let i = 1; i &lt; n; i++) {
   if (i != j) {
     console.log(i + &quot;, &quot; + j);
   }
-}</code></pre><p>Non servono due cicli: fissato <code>i</code>, l&#x27;unico <code>j</code> possibile è <code>n - i</code>. Con <code>n = 4</code> la coppia <code>2, 2</code> viene scartata dall&#x27;<code>if</code>.</p></details><h2 id="esercizio-25-primi-n-pari-dopo-a">Esercizio 25 · Primi <em>N</em> pari dopo <em>A</em></h2><p>Calcolare la somma e la media dei primi <code>N</code> numeri interi positivi <strong>pari</strong> successivi a un numero intero positivo <code>A</code>. Sia <code>N</code> che <code>A</code> devono essere letti da tastiera.</p><p>Accertarsi inizialmente che <code>N</code> ed <code>A</code> siano numeri interi positivi.</p><p>Esempio: con <code>A = 5</code> e <code>N = 3</code> i numeri sono <code>6, 8, 10</code>: somma <code>24</code>, media <code>8</code>.</p><details><summary>Soluzione</summary><pre><code class="language-js">let N_input = prompt(&quot;N (intero positivo):&quot;);
+}</code></pre><p>Non servono due cicli: fissato <code>i</code>, l&#x27;unico <code>j</code> possibile è <code>n - i</code>. Con <code>n = 4</code> la coppia <code>2, 2</code> viene scartata dall&#x27;<code>if</code>.</p><p><strong>Alternative.</strong> Il problema chiede il <code>for</code>, ma lo stesso ciclo si scrive con un <code>while</code>; e il controllo dell&#x27;input si può scrivere con un <code>do ... while</code>:</p><pre><code class="language-js">// controllo dell&#x27;input con do ... while
+let n;
+do {
+  let n_input = prompt(&quot;n (intero &gt; 2):&quot;);
+  n = Number(n_input);
+} while (n &lt;= 2 || !Number.isInteger(n));
+
+// coppie con while
+let i = 1;
+while (i &lt; n) {
+  let j = n - i;
+  if (i != j) {
+    console.log(i + &quot;, &quot; + j);
+  }
+  i++;
+}</code></pre></details><h2 id="esercizio-25-primi-n-pari-dopo-a">Esercizio 25 · Primi <em>N</em> pari dopo <em>A</em></h2><p>Calcolare la somma e la media dei primi <code>N</code> numeri interi positivi <strong>pari</strong> successivi a un numero intero positivo <code>A</code>. Sia <code>N</code> che <code>A</code> devono essere letti da tastiera.</p><p>Accertarsi inizialmente che <code>N</code> ed <code>A</code> siano numeri interi positivi.</p><p>Esempio: con <code>A = 5</code> e <code>N = 3</code> i numeri sono <code>6, 8, 10</code>: somma <code>24</code>, media <code>8</code>.</p><details><summary>Soluzione</summary><pre><code class="language-js">let N_input = prompt(&quot;N (intero positivo):&quot;);
 let N = Number(N_input);
 while (N &lt; 1 || !Number.isInteger(N)) {
   N_input = prompt(&quot;Non valido. N (intero positivo):&quot;);
@@ -337,7 +488,23 @@ while (trovati &lt; N) {
   }
 }
 console.log(&quot;Somma:&quot;, somma);
-console.log(&quot;Media:&quot;, somma / N);</code></pre><p>Invece di bloccare il programma, qui si richiede il valore finché è valido. Il contatore <code>trovati</code> cresce solo dentro l&#x27;<code>if</code>: un <code>for</code> da 1 a <code>N</code> non basterebbe, perché non tutti i numeri visitati sono pari.</p></details><h2 id="recap-6-e-con-valori-non-booleani">Recap 6 · <code>&amp;&amp;</code> e <code>||</code> con valori non booleani</h2><p>In JavaScript <code>&amp;&amp;</code> e <code>||</code> non restituiscono sempre <code>true</code> o <code>false</code>: restituiscono <strong>uno dei due operandi</strong>. Per decidere, ogni valore viene letto come vero o falso:</p><ul><li><strong>falsi</strong> (<em>falsy</em>): <code>false</code>, <code>0</code>, <code>&quot;&quot;</code> (stringa vuota), <code>NaN</code>, <code>null</code>, <code>undefined</code></li><li><strong>veri</strong> (<em>truthy</em>): tutto il resto, compresi <code>5</code>, <code>-1</code>, <code>&quot;0&quot;</code> e <code>&quot;false&quot;</code> (stringhe non vuote)</li></ul><p>Le regole, con valutazione da sinistra a destra:</p><table><thead><tr><th>Operatore</th><th>Se il primo operando è...</th><th>Risultato</th></tr></thead><tbody><tr><td><code>a || b</code></td><td>vero</td><td><code>a</code> (b non viene nemmeno valutato)</td></tr><tr><td><code>a || b</code></td><td>falso</td><td><code>b</code></td></tr><tr><td><code>a &amp;&amp; b</code></td><td>falso</td><td><code>a</code> (b non viene nemmeno valutato)</td></tr><tr><td><code>a &amp;&amp; b</code></td><td>vero</td><td><code>b</code></td></tr></tbody></table><p>In pratica, <code>||</code> restituisce il <strong>primo operando vero</strong> (o l&#x27;ultimo, se sono tutti falsi), mentre <code>&amp;&amp;</code> restituisce il <strong>primo operando falso</strong> (o l&#x27;ultimo, se sono tutti veri).</p><p>Cosa stampano queste istruzioni?</p><pre><code class="language-js">console.log(5 || true);
+console.log(&quot;Media:&quot;, somma / N);</code></pre><p>Invece di bloccare il programma, qui si richiede il valore finché è valido. Il contatore <code>trovati</code> cresce solo dentro l&#x27;<code>if</code>: un <code>for</code> da 1 a <code>N</code> non basterebbe, perché non tutti i numeri visitati sono pari.</p><p><strong>Alternativa con <code>for</code>.</strong> Se si parte direttamente dal <strong>primo pari dopo <code>A</code></strong> e si salta di 2 in 2, tutti i numeri visitati sono pari, e il numero di giri è noto (<code>N</code>): l&#x27;<code>if</code> non serve più e si può usare un <code>for</code>.</p><pre><code class="language-js">let primo = A + 1;                 // il primo candidato
+if (primo % 2 != 0) {
+  primo = primo + 1;               // se è dispari, il primo pari è il successivo
+}
+
+let somma = 0;
+let numero = primo;
+for (let k = 1; k &lt;= N; k++) {
+  somma = somma + numero;
+  numero = numero + 2;             // il prossimo pari
+}
+console.log(&quot;Somma:&quot;, somma);
+console.log(&quot;Media:&quot;, somma / N);</code></pre><p>Con <code>A = 5</code> e <code>N = 3</code>: <code>primo</code> vale <code>6</code>, e si sommano <code>6, 8, 10</code>. Quest&#x27;idea (saltare di 2) dà un ciclo più semplice, ma richiede di sapere <strong>da dove cominciano</strong> i pari: la versione con <code>while</code> e <code>if</code> è più generale.</p><p>Anche il controllo dell&#x27;input si può scrivere con un <code>do ... while</code>:</p><pre><code class="language-js">let N;
+do {
+  let N_input = prompt(&quot;N (intero positivo):&quot;);
+  N = Number(N_input);
+} while (N &lt; 1 || !Number.isInteger(N));</code></pre></details><h2 id="recap-6-e-con-valori-non-booleani">Recap 6 · <code>&amp;&amp;</code> e <code>||</code> con valori non booleani</h2><p>In JavaScript <code>&amp;&amp;</code> e <code>||</code> non restituiscono sempre <code>true</code> o <code>false</code>: restituiscono <strong>uno dei due operandi</strong>. Per decidere, ogni valore viene letto come vero o falso:</p><ul><li><strong>falsi</strong> (<em>falsy</em>): <code>false</code>, <code>0</code>, <code>&quot;&quot;</code> (stringa vuota), <code>NaN</code>, <code>null</code>, <code>undefined</code></li><li><strong>veri</strong> (<em>truthy</em>): tutto il resto, compresi <code>5</code>, <code>-1</code>, <code>&quot;0&quot;</code> e <code>&quot;false&quot;</code> (stringhe non vuote)</li></ul><p>Le regole, con valutazione da sinistra a destra:</p><table><thead><tr><th>Operatore</th><th>Se il primo operando è...</th><th>Risultato</th></tr></thead><tbody><tr><td><code>a || b</code></td><td>vero</td><td><code>a</code> (b non viene nemmeno valutato)</td></tr><tr><td><code>a || b</code></td><td>falso</td><td><code>b</code></td></tr><tr><td><code>a &amp;&amp; b</code></td><td>falso</td><td><code>a</code> (b non viene nemmeno valutato)</td></tr><tr><td><code>a &amp;&amp; b</code></td><td>vero</td><td><code>b</code></td></tr></tbody></table><p>In pratica, <code>||</code> restituisce il <strong>primo operando vero</strong> (o l&#x27;ultimo, se sono tutti falsi), mentre <code>&amp;&amp;</code> restituisce il <strong>primo operando falso</strong> (o l&#x27;ultimo, se sono tutti veri).</p><p>Cosa stampano queste istruzioni?</p><pre><code class="language-js">console.log(5 || true);
 console.log(5 || false);
 console.log(0 || false);
 console.log(0 || true);

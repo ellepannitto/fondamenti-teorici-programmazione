@@ -201,7 +201,30 @@ do {
   tentativi++;
   console.log(&quot;Tentativo&quot;, tentativi + &quot;:&quot;, lancio);
 } while (lancio != scelto);
-console.log(&quot;Ci sono voluti&quot;, tentativi, &quot;tentativi&quot;);</code></pre><p>(Le tre versioni sono alternative: provatele una alla volta, perché dichiarano le stesse variabili.)</p><p>Il numero casuale va generato <strong>dentro</strong> il ciclo: un nuovo lancio a ogni giro. Il ciclo si ripete finché il lancio è <strong>diverso</strong> dal numero scelto (la condizione descrive il caso in cui si deve continuare). Il <code>do ... while</code> è adatto perché il primo lancio va fatto <strong>sempre</strong>, e il contatore <code>tentativi</code> aumenta a ogni giro. Nella C ci sono <strong>due</strong> <code>do ... while</code>: il primo controlla l&#x27;input (intero tra 1 e 6), il secondo fa i lanci. In media servono 6 tentativi, ma può andare molto meglio o molto peggio: eseguite più volte.</p></details>
+console.log(&quot;Ci sono voluti&quot;, tentativi, &quot;tentativi&quot;);</code></pre><p>(Le tre versioni sono alternative: provatele una alla volta, perché dichiarano le stesse variabili.)</p><p><strong>Alternativa con <code>while</code>.</strong> Il <code>while</code> controlla la condizione <strong>prima</strong> di ogni giro, quindi la variabile deve avere, all&#x27;inizio, un valore che faccia entrare nel ciclo (qui <code>0</code>, che non è né un <code>6</code> né un numero scelto valido):</p><pre><code class="language-js">// B. con while
+let tentativi = 0;
+let lancio = 0;                                 // valore &quot;finto&quot;: diverso da 6
+while (lancio != 6) {
+  lancio = Math.floor(Math.random() * 6) + 1;
+  tentativi++;
+  console.log(&quot;Tentativo&quot;, tentativi + &quot;:&quot;, lancio);
+}
+console.log(&quot;Ci sono voluti&quot;, tentativi, &quot;tentativi&quot;);
+
+// C. con while (stessa idea, anche per il controllo dell&#x27;input)
+let scelto = 0;                                 // non valido: si entra nel ciclo
+while (scelto &lt; 1 || scelto &gt; 6 || !Number.isInteger(scelto)) {
+  scelto = Number(prompt(&quot;Scegli un numero intero tra 1 e 6:&quot;));
+}
+
+let tentativi = 0;
+let lancio = 0;                                 // diverso da scelto, che è &gt;= 1
+while (lancio != scelto) {
+  lancio = Math.floor(Math.random() * 6) + 1;
+  tentativi++;
+  console.log(&quot;Tentativo&quot;, tentativi + &quot;:&quot;, lancio);
+}
+console.log(&quot;Ci sono voluti&quot;, tentativi, &quot;tentativi&quot;);</code></pre><p>Il risultato è lo stesso, ma il <code>do ... while</code> è più naturale: non serve inventare un valore iniziale &quot;finto&quot;. Un <code>for</code> qui non è adatto: non si sa <strong>quanti giri</strong> serviranno.</p><p>Il numero casuale va generato <strong>dentro</strong> il ciclo: un nuovo lancio a ogni giro. Il ciclo si ripete finché il lancio è <strong>diverso</strong> dal numero scelto (la condizione descrive il caso in cui si deve continuare). Il <code>do ... while</code> è adatto perché il primo lancio va fatto <strong>sempre</strong>, e il contatore <code>tentativi</code> aumenta a ogni giro. Nella C ci sono <strong>due</strong> <code>do ... while</code>: il primo controlla l&#x27;input (intero tra 1 e 6), il secondo fa i lanci. In media servono 6 tentativi, ma può andare molto meglio o molto peggio: eseguite più volte.</p></details>
     
   </div>
 </section>
@@ -220,7 +243,31 @@ for (let i = 1; i &lt;= 10; i++) {
     massimo = numero;
   }
 }
-console.log(&quot;Il più grande è&quot;, massimo);</code></pre><p>I valori possibili sono <code>100 - 50 + 1 = 51</code>: si moltiplica per <code>51</code> e si somma <code>50</code>. Tutti i numeri sono almeno <code>50</code>, quindi <code>0</code> va bene come punto di partenza. Il numero casuale va generato <strong>dentro</strong> il ciclo.</p></details>
+console.log(&quot;Il più grande è&quot;, massimo);</code></pre><p>I valori possibili sono <code>100 - 50 + 1 = 51</code>: si moltiplica per <code>51</code> e si somma <code>50</code>. Tutti i numeri sono almeno <code>50</code>, quindi <code>0</code> va bene come punto di partenza. Il numero casuale va generato <strong>dentro</strong> il ciclo.</p><p><strong>Alternative con <code>while</code> e <code>do ... while</code>.</strong> Il <code>for</code> contiene tre cose: inizializzazione, condizione e aggiornamento. Con <code>while</code> e <code>do ... while</code> il contatore <code>i</code> va dichiarato <strong>prima</strong> del ciclo e aumentato <strong>dentro</strong> il corpo:</p><pre><code class="language-js">// con while
+let massimo = 0;
+let i = 1;
+while (i &lt;= 10) {
+  let numero = Math.floor(Math.random() * 51) + 50;
+  console.log(numero);
+  if (numero &gt; massimo) {
+    massimo = numero;
+  }
+  i++;
+}
+console.log(&quot;Il più grande è&quot;, massimo);
+
+// con do ... while
+let massimo = 0;
+let i = 1;
+do {
+  let numero = Math.floor(Math.random() * 51) + 50;
+  console.log(numero);
+  if (numero &gt; massimo) {
+    massimo = numero;
+  }
+  i++;
+} while (i &lt;= 10);
+console.log(&quot;Il più grande è&quot;, massimo);</code></pre><p>Dimenticare <code>i++</code> è l&#x27;errore classico: il ciclo non finirebbe più. (Le tre versioni sono alternative: provatele una alla volta.) Qui il numero di giri è <strong>noto</strong> (10), quindi il <code>for</code> è la scelta più chiara.</p></details>
     
   </div>
 </section>
@@ -311,7 +358,23 @@ messaggio();</code></pre><p><strong>B.</strong> Scrivere la funzione <code>ripet
   }
 }
 ripeti(&quot;ciao&quot;, 3);
-ripeti(&quot;ok&quot;, 5);</code></pre><p>Questa funzione <strong>fa</strong> qualcosa (stampa) e non restituisce niente. I parametri <code>testo</code> e <code>n</code> esistono solo <strong>durante</strong> la chiamata, e valgono quello che è stato passato. Con due parametri, gli argomenti vanno nello <strong>stesso ordine</strong>: <code>ripeti(3, &quot;ciao&quot;)</code> non funzionerebbe.</p></details>
+ripeti(&quot;ok&quot;, 5);</code></pre><p>Questa funzione <strong>fa</strong> qualcosa (stampa) e non restituisce niente. I parametri <code>testo</code> e <code>n</code> esistono solo <strong>durante</strong> la chiamata, e valgono quello che è stato passato. Con due parametri, gli argomenti vanno nello <strong>stesso ordine</strong>: <code>ripeti(3, &quot;ciao&quot;)</code> non funzionerebbe.</p><p><strong>Alternative con <code>while</code> e <code>do ... while</code>:</strong></p><pre><code class="language-js">// con while
+function ripeti(testo, n) {
+  let i = 1;
+  while (i &lt;= n) {
+    console.log(testo);
+    i++;
+  }
+}
+
+// con do ... while
+function ripeti(testo, n) {
+  let i = 1;
+  do {
+    console.log(testo);
+    i++;
+  } while (i &lt;= n);
+}</code></pre><p>Le due versioni sono uguali per <code>n &gt;= 1</code>, ma <strong>non</strong> per <code>n = 0</code>: il <code>for</code> e il <code>while</code> non stampano niente, il <code>do ... while</code> stampa <strong>una volta</strong>, perché esegue sempre almeno un giro prima di controllare la condizione. Per questo problema <code>for</code> e <code>while</code> sono la scelta giusta.</p></details>
     
   </div>
 </section>
@@ -411,7 +474,32 @@ do {
   esponente = Number(prompt(&quot;Esponente (intero, non negativo):&quot;));
 } while (esponente &lt; 0 || !Number.isInteger(esponente));
 
-console.log(base, &quot;^&quot;, esponente, &quot;=&quot;, potenza(base, esponente));</code></pre><p>Il controllo sull&#x27;input sta <strong>fuori</strong> dalla funzione: la funzione calcola e basta, e il programma principale si assicura di darle valori adatti. L&#x27;esponente è sbagliato se è negativo <strong>oppure</strong> non è intero (con <code>abc</code>, <code>Number</code> dà <code>NaN</code> e <code>Number.isInteger(NaN)</code> è <code>false</code>, quindi viene scartato).</p><p>Per un <strong>prodotto</strong>, <code>risultato</code> parte da <code>1</code> (l&#x27;elemento neutro della moltiplicazione), non da <code>0</code>, altrimenti resterebbe sempre <code>0</code>. L&#x27;accumulatore è dichiarato <strong>dentro</strong> la funzione e <strong>prima</strong> del ciclo, e il <code>return</code> è <strong>dopo</strong> il ciclo. Con esponente <code>0</code> il ciclo non gira e si restituisce <code>1</code>, che è il valore giusto. Senza il controllo, con <code>2.5</code> il ciclo farebbe 2 giri e darebbe <code>base * base</code>, un risultato sbagliato senza alcun errore.</p></details>
+console.log(base, &quot;^&quot;, esponente, &quot;=&quot;, potenza(base, esponente));</code></pre><p>Il controllo sull&#x27;input sta <strong>fuori</strong> dalla funzione: la funzione calcola e basta, e il programma principale si assicura di darle valori adatti. L&#x27;esponente è sbagliato se è negativo <strong>oppure</strong> non è intero (con <code>abc</code>, <code>Number</code> dà <code>NaN</code> e <code>Number.isInteger(NaN)</code> è <code>false</code>, quindi viene scartato).</p><p>Per un <strong>prodotto</strong>, <code>risultato</code> parte da <code>1</code> (l&#x27;elemento neutro della moltiplicazione), non da <code>0</code>, altrimenti resterebbe sempre <code>0</code>. L&#x27;accumulatore è dichiarato <strong>dentro</strong> la funzione e <strong>prima</strong> del ciclo, e il <code>return</code> è <strong>dopo</strong> il ciclo. Con esponente <code>0</code> il ciclo non gira e si restituisce <code>1</code>, che è il valore giusto. Senza il controllo, con <code>2.5</code> il ciclo farebbe 2 giri e darebbe <code>base * base</code>, un risultato sbagliato senza alcun errore.</p><p><strong>Alternative con <code>while</code> e <code>do ... while</code></strong> per il calcolo (il resto del programma non cambia):</p><pre><code class="language-js">// con while
+function potenza(base, esponente) {
+  let risultato = 1;
+  let i = 1;
+  while (i &lt;= esponente) {
+    risultato = risultato * base;
+    i++;
+  }
+  return risultato;
+}
+
+// con do ... while: SBAGLIATA per esponente 0
+function potenza(base, esponente) {
+  let risultato = 1;
+  let i = 1;
+  do {
+    risultato = risultato * base;
+    i++;
+  } while (i &lt;= esponente);
+  return risultato;
+}</code></pre><p>La versione con <code>while</code> è equivalente a quella con <code>for</code>. Quella con <code>do ... while</code> dà <code>potenza(2, 0)</code> uguale a <code>2</code> invece di <code>1</code>: il primo giro si fa <strong>sempre</strong>, anche se l&#x27;esponente è <code>0</code>. Qui il <code>do ... while</code> non va bene.</p><p>Anche il controllo dell&#x27;input si può scrivere con un <code>while</code>, partendo da un valore <strong>non valido</strong> per entrare nel ciclo:</p><pre><code class="language-js">let base = Number(prompt(&quot;Base:&quot;));
+let esponente = -1;                             // non valido: si entra nel ciclo
+while (esponente &lt; 0 || !Number.isInteger(esponente)) {
+  esponente = Number(prompt(&quot;Esponente (intero, non negativo):&quot;));
+}
+console.log(base, &quot;^&quot;, esponente, &quot;=&quot;, potenza(base, esponente));</code></pre></details>
     
   </div>
 </section>
@@ -430,7 +518,58 @@ console.log(base, &quot;^&quot;, esponente, &quot;=&quot;, potenza(base, esponen
 
 let n = Number(prompt(&quot;n:&quot;));
 console.log(&quot;Somma dei pari fino a&quot;, n, &quot;:&quot;, sommaPari(n));
-console.log(&quot;Somma dei pari da 6 a 10:&quot;, sommaPari(10) - sommaPari(5));    // 30 - 6 = 24</code></pre><p>È l&#x27;accumulatore di sempre con un <code>if</code> dentro il ciclo, in una funzione: l&#x27;accumulatore è dichiarato <strong>dentro</strong> la funzione (e a <code>0</code>) e il <code>return</code> è <strong>dopo</strong> il ciclo. Se fosse dentro il ciclo, la funzione si fermerebbe al primo giro e restituirebbe sempre <code>0</code>. La differenza <code>sommaPari(10) - sommaPari(5)</code> è la somma dei pari da 6 a 10 (<code>6 + 8 + 10 = 24</code>). <code>sommaPari(1)</code> restituisce <code>0</code>: nessun numero pari tra 1 e 1.</p></details>
+console.log(&quot;Somma dei pari da 6 a 10:&quot;, sommaPari(10) - sommaPari(5));    // 30 - 6 = 24</code></pre><p>È l&#x27;accumulatore di sempre con un <code>if</code> dentro il ciclo, in una funzione: l&#x27;accumulatore è dichiarato <strong>dentro</strong> la funzione (e a <code>0</code>) e il <code>return</code> è <strong>dopo</strong> il ciclo. Se fosse dentro il ciclo, la funzione si fermerebbe al primo giro e restituirebbe sempre <code>0</code>. La differenza <code>sommaPari(10) - sommaPari(5)</code> è la somma dei pari da 6 a 10 (<code>6 + 8 + 10 = 24</code>). <code>sommaPari(1)</code> restituisce <code>0</code>: nessun numero pari tra 1 e 1.</p><p><strong>Alternative con <code>while</code> e <code>do ... while</code>:</strong></p><pre><code class="language-js">// con while
+function sommaPari(n) {
+  let somma = 0;
+  let i = 1;
+  while (i &lt;= n) {
+    if (i % 2 == 0) {
+      somma = somma + i;
+    }
+    i++;
+  }
+  return somma;
+}
+
+// con do ... while
+function sommaPari(n) {
+  let somma = 0;
+  let i = 1;
+  do {
+    if (i % 2 == 0) {
+      somma = somma + i;
+    }
+    i++;
+  } while (i &lt;= n);
+  return somma;
+}</code></pre><p>Anche la versione con <code>do ... while</code> dà il risultato giusto per <code>n = 0</code> o negativo, ma solo perché il primo giro (con <code>i = 1</code>, dispari) non aggiunge niente: è una <strong>coincidenza</strong> di questo problema, non una regola.</p><p><strong>Alternative senza l&#x27;<code>if</code>.</strong> I numeri pari sono <code>2, 4, 6, ...</code>: invece di guardare tutti i numeri e scartare i dispari con l&#x27;<code>if</code>, si può <strong>partire da <code>2</code> e saltare di 2 in 2</strong>, cambiando l&#x27;aggiornamento del ciclo (<code>i = i + 2</code> al posto di <code>i++</code>):</p><pre><code class="language-js">// con for
+function sommaPari(n) {
+  let somma = 0;
+  for (let i = 2; i &lt;= n; i = i + 2) {
+    somma = somma + i;
+  }
+  return somma;
+}
+
+// con while
+function sommaPari(n) {
+  let somma = 0;
+  let i = 2;
+  while (i &lt;= n) {
+    somma = somma + i;
+    i = i + 2;
+  }
+  return somma;
+}
+
+// con for, contando i pari: il k-esimo pari è 2 * k, e ce ne sono Math.floor(n / 2)
+function sommaPari(n) {
+  let somma = 0;
+  for (let k = 1; k &lt;= Math.floor(n / 2); k++) {
+    somma = somma + 2 * k;
+  }
+  return somma;
+}</code></pre><p>Tutte le versioni restituiscono lo stesso risultato (<code>sommaPari(10)</code> vale <code>30</code>, <code>sommaPari(7)</code> vale <code>12</code>, <code>sommaPari(1)</code> vale <code>0</code>). La versione con <code>i = i + 2</code> fa <strong>la metà dei giri</strong> e non ha l&#x27;<code>if</code>, ma funziona solo perché sappiamo da dove cominciano i pari; quella con l&#x27;<code>if</code> è più generale, e si adatta subito a condizioni diverse (ad esempio i multipli di 3, o i numeri che finiscono per 7).</p></details>
     
   </div>
 </section>
@@ -453,7 +592,13 @@ let mese = leggiIntero(1, 12);
 console.log(&quot;Mese:&quot;, mese);
 console.log(&quot;Dado:&quot;, casuale(1, 6));
 console.log(casuale(50, 100));
-console.log(casuale(-5, 5));</code></pre><p>Il codice è lo stesso che avevamo nei primi esercizi, ma gli estremi sono diventati <strong>parametri</strong>: le funzioni si possono riusare con qualsiasi intervallo. In <code>leggiIntero</code> la variabile <code>n</code> è dichiarata <strong>prima</strong> del <code>do</code> e il <code>return</code> è <strong>dopo</strong> il ciclo: la funzione restituisce solo un valore valido.</p></details>
+console.log(casuale(-5, 5));</code></pre><p>Il codice è lo stesso che avevamo nei primi esercizi, ma gli estremi sono diventati <strong>parametri</strong>: le funzioni si possono riusare con qualsiasi intervallo. In <code>leggiIntero</code> la variabile <code>n</code> è dichiarata <strong>prima</strong> del <code>do</code> e il <code>return</code> è <strong>dopo</strong> il ciclo: la funzione restituisce solo un valore valido.</p><p><strong>Alternativa con <code>while</code>.</strong> Si parte da un valore non valido (<code>NaN</code>, che non è un intero e quindi fa entrare nel ciclo):</p><pre><code class="language-js">function leggiIntero(min, max) {
+  let n = NaN;                                  // non valido: si entra nel ciclo
+  while (n &lt; min || n &gt; max || !Number.isInteger(n)) {
+    n = Number(prompt(&quot;Inserisci un intero tra &quot; + min + &quot; e &quot; + max + &quot;:&quot;));
+  }
+  return n;
+}</code></pre><p>La funzione si comporta come prima. Il <code>do ... while</code> resta più naturale: la domanda va fatta <strong>almeno una volta</strong>, e non serve un valore iniziale inventato.</p></details>
     
   </div>
 </section>
@@ -484,7 +629,19 @@ do {
     console.log(&quot;Troppo alto&quot;);
   }
 } while (numero != segreto);
-console.log(&quot;Indovinato in&quot;, tentativi, &quot;tentativi!&quot;);</code></pre><p>Il programma principale è breve, perché i dettagli (come si genera un numero casuale, come si controlla l&#x27;input) sono nelle funzioni. Il <code>do ... while</code> esterno ripete finché il tentativo è <strong>diverso</strong> dal segreto; <code>tentativi++</code> conta i giri. Strategia migliore: dividere a metà l&#x27;intervallo a ogni tentativo; con 100 numeri bastano al massimo 7 tentativi.</p></details>
+console.log(&quot;Indovinato in&quot;, tentativi, &quot;tentativi!&quot;);</code></pre><p>Il programma principale è breve, perché i dettagli (come si genera un numero casuale, come si controlla l&#x27;input) sono nelle funzioni. Il <code>do ... while</code> esterno ripete finché il tentativo è <strong>diverso</strong> dal segreto; <code>tentativi++</code> conta i giri. Strategia migliore: dividere a metà l&#x27;intervallo a ogni tentativo; con 100 numeri bastano al massimo 7 tentativi.</p><p><strong>Alternativa con <code>while</code></strong> (il resto del programma resta uguale). <code>numero</code> parte da <code>0</code>, che è diverso da <code>segreto</code> (sempre <code>&gt;= 1</code>), così si entra nel ciclo:</p><pre><code class="language-js">let segreto = casuale(1, 100);
+let tentativi = 0;
+let numero = 0;
+while (numero != segreto) {
+  numero = leggiIntero(1, 100);
+  tentativi++;
+  if (numero &lt; segreto) {
+    console.log(&quot;Troppo basso&quot;);
+  } else if (numero &gt; segreto) {
+    console.log(&quot;Troppo alto&quot;);
+  }
+}
+console.log(&quot;Indovinato in&quot;, tentativi, &quot;tentativi!&quot;);</code></pre></details>
     
   </div>
 </section>

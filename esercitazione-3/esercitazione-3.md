@@ -135,6 +135,27 @@ console.log("Inseriti:", totale, "positivi:", positivi);
 
 `totale++` e `positivi++` sono **contatori**: partono da `0` e aumentano di 1 ogni volta che succede qualcosa. `positivi++` sta dentro l'`if`, `totale++` no. Il valore letto viene aggiornato **alla fine** di ogni giro; se il primo numero è `0` il ciclo non parte e il risultato è `0` e `0`. Provate `5, -2, 3, 0`: `Inseriti: 3 positivi: 2`.
 
+**Alternativa con `do ... while`.** Il corpo parte sempre, quindi lo `0` finale va escluso con un `if`:
+
+```js
+let totale = 0;
+let positivi = 0;
+let x;
+do {
+  let x_input = prompt("Numero (0 per terminare):");
+  x = Number(x_input);
+  if (x != 0) {
+    totale++;
+    if (x > 0) {
+      positivi++;
+    }
+  }
+} while (x != 0);
+console.log("Inseriti:", totale, "positivi:", positivi);
+```
+
+Si legge in un solo punto, ma servono un `if` in più e la condizione `x != 0` compare due volte: con questo problema il `while` è più lineare.
+
 </details>
 
 ## Recap 1 · Il ciclo `do ... while`
@@ -281,6 +302,19 @@ console.log("Hai inserito:", n);
 
 Il valore è sbagliato se è **troppo piccolo**, **oppure** troppo grande, **oppure** non intero: tre casi uniti da `||`. Provate `2.5`, `0`, `101`, `abc` (che `Number` trasforma in `NaN`: `Number.isInteger(NaN)` è `false`, quindi viene scartato).
 
+**Alternativa con `while`.** Si parte da un valore **non valido** per entrare nel ciclo (`NaN` non è un intero) e si legge solo dentro il ciclo:
+
+```js
+let n = NaN;
+while (n < 1 || n > 100 || !Number.isInteger(n)) {
+  let n_input = prompt("Inserisci un intero tra 1 e 100:");
+  n = Number(n_input);
+}
+console.log("Hai inserito:", n);
+```
+
+È equivalente, ma il `do ... while` è più naturale: la domanda va fatta almeno una volta.
+
 </details>
 
 ## Esercizio 6 · ★ 3.1
@@ -365,6 +399,40 @@ Il ciclo parte da 2 (il divisore 1 non conta) e finisce a `N - 1` (nemmeno `N` c
 
 Una versione più efficiente: appena si trova un divisore, si può uscire dal ciclo con `break`, di cui parliamo più avanti.
 
+**Alternative.** Tre modi di scrivere la ricerca del divisore (l'input resta uguale):
+
+```js
+// con break: si esce appena si trova un divisore
+let primo = true;
+for (let i = 2; i < N; i++) {
+  if (N % i == 0) {
+    primo = false;
+    break;
+  }
+}
+
+// con while: il flag stesso ferma il ciclo, senza break
+let primo = true;
+let i = 2;
+while (i < N && primo) {
+  if (N % i == 0) {
+    primo = false;
+  }
+  i++;
+}
+
+// con for: bastano i divisori fino alla radice quadrata (i * i <= N)
+let primo = true;
+for (let i = 2; i * i <= N; i++) {
+  if (N % i == 0) {
+    primo = false;
+    break;
+  }
+}
+```
+
+Se `N` ha un divisore `i`, ne ha anche uno `N / i`: uno dei due è per forza minore o uguale alla radice quadrata di `N`, quindi non serve controllare oltre. Per `N = 1000003` il ciclo fa circa 1000 giri invece di un milione.
+
 </details>
 
 ## Esercizio 8 · ★ 3.3
@@ -391,6 +459,29 @@ for (let C = 50; C <= 60; C++) {
 Il `for` fa variare `C` (qui il ciclo parte da 50, non da 1, e finisce a 60 **incluso**, per questo `<=`), il corpo applica la formula.
 
 Varianti da provare: la tabella da 0 a 100 con passi di 10 (`C = C + 10` al posto di `C++`) e la tabella al contrario, da 60 a 50 (`C--` con la condizione `C >= 50`).
+
+Le tre tabelle con il `for`, e la prima con un `while`:
+
+```js
+// da 0 a 100, passi di 10
+for (let C = 0; C <= 100; C = C + 10) {
+  console.log(C + "°C = " + (32 + 9 / 5 * C) + "°F");
+}
+
+// da 60 a 50, al contrario
+for (let C = 60; C >= 50; C--) {
+  console.log(C + "°C = " + (32 + 9 / 5 * C) + "°F");
+}
+
+// la tabella 50-60 con while
+let C = 50;
+while (C <= 60) {
+  console.log(C + "°C = " + (32 + 9 / 5 * C) + "°F");
+  C++;
+}
+```
+
+Qualche valore (ad esempio `52°C`) mostra una lunga coda di decimali (`125.60000000000001`): è l'arrotondamento dei numeri decimali nel computer.
 
 </details>
 
@@ -710,6 +801,30 @@ for (let n = 0; n <= 6; n++) {
 
 Il ciclo interno è un **prodotto accumulato** (come nell'esercitazione 2), con l'accumulatore che parte da `1`: con `n = 0` il ciclo non gira e il risultato è `1`, proprio la definizione di `0!`. `fattoriale = 1` sta **dentro** il ciclo esterno: se fosse prima, il secondo fattoriale partirebbe dal risultato del primo.
 
+**Alternative.** Con un solo ciclo: ogni fattoriale si ottiene dal **precedente**, `n! = n * (n-1)!`, quindi non serve ricalcolare tutto da capo con il ciclo interno.
+
+```js
+// con for: un ciclo solo
+let fattoriale = 1;                         // 0! = 1
+for (let n = 0; n <= 6; n++) {
+  if (n > 0) {
+    fattoriale = fattoriale * n;            // da (n-1)! a n!
+  }
+  console.log(n + "! = " + fattoriale);
+}
+
+// con while
+let fattoriale = 1;
+let n = 0;
+while (n <= 6) {
+  console.log(n + "! = " + fattoriale);
+  n++;
+  fattoriale = fattoriale * n;              // già il fattoriale del prossimo n
+}
+```
+
+Qui `fattoriale` è dichiarato **fuori** dal ciclo e **non** riparte da `1`: è quello che permette di riusare il risultato precedente. La versione con i due cicli fa più lavoro, ma è più vicina alla definizione.
+
 </details>
 
 ## Esercizio 13 · ★ 3.5
@@ -764,6 +879,21 @@ console.log("errore              =", Math.abs(somma - Math.sin(x)));
 ```
 
 Si calcola il denominatore con un ciclo interno che arriva fino a `2 * n + 1`. L'errore è praticamente nullo (con `x = 0.5` risulta `0`, o comunque dell'ordine dell'arrotondamento del computer): bastano pochi termini perché i fattoriali crescano molto in fretta. Provate con `x = 3` o `x = 10`: l'approssimazione peggiora.
+
+**Alternativa con un solo ciclo.** Ogni termine si ottiene dal **precedente**: da `(-1)ⁿ · x^(2n+1) / (2n+1)!` a quello dopo si moltiplica per `-x²` e si divide per `(2n+2) · (2n+3)`:
+
+```js
+let x = 0.5;
+let somma = 0;
+let termine = x;                            // il termine per n = 0
+for (let n = 0; n <= 10; n++) {
+  somma = somma + termine;
+  termine = -termine * x * x / ((2 * n + 2) * (2 * n + 3));   // il termine successivo
+}
+console.log("sen(x) approssimato =", somma);
+```
+
+Dà lo stesso risultato, con meno calcoli: non si ricalcolano fattoriale e potenza da capo a ogni `n`. Va però ricavata la formula del termine successivo.
 
 </details>
 
@@ -829,6 +959,23 @@ console.log("Mi sono fermato alla base", base, "con area", area);
 
 Si ferma a `base 17: area 51`. `base` e `area` sono dichiarate **fuori** dal `for`, altrimenti non esisterebbero più dopo il ciclo. Il `for` dice **al massimo** quante volte ripetere; il `break` interrompe prima appena succede ciò che cerchiamo. Nel prossimo esercizio la condizione di arresto non riguarderà un'area, ma la **differenza tra due risultati consecutivi**.
 
+**Alternativa con `while`.** La condizione di arresto diventa la condizione del ciclo (si continua **finché** l'area non supera 50), senza `break`:
+
+```js
+let altezza = 3;
+let base = 1;
+let area = base * altezza;
+console.log("base " + base + ": area " + area);
+while (area <= 50) {
+  base++;
+  area = base * altezza;
+  console.log("base " + base + ": area " + area);
+}
+console.log("Mi sono fermato alla base", base, "con area", area);
+```
+
+Il risultato è lo stesso (si ferma a `base 17: area 51`), ma si scrive due volte il calcolo e la stampa: il `for` con `break` è più compatto, il `while` più vicino alla frase «finché l'area non supera 50». Il `while` non ha il limite di sicurezza: con una condizione che non diventa mai falsa non si fermerebbe.
+
 </details>
 
 ## Esercizio 15
@@ -857,6 +1004,23 @@ console.log("passi  =", passi);
 ```
 
 Le variabili `x_nuovo` e `passi` sono dichiarate **fuori** dal `for`, altrimenti non esisterebbero più dopo il ciclo. L'ordine conta: prima si calcola `x_nuovo`, poi si confronta, e solo alla fine si aggiorna `x_vecchio`.
+
+**Alternativa con `while`.** Si calcola il primo valore prima del ciclo, e si continua finché la differenza è ancora grande:
+
+```js
+let x_vecchio = 1;
+let x_nuovo = Math.cos(x_vecchio);
+let passi = 1;
+while (Math.abs(x_nuovo - x_vecchio) >= 10 ** (-6)) {
+  x_vecchio = x_nuovo;
+  x_nuovo = Math.cos(x_vecchio);
+  passi++;
+}
+console.log("valore =", x_nuovo);
+console.log("passi  =", passi);
+```
+
+Attenzione alla condizione: nel `for` con `break` si esce quando la differenza è **minore** di `10 ** (-6)`; nel `while` si **continua** quando è ancora **maggiore o uguale**, cioè la condizione opposta. Senza il limite di 1000 passi, un metodo che non converge girerebbe all'infinito.
 
 </details>
 
@@ -926,5 +1090,22 @@ console.log("iterazioni =", iterazioni);
 ```
 
 Stessa struttura dell'esercizio 15. L'errore è **relativo** perché si divide per `|x_nuovo|`: misura la differenza in proporzione alla grandezza del valore. Verifica: `Math.exp(-0.567143) - 0.567143` è praticamente `0`.
+
+**Alternativa con `while`:**
+
+```js
+let x_vecchio = 1;
+let x_nuovo = Math.exp(-x_vecchio);
+let iterazioni = 1;
+while (Math.abs(x_nuovo - x_vecchio) / Math.abs(x_nuovo) >= 10 ** (-6)) {
+  x_vecchio = x_nuovo;
+  x_nuovo = Math.exp(-x_vecchio);
+  iterazioni++;
+}
+console.log("soluzione =", x_nuovo);
+console.log("iterazioni =", iterazioni);
+```
+
+Stessa struttura dell'alternativa dell'esercizio 15, con la condizione "ancora **non** abbastanza vicini" (`>=`) al posto del `break`.
 
 </details>

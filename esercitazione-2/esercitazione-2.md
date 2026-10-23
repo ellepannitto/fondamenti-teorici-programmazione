@@ -260,6 +260,24 @@ for (i = 0; i < 5; i = i + 1) {
 
 Partendo da 0, `i` vale 0, 1, 2, 3, 4: cinque giri. Con `i <= 5` i giri sarebbero 6! Regola pratica: partendo da 0 con `<` il numero di giri è il valore a destra.
 
+**Alternative.** Con un `while` i tre pezzi del `for` si separano; e partendo da `1` la condizione deve diventare `<=`:
+
+```js
+// con while
+let i = 0;
+while (i < 5) {
+  console.log("Ciao!");
+  i = i + 1;
+}
+
+// con for, partendo da 1
+for (i = 1; i <= 5; i = i + 1) {
+  console.log("Ciao!");
+}
+```
+
+Sono tutte versioni da 5 giri: cambiano il **punto di partenza** e il **confronto** (`< 5` da 0, `<= 5` da 1).
+
 </details>
 
 ## Esercizio 5 · Completa l'input e la guardia
@@ -289,6 +307,18 @@ for (i = 1; i <= n; i = i + 1) {
 
 `prompt` restituisce sempre una stringa: senza `Number`, la condizione `i <= n` confronterebbe un numero con un testo. La condizione può contenere una **variabile**, non solo un numero fisso. Provate `n = 0`: il corpo non viene mai eseguito.
 
+**Alternativa con `while`:**
+
+```js
+let n_input = prompt("Quante volte?");
+let n = Number(n_input);
+let i = 1;
+while (i <= n) {
+  console.log("Ciao!");
+  i = i + 1;
+}
+```
+
 </details>
 
 ## Esercizio 6 · Potenze di 2
@@ -305,6 +335,24 @@ for (let i = 0; i <= 8; i++) {        // i è l'esponente
 ```
 
 Stampa `1, 2, 4, 8, ..., 256`. Notate che il ciclo parte da `0`, non da `1`.
+
+**Alternative.** Con un `while`, oppure facendo variare **direttamente la potenza** (che raddoppia a ogni giro) invece dell'esponente:
+
+```js
+// con while
+let i = 0;
+while (i <= 8) {
+  console.log(2 ** i);
+  i++;
+}
+
+// con for: l'aggiornamento è p = p * 2, non p++
+for (let p = 1; p <= 256; p = p * 2) {
+  console.log(p);
+}
+```
+
+Nell'ultima versione non serve `**`: il `for` non conta più gli esponenti, ma moltiplica per 2 a ogni giro (e `256` è `2 ** 8`).
 
 </details>
 
@@ -343,6 +391,22 @@ console.log("Somma:", somma);
 
 Con `n = 3` e numeri `4`, `5`, `6` la somma è 15. Con `i < n` l'utente verrebbe interrogato una volta di meno: è l'errore più comune. Qui `i` serve solo a contare i giri (e a numerare le domande), i numeri da sommare sono quelli inseriti.
 
+**Alternativa con `while`:**
+
+```js
+let n_input = prompt("Quanti numeri vuoi sommare?");
+let n = Number(n_input);
+let somma = 0;
+let i = 1;
+while (i <= n) {
+  let x_input = prompt("Numero " + i + ":");
+  let x = Number(x_input);
+  somma = somma + x;
+  i = i + 1;
+}
+console.log("Somma:", somma);
+```
+
 </details>
 
 ## Esercizio 8 · Somma e prodotto dei primi *n* numeri pari
@@ -372,6 +436,24 @@ Due accumulatori nello stesso ciclo: ognuno parte dall'elemento neutro della sua
 
 Alternativa: far partire `pari` da `2` e incrementarlo di `2` a ogni giro (`pari = pari + 2`).
 
+```js
+// il for conta direttamente i numeri pari: da 2 a 2 * n, di 2 in 2
+for (let pari = 2; pari <= 2 * n; pari = pari + 2) {
+  somma = somma + pari;
+  prodotto = prodotto * pari;
+}
+
+// con while
+let pari = 2;
+while (pari <= 2 * n) {
+  somma = somma + pari;
+  prodotto = prodotto * pari;
+  pari = pari + 2;
+}
+```
+
+(Le altre righe del programma, compresa la lettura di `n`, restano uguali.) In questa versione `i` non esiste più: si conta con `pari`, e il ciclo si ferma quando `pari` supera l'ultimo pari che serve, cioè `2 * n`.
+
 Cosa succede con `n = 0`? Il ciclo non viene mai eseguito: somma `0` e prodotto `1`.
 
 </details>
@@ -396,6 +478,22 @@ console.log("Media:", somma / n);
 ```
 
 Il numero di ripetizioni è noto (`n`), quindi è un caso da `for`. Cosa succede con `n = 0`? `0 / 0` dà `NaN`: come lo gestireste con un `if`?
+
+**Alternativa con `while`:**
+
+```js
+let n_input = prompt("Quanti numeri vuoi inserire?");
+let n = Number(n_input);
+let somma = 0;
+let i = 1;
+while (i <= n) {
+  let x_input = prompt("Numero " + i + ":");
+  let x = Number(x_input);
+  somma = somma + x;
+  i++;
+}
+console.log("Media:", somma / n);
+```
 
 </details>
 
@@ -436,6 +534,18 @@ console.log(riga);
 
 Come per la somma, ma con le stringhe: `riga` parte da `""` e a ogni giro diventa `""`, poi `"*"`, `"**"`, `"***"`... Si stampa **una volta sola, dopo il ciclo**: un `console.log` dentro il ciclo stamperebbe `n` righe.
 
+**Alternativa con `while`:**
+
+```js
+let riga = "";
+let i = 1;
+while (i <= n) {
+  riga = riga + "*";
+  i = i + 1;
+}
+console.log(riga);
+```
+
 </details>
 
 ## Esercizio 11 · I numeri da 1 a *n* su una riga
@@ -471,6 +581,18 @@ Passo per passo, con `n = 3`:
 
 `i` resta un numero, ma `riga` è una stringa: il `+` concatena. Alla fine c'è uno spazio in più, che a schermo non si vede.
 
+**Alternativa con `while`:**
+
+```js
+let riga = "";
+let i = 1;
+while (i <= n) {
+  riga = riga + i + " ";
+  i = i + 1;
+}
+console.log(riga);
+```
+
 </details>
 
 ## Esercizio 12 · Conto alla rovescia
@@ -499,6 +621,15 @@ console.log("Via!");
 ```
 
 Se dimenticate l'aggiornamento, `i` resta sempre `5` e il ciclo non finisce mai. Con `i > 1` l'`1` non verrebbe stampato.
+
+**Alternativa con `for`.** Qui il numero di giri è noto (5), quindi il `for` è adatto, con l'aggiornamento `i--` che fa scendere:
+
+```js
+for (let i = 5; i >= 1; i--) {
+  console.log(i);
+}
+console.log("Via!");
+```
 
 </details>
 
@@ -532,6 +663,17 @@ console.log("Hai inserito:", x);
 
 La condizione descrive il caso **sbagliato** (`x <= 0`), non quello giusto. Il valore si legge una volta prima del ciclo e di nuovo a ogni giro: senza la rilettura, `x` non cambierebbe mai.
 
+**Alternativa con `do ... while`.** La domanda va fatta almeno una volta, quindi si legge **una sola volta**, dentro il ciclo (con un solo messaggio, `"Inserisci un numero positivo:"`):
+
+```js
+let x;
+do {
+  let x_input = prompt("Inserisci un numero positivo:");
+  x = Number(x_input);
+} while (x <= 0);
+console.log("Hai inserito:", x);
+```
+
 </details>
 
 
@@ -559,6 +701,26 @@ console.log("Numeri inseriti:", quanti);
 
 Se l'utente inserisce subito `0`, il corpo non viene mai eseguito e il risultato è `0` e `0`.
 
+**Alternativa con `do ... while`.** Il corpo parte sempre, quindi va protetto con un `if`: lo `0` finale viene letto ma **non** va contato né sommato.
+
+```js
+let somma = 0;
+let quanti = 0;
+let x;
+do {
+  let x_input = prompt("Numero (0 per terminare):");
+  x = Number(x_input);
+  if (x != 0) {
+    somma = somma + x;
+    quanti++;
+  }
+} while (x != 0);
+console.log("Somma:", somma);
+console.log("Numeri inseriti:", quanti);
+```
+
+Si legge in un solo punto, ma la condizione `x != 0` compare **due volte**: la versione con `while` è più lineare.
+
 </details>
 
 ## Esercizio 15 · Indovina il numero
@@ -582,6 +744,22 @@ console.log("Indovinato in", tentativi, "tentativi");
 ```
 
 Non sappiamo quanti tentativi serviranno: è un caso da `while`. Come bonus, aggiungete dentro il ciclo un `if` che dica "più alto" o "più basso".
+
+**Alternativa con `do ... while`:**
+
+```js
+let segreto = Math.floor(Math.random() * 10) + 1;
+let tentativi = 0;
+let tentativo;
+do {
+  let tentativo_input = prompt("Indovina il numero (1-10):");
+  tentativo = Number(tentativo_input);
+  tentativi++;
+} while (tentativo != segreto);
+console.log("Indovinato in", tentativi, "tentativi");
+```
+
+Qui il primo tentativo è sempre necessario, quindi il `do ... while` è naturale; con un solo messaggio per tutti i tentativi.
 
 </details>
 
@@ -769,6 +947,34 @@ console.log("Somma:", somma);
 
 Un numero come 15 è multiplo di entrambi, ma viene sommato **una sola volta**: l'`||` valuta la condizione, non conta i casi.
 
+**Alternative.** Con un `while`; oppure **senza l'`if`**, facendo saltare il contatore di 3 in 3 e di 5 in 5 (e togliendo i multipli di 15, che sarebbero contati due volte):
+
+```js
+// con while
+let somma = 0;
+let i = 1;
+while (i <= n) {
+  if (i % 3 == 0 || i % 5 == 0) {
+    somma = somma + i;
+  }
+  i++;
+}
+
+// senza if: tre cicli, ognuno con il suo passo
+let somma = 0;
+for (let i = 3; i <= n; i = i + 3) {            // multipli di 3
+  somma = somma + i;
+}
+for (let i = 5; i <= n; i = i + 5) {            // multipli di 5
+  somma = somma + i;
+}
+for (let i = 15; i <= n; i = i + 15) {          // multipli di 15: contati due volte, si tolgono una volta
+  somma = somma - i;
+}
+```
+
+Con `n = 10`: `3 + 6 + 9 = 18`, `5 + 10 = 15`, nessun multiplo di 15: `18 + 15 = 33`. La versione con `if` è più corta e più facile da cambiare; quella a tre cicli fa molti meno giri.
+
 </details>
 
 ## Esercizio 22 · Tabellina
@@ -823,6 +1029,16 @@ if (Number.isInteger(n) && n >= 1 && n <= 10) {
 
 Le parentesi in `(n * i)` non sono obbligatorie, ma rendono chiaro che prima si moltiplica e poi si concatena.
 
+**Alternativa con `for` senza il prodotto.** I numeri della tabellina sono `n, 2n, 3n, ...`: invece di moltiplicare `n * i`, si può far partire il contatore da `n` e **aumentarlo di `n`** a ogni giro (`m = m + n`):
+
+```js
+let riga = "";
+for (let m = n; m <= 10 * n; m = m + n) {
+  riga = riga + m + " ";
+}
+console.log(riga);
+```
+
 </details>
 
 ## Esercizio 23 · Polinomio
@@ -851,6 +1067,28 @@ if (n >= 1 && Number.isInteger(n)) {
 ```
 
 Controllo: con `x = 2` e `n = 3` il risultato è `2 + 4 + 8 = 14`.
+
+**Alternative.** Con un `while`; oppure senza `**`, tenendo in una variabile la **potenza corrente**, che a ogni giro si moltiplica per `x`:
+
+```js
+// con while
+let risultato = 0;
+let i = 1;
+while (i <= n) {
+  risultato = risultato + x ** i;
+  i++;
+}
+
+// senza **: potenza = x, x², x³, ...
+let risultato = 0;
+let potenza = 1;
+for (let i = 1; i <= n; i++) {
+  potenza = potenza * x;                        // x^i, calcolata dalla potenza del giro prima
+  risultato = risultato + potenza;
+}
+```
+
+Con `x = 2` e `n = 3` la `potenza` vale `2`, `4`, `8` e il risultato è `14`, come prima.
 
 </details>
 
@@ -886,6 +1124,27 @@ for (let i = 1; i < n; i++) {
 ```
 
 Non servono due cicli: fissato `i`, l'unico `j` possibile è `n - i`. Con `n = 4` la coppia `2, 2` viene scartata dall'`if`.
+
+**Alternative.** Il problema chiede il `for`, ma lo stesso ciclo si scrive con un `while`; e il controllo dell'input si può scrivere con un `do ... while`:
+
+```js
+// controllo dell'input con do ... while
+let n;
+do {
+  let n_input = prompt("n (intero > 2):");
+  n = Number(n_input);
+} while (n <= 2 || !Number.isInteger(n));
+
+// coppie con while
+let i = 1;
+while (i < n) {
+  let j = n - i;
+  if (i != j) {
+    console.log(i + ", " + j);
+  }
+  i++;
+}
+```
 
 </details>
 
@@ -929,6 +1188,36 @@ console.log("Media:", somma / N);
 ```
 
 Invece di bloccare il programma, qui si richiede il valore finché è valido. Il contatore `trovati` cresce solo dentro l'`if`: un `for` da 1 a `N` non basterebbe, perché non tutti i numeri visitati sono pari.
+
+**Alternativa con `for`.** Se si parte direttamente dal **primo pari dopo `A`** e si salta di 2 in 2, tutti i numeri visitati sono pari, e il numero di giri è noto (`N`): l'`if` non serve più e si può usare un `for`.
+
+```js
+let primo = A + 1;                 // il primo candidato
+if (primo % 2 != 0) {
+  primo = primo + 1;               // se è dispari, il primo pari è il successivo
+}
+
+let somma = 0;
+let numero = primo;
+for (let k = 1; k <= N; k++) {
+  somma = somma + numero;
+  numero = numero + 2;             // il prossimo pari
+}
+console.log("Somma:", somma);
+console.log("Media:", somma / N);
+```
+
+Con `A = 5` e `N = 3`: `primo` vale `6`, e si sommano `6, 8, 10`. Quest'idea (saltare di 2) dà un ciclo più semplice, ma richiede di sapere **da dove cominciano** i pari: la versione con `while` e `if` è più generale.
+
+Anche il controllo dell'input si può scrivere con un `do ... while`:
+
+```js
+let N;
+do {
+  let N_input = prompt("N (intero positivo):");
+  N = Number(N_input);
+} while (N < 1 || !Number.isInteger(N));
+```
 
 </details>
 

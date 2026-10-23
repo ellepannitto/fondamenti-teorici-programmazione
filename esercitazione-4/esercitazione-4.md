@@ -198,6 +198,37 @@ console.log("Ci sono voluti", tentativi, "tentativi");
 
 (Le tre versioni sono alternative: provatele una alla volta, perché dichiarano le stesse variabili.)
 
+**Alternativa con `while`.** Il `while` controlla la condizione **prima** di ogni giro, quindi la variabile deve avere, all'inizio, un valore che faccia entrare nel ciclo (qui `0`, che non è né un `6` né un numero scelto valido):
+
+```js
+// B. con while
+let tentativi = 0;
+let lancio = 0;                                 // valore "finto": diverso da 6
+while (lancio != 6) {
+  lancio = Math.floor(Math.random() * 6) + 1;
+  tentativi++;
+  console.log("Tentativo", tentativi + ":", lancio);
+}
+console.log("Ci sono voluti", tentativi, "tentativi");
+
+// C. con while (stessa idea, anche per il controllo dell'input)
+let scelto = 0;                                 // non valido: si entra nel ciclo
+while (scelto < 1 || scelto > 6 || !Number.isInteger(scelto)) {
+  scelto = Number(prompt("Scegli un numero intero tra 1 e 6:"));
+}
+
+let tentativi = 0;
+let lancio = 0;                                 // diverso da scelto, che è >= 1
+while (lancio != scelto) {
+  lancio = Math.floor(Math.random() * 6) + 1;
+  tentativi++;
+  console.log("Tentativo", tentativi + ":", lancio);
+}
+console.log("Ci sono voluti", tentativi, "tentativi");
+```
+
+Il risultato è lo stesso, ma il `do ... while` è più naturale: non serve inventare un valore iniziale "finto". Un `for` qui non è adatto: non si sa **quanti giri** serviranno.
+
 Il numero casuale va generato **dentro** il ciclo: un nuovo lancio a ogni giro. Il ciclo si ripete finché il lancio è **diverso** dal numero scelto (la condizione descrive il caso in cui si deve continuare). Il `do ... while` è adatto perché il primo lancio va fatto **sempre**, e il contatore `tentativi` aumenta a ogni giro. Nella C ci sono **due** `do ... while`: il primo controlla l'input (intero tra 1 e 6), il secondo fa i lanci. In media servono 6 tentativi, ma può andare molto meglio o molto peggio: eseguite più volte.
 
 </details>
@@ -254,6 +285,38 @@ console.log("Il più grande è", massimo);
 ```
 
 I valori possibili sono `100 - 50 + 1 = 51`: si moltiplica per `51` e si somma `50`. Tutti i numeri sono almeno `50`, quindi `0` va bene come punto di partenza. Il numero casuale va generato **dentro** il ciclo.
+
+**Alternative con `while` e `do ... while`.** Il `for` contiene tre cose: inizializzazione, condizione e aggiornamento. Con `while` e `do ... while` il contatore `i` va dichiarato **prima** del ciclo e aumentato **dentro** il corpo:
+
+```js
+// con while
+let massimo = 0;
+let i = 1;
+while (i <= 10) {
+  let numero = Math.floor(Math.random() * 51) + 50;
+  console.log(numero);
+  if (numero > massimo) {
+    massimo = numero;
+  }
+  i++;
+}
+console.log("Il più grande è", massimo);
+
+// con do ... while
+let massimo = 0;
+let i = 1;
+do {
+  let numero = Math.floor(Math.random() * 51) + 50;
+  console.log(numero);
+  if (numero > massimo) {
+    massimo = numero;
+  }
+  i++;
+} while (i <= 10);
+console.log("Il più grande è", massimo);
+```
+
+Dimenticare `i++` è l'errore classico: il ciclo non finirebbe più. (Le tre versioni sono alternative: provatele una alla volta.) Qui il numero di giri è **noto** (10), quindi il `for` è la scelta più chiara.
 
 </details>
 
@@ -533,6 +596,30 @@ ripeti("ok", 5);
 
 Questa funzione **fa** qualcosa (stampa) e non restituisce niente. I parametri `testo` e `n` esistono solo **durante** la chiamata, e valgono quello che è stato passato. Con due parametri, gli argomenti vanno nello **stesso ordine**: `ripeti(3, "ciao")` non funzionerebbe.
 
+**Alternative con `while` e `do ... while`:**
+
+```js
+// con while
+function ripeti(testo, n) {
+  let i = 1;
+  while (i <= n) {
+    console.log(testo);
+    i++;
+  }
+}
+
+// con do ... while
+function ripeti(testo, n) {
+  let i = 1;
+  do {
+    console.log(testo);
+    i++;
+  } while (i <= n);
+}
+```
+
+Le due versioni sono uguali per `n >= 1`, ma **non** per `n = 0`: il `for` e il `while` non stampano niente, il `do ... while` stampa **una volta**, perché esegue sempre almeno un giro prima di controllare la condizione. Per questo problema `for` e `while` sono la scelta giusta.
+
 </details>
 
 ## Esercizio 9
@@ -703,6 +790,45 @@ Il controllo sull'input sta **fuori** dalla funzione: la funzione calcola e bast
 
 Per un **prodotto**, `risultato` parte da `1` (l'elemento neutro della moltiplicazione), non da `0`, altrimenti resterebbe sempre `0`. L'accumulatore è dichiarato **dentro** la funzione e **prima** del ciclo, e il `return` è **dopo** il ciclo. Con esponente `0` il ciclo non gira e si restituisce `1`, che è il valore giusto. Senza il controllo, con `2.5` il ciclo farebbe 2 giri e darebbe `base * base`, un risultato sbagliato senza alcun errore.
 
+**Alternative con `while` e `do ... while`** per il calcolo (il resto del programma non cambia):
+
+```js
+// con while
+function potenza(base, esponente) {
+  let risultato = 1;
+  let i = 1;
+  while (i <= esponente) {
+    risultato = risultato * base;
+    i++;
+  }
+  return risultato;
+}
+
+// con do ... while: SBAGLIATA per esponente 0
+function potenza(base, esponente) {
+  let risultato = 1;
+  let i = 1;
+  do {
+    risultato = risultato * base;
+    i++;
+  } while (i <= esponente);
+  return risultato;
+}
+```
+
+La versione con `while` è equivalente a quella con `for`. Quella con `do ... while` dà `potenza(2, 0)` uguale a `2` invece di `1`: il primo giro si fa **sempre**, anche se l'esponente è `0`. Qui il `do ... while` non va bene.
+
+Anche il controllo dell'input si può scrivere con un `while`, partendo da un valore **non valido** per entrare nel ciclo:
+
+```js
+let base = Number(prompt("Base:"));
+let esponente = -1;                             // non valido: si entra nel ciclo
+while (esponente < 0 || !Number.isInteger(esponente)) {
+  esponente = Number(prompt("Esponente (intero, non negativo):"));
+}
+console.log(base, "^", esponente, "=", potenza(base, esponente));
+```
+
 </details>
 
 ## Esercizio 12
@@ -731,6 +857,73 @@ console.log("Somma dei pari da 6 a 10:", sommaPari(10) - sommaPari(5));    // 30
 ```
 
 È l'accumulatore di sempre con un `if` dentro il ciclo, in una funzione: l'accumulatore è dichiarato **dentro** la funzione (e a `0`) e il `return` è **dopo** il ciclo. Se fosse dentro il ciclo, la funzione si fermerebbe al primo giro e restituirebbe sempre `0`. La differenza `sommaPari(10) - sommaPari(5)` è la somma dei pari da 6 a 10 (`6 + 8 + 10 = 24`). `sommaPari(1)` restituisce `0`: nessun numero pari tra 1 e 1.
+
+**Alternative con `while` e `do ... while`:**
+
+```js
+// con while
+function sommaPari(n) {
+  let somma = 0;
+  let i = 1;
+  while (i <= n) {
+    if (i % 2 == 0) {
+      somma = somma + i;
+    }
+    i++;
+  }
+  return somma;
+}
+
+// con do ... while
+function sommaPari(n) {
+  let somma = 0;
+  let i = 1;
+  do {
+    if (i % 2 == 0) {
+      somma = somma + i;
+    }
+    i++;
+  } while (i <= n);
+  return somma;
+}
+```
+
+Anche la versione con `do ... while` dà il risultato giusto per `n = 0` o negativo, ma solo perché il primo giro (con `i = 1`, dispari) non aggiunge niente: è una **coincidenza** di questo problema, non una regola.
+
+**Alternative senza l'`if`.** I numeri pari sono `2, 4, 6, ...`: invece di guardare tutti i numeri e scartare i dispari con l'`if`, si può **partire da `2` e saltare di 2 in 2**, cambiando l'aggiornamento del ciclo (`i = i + 2` al posto di `i++`):
+
+```js
+// con for
+function sommaPari(n) {
+  let somma = 0;
+  for (let i = 2; i <= n; i = i + 2) {
+    somma = somma + i;
+  }
+  return somma;
+}
+
+// con while
+function sommaPari(n) {
+  let somma = 0;
+  let i = 2;
+  while (i <= n) {
+    somma = somma + i;
+    i = i + 2;
+  }
+  return somma;
+}
+
+// con for, contando i pari: il k-esimo pari è 2 * k, e ce ne sono Math.floor(n / 2)
+function sommaPari(n) {
+  let somma = 0;
+  for (let k = 1; k <= Math.floor(n / 2); k++) {
+    somma = somma + 2 * k;
+  }
+  return somma;
+}
+```
+
+Tutte le versioni restituiscono lo stesso risultato (`sommaPari(10)` vale `30`, `sommaPari(7)` vale `12`, `sommaPari(1)` vale `0`). La versione con `i = i + 2` fa **la metà dei giri** e non ha l'`if`, ma funziona solo perché sappiamo da dove cominciano i pari; quella con l'`if` è più generale, e si adatta subito a condizioni diverse (ad esempio i multipli di 3, o i numeri che finiscono per 7).
 
 </details>
 
@@ -767,6 +960,20 @@ console.log(casuale(-5, 5));
 ```
 
 Il codice è lo stesso che avevamo nei primi esercizi, ma gli estremi sono diventati **parametri**: le funzioni si possono riusare con qualsiasi intervallo. In `leggiIntero` la variabile `n` è dichiarata **prima** del `do` e il `return` è **dopo** il ciclo: la funzione restituisce solo un valore valido.
+
+**Alternativa con `while`.** Si parte da un valore non valido (`NaN`, che non è un intero e quindi fa entrare nel ciclo):
+
+```js
+function leggiIntero(min, max) {
+  let n = NaN;                                  // non valido: si entra nel ciclo
+  while (n < min || n > max || !Number.isInteger(n)) {
+    n = Number(prompt("Inserisci un intero tra " + min + " e " + max + ":"));
+  }
+  return n;
+}
+```
+
+La funzione si comporta come prima. Il `do ... while` resta più naturale: la domanda va fatta **almeno una volta**, e non serve un valore iniziale inventato.
 
 </details>
 
@@ -808,5 +1015,23 @@ console.log("Indovinato in", tentativi, "tentativi!");
 ```
 
 Il programma principale è breve, perché i dettagli (come si genera un numero casuale, come si controlla l'input) sono nelle funzioni. Il `do ... while` esterno ripete finché il tentativo è **diverso** dal segreto; `tentativi++` conta i giri. Strategia migliore: dividere a metà l'intervallo a ogni tentativo; con 100 numeri bastano al massimo 7 tentativi.
+
+**Alternativa con `while`** (il resto del programma resta uguale). `numero` parte da `0`, che è diverso da `segreto` (sempre `>= 1`), così si entra nel ciclo:
+
+```js
+let segreto = casuale(1, 100);
+let tentativi = 0;
+let numero = 0;
+while (numero != segreto) {
+  numero = leggiIntero(1, 100);
+  tentativi++;
+  if (numero < segreto) {
+    console.log("Troppo basso");
+  } else if (numero > segreto) {
+    console.log("Troppo alto");
+  }
+}
+console.log("Indovinato in", tentativi, "tentativi!");
+```
 
 </details>
