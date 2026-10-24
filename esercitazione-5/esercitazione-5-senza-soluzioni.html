@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esercitazione 5 - 26/10</title>
+<style>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; background: #f6f3ee; color: #1f1f1f; line-height: 1.65; }
+.page { max-width: 900px; margin: 0 auto; padding: 40px 20px 72px; }
+h1, h2, h3, h4 { font-family: "Avenir Next", "Segoe UI", Arial, sans-serif; line-height: 1.2; color: #1c2a39; }
+h1 { font-size: 2.1rem; margin: 0 0 1.5rem; }
+h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; padding-top: 0.25rem; border-top: 1px solid #d8d1c7; }
+h3 { font-size: 1.2rem; margin: 2rem 0 0.8rem; }
+p, ul, ol, blockquote, table, pre { margin: 0 0 1rem; }
+img { max-width: 100%; height: auto; display: block; margin: 1rem auto; border-radius: 12px; }
+ul, ol { padding-left: 1.4rem; }
+li { margin: 0.3rem 0; }
+blockquote { border-top: 3px solid #c97f31; border-bottom: 3px solid #c97f31; padding: 0.75rem 1.5rem; background: #fff8ef; color: #503521; text-align: center; max-width: 82%; margin-left: auto; margin-right: auto; }
+details { margin: 0 0 1rem; border: 1px solid #ddd5ca; border-radius: 10px; background: #fffdfa; overflow: hidden; }
+summary { cursor: pointer; font-weight: 600; padding: 0.8rem 1rem; background: #f3ece2; }
+details > :not(summary) { padding-left: 1rem; padding-right: 1rem; }
+pre { background: #1f2430; color: #f3f4f6; padding: 1rem; border-radius: 10px; overflow-x: auto; }
+.affiancati { display: flex; gap: 1rem; align-items: flex-start; }
+.affiancati .colonna { flex: 1 1 0; min-width: 0; }
+@media (max-width: 700px) { .affiancati { flex-direction: column; } .affiancati .colonna { width: 100%; } }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95em; }
+p code, li code, td code, th code, blockquote code { background: rgba(28, 42, 57, 0.08); padding: 0.08rem 0.35rem; border-radius: 4px; color: #18212d; }
+table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
+th, td { border: 1px solid #ddd5ca; padding: 0.55rem 0.7rem; vertical-align: top; text-align: left; }
+th { background: #efe7db; }
+hr { border: 0; border-top: 1px solid #d8d1c7; margin: 2rem 0; }
+a { color: #8b3f1d; }
+[id] { scroll-margin-top: 20px; }
+ol.exercise-list { list-style: none; padding-left: 0; }
+ol.exercise-list > li { display: flex; align-items: baseline; gap: 0.5em; flex-wrap: wrap; }
+a.ex-id { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82em; font-weight: 600; background: #f3ece2; border: 1px solid #ddd5ca; color: #8b3f1d; padding: 0.05rem 0.4rem; border-radius: 5px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+a.ex-id:hover { background: #e8d9c5; border-color: #c9b89e; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #d8d1c7; font-size: 0.82rem; color: #595959; display: flex; align-items: center; gap: 0.6rem; }
+footer img { margin: 0; border-radius: 0; height: 22px; width: auto; display: inline; }
+@media (max-width: 700px) {
+  .page { padding: 24px 14px 56px; }
+  table { display: block; overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+<h1 id="esercitazione-5---2610">Esercitazione 5 - 26/10</h1><p>Argomenti:</p><ul><li>funzioni ricorsive: caso base e passo ricorsivo</li><li>tracciare le chiamate ricorsive e capire in che ordine avvengono</li><li>variabili locali e globali, scope e shadowing</li><li>ripasso dei cicli annidati</li></ul><h2 id="indice-degli-esercizi">Indice degli esercizi</h2><table><thead><tr><th>Esercizio</th><th>Argomento</th></tr></thead><tbody><tr><td><a href="#esercizio-1">Esercizio 1</a></td><td>Ricorsione: cosa stampa e in che ordine</td></tr><tr><td><a href="#esercizio-2">Esercizio 2</a></td><td>Ricorsione: trovare l&#x27;errore</td></tr><tr><td><a href="#esercizio-3">Esercizio 3</a></td><td>Fattoriale</td></tr><tr><td><a href="#esercizio-4">Esercizio 4</a></td><td>Somma dei quadrati</td></tr><tr><td><a href="#esercizio-5">Esercizio 5</a></td><td>Somma tra due numeri</td></tr><tr><td><a href="#esercizio-6">Esercizio 6</a></td><td>Le cifre di un numero</td></tr><tr><td><a href="#esercizio-7">Esercizio 7</a></td><td>Variabili locali e globali: cosa stampa</td></tr><tr><td><a href="#esercizio-8">Esercizio 8</a></td><td>Variabili e visibilità: errori e correzioni</td></tr><tr><td><a href="#esercizio-9">Esercizio 9</a></td><td>Cicli annidati: cosa stampa</td></tr><tr><td><a href="#esercizio-10">Esercizio 10</a></td><td>Figure di asterischi e numeri</td></tr><tr><td><a href="#esercizio-11">Esercizio 11</a></td><td>Tavola pitagorica</td></tr><tr><td><a href="#esercizio-12">Esercizio 12</a></td><td>Coppie di dadi</td></tr><tr><td><a href="#esercizio-13">Esercizio 13</a></td><td>Numeri primi</td></tr><tr><td><a href="#esercizio-14">Esercizio 14</a></td><td>Sfida: le terne pitagoriche</td></tr></tbody></table><h2 id="come-si-lavora">Come si lavora</h2><ul><li>Brevi <strong>Recap</strong> pratici, alternati agli esercizi</li><li>Svolgiamo alcuni esercizi insieme (io scrivo il codice live, voi fate lo stesso)</li><li>Esercizi svolti da voi in autonomia</li><li>Domande</li></ul><p>Le regole sono le stesse delle volte scorse:</p><ul><li><strong>provare</strong> prima di rinunciare</li><li><strong>commenti</strong> dove il codice non parla da solo</li><li>eseguite <strong>sempre</strong> il programma con più valori, compresi i casi &quot;strani&quot; (0, numeri negativi, decimali).</li></ul><h2 id="recap-1-funzioni-ricorsive">Recap 1 · Funzioni ricorsive</h2><p>Una funzione è <strong>ricorsiva</strong> quando, nel suo corpo, <strong>richiama se stessa</strong>. Ogni chiamata lavora su un problema <strong>più piccolo</strong>, finché il problema diventa così semplice da avere una risposta immediata.</p><pre><code class="language-js">function conto(n) {
+  if (n == 0) {                                 // caso base: ci si ferma
+    console.log(&quot;Via!&quot;);
+  } else {                                      // passo ricorsivo: la funzione richiama se stessa
+    console.log(n);
+    conto(n - 1);                               // con un valore più piccolo
+  }
+}
+
+conto(5);                                       // stampa: 5 4 3 2 1 Via!</code></pre><p>Il problema che <code>conto(5)</code> risolve contiene una <strong>copia più piccola di se stesso</strong>: l&#x27;output <code>5 4 3 2 1 Via!</code> è <code>5</code> seguito dall&#x27;output di <code>conto(4)</code>, cioè <code>4 3 2 1 Via!</code>; questo a sua volta è <code>4</code> seguito dall&#x27;output di <code>conto(3)</code>, e così via fino a <code>conto(0)</code>, che stampa solo <code>Via!</code>. Come scatole una dentro l&#x27;altra:</p><p><img src="imgs/problema-ricorsivo.svg" alt="conto(5) come riquadri annidati: l&#x27;output di ogni chiamata contiene quello della chiamata con un valore più piccolo, fino al caso base"></p><p>Una funzione ricorsiva ha sempre due parti:</p><ul><li>il <strong>caso base</strong>: il caso più semplice, in cui la risposta è immediata e <strong>non</strong> si richiama la funzione;</li><li>il <strong>passo ricorsivo</strong>: la funzione si richiama su un valore che si <strong>avvicina al caso base</strong> (qui <code>n - 1</code>).</li></ul><p>Ogni chiamata ha le <strong>proprie variabili</strong>: il <code>n</code> della chiamata <code>conto(5)</code> è diverso dal <code>n</code> della chiamata <code>conto(4)</code>. Le chiamate restano &quot;in attesa&quot; una dentro l&#x27;altra, e <strong>ritornano in ordine inverso</strong>: l&#x27;ultima chiamata (quella del caso base) finisce per prima.</p><p>Per <code>fattoriale(3)</code> (che vedremo nell&#x27;esercizio 3), ecco come le chiamate si aprono e si chiudono:</p><p><img src="imgs/ricorsione.svg" alt="Le chiamate di fattoriale(3): si scende fino al caso base, poi i risultati risalgono"></p><p>Per questo conta <strong>dove</strong> si scrive un&#x27;istruzione rispetto alla chiamata ricorsiva: quello che sta <strong>prima</strong> viene eseguito andando &quot;in giù&quot;, quello che sta <strong>dopo</strong> viene eseguito al ritorno, &quot;in su&quot;.</p><p><strong>Attenzione:</strong> senza caso base, o con un passo che non si avvicina mai al caso base, le chiamate non finiscono più e JavaScript si ferma con l&#x27;errore <code>RangeError: Maximum call stack size exceeded</code>.</p><h2 id="esercizio-1">Esercizio 1</h2><p>Per ogni programma, dite cosa stampa <strong>senza eseguirlo</strong>; poi eseguitelo per controllare.</p><p><strong>A.</strong> Questi due programmi sono quasi uguali: cosa stampa ciascuno? <strong>Cosa cambia nell&#x27;output</strong>, e perché?</p><div class="affiancati"><div class="colonna"><p><strong>Programma 1</strong></p><pre><code class="language-js">function conto(n) {
+  if (n == 0) {
+    console.log(&quot;Via!&quot;);
+  } else {
+    console.log(n);
+    conto(n - 1);
+  }
+}
+conto(3);</code></pre></div><div class="colonna"><p><strong>Programma 2</strong></p><pre><code class="language-js">function conto(n) {
+  if (n == 0) {
+    console.log(&quot;Via!&quot;);
+  } else {
+    conto(n - 1);
+    console.log(n);
+  }
+}
+conto(3);</code></pre></div></div><p><strong>B.</strong></p><pre><code class="language-js">function f(n) {
+  if (n &gt; 0) {
+    console.log(&quot;entro&quot;, n);
+    f(n - 1);
+    console.log(&quot;esco&quot;, n);
+  }
+}
+f(2);</code></pre><p><strong>C.</strong> Nel programma B, quante volte viene <strong>chiamata</strong> la funzione <code>f</code> (compresa la chiamata iniziale <code>f(2)</code>)? E se si chiama <code>f(5)</code>?</p><h2 id="esercizio-2">Esercizio 2</h2><p>Ciascuna di queste funzioni ha un <strong>problema</strong>. Dite cosa succede quando le si esegue (stampa all&#x27;infinito? un errore? un risultato strano?), e correggetele.</p><p><strong>A.</strong></p><pre><code class="language-js">function conto(n) {
+  console.log(n);
+  conto(n - 1);
+}
+conto(3);</code></pre><p><strong>B.</strong></p><pre><code class="language-js">function conto(n) {
+  if (n == 0) {
+    return;
+  }
+  console.log(n);
+  conto(n);
+}
+conto(3);</code></pre><p><strong>C.</strong> Funziona con <code>conto(3)</code>. Cosa succede con <code>conto(-1)</code>? E con <code>conto(2.5)</code>?</p><pre><code class="language-js">function conto(n) {
+  if (n == 0) {
+    return;
+  }
+  console.log(n);
+  conto(n - 1);
+}</code></pre><p><strong>D.</strong> Cosa stampa?</p><pre><code class="language-js">function somma(n) {
+  if (n == 0) {
+    return 0;
+  }
+  n + somma(n - 1);
+}
+console.log(somma(3));</code></pre><h2 id="esercizio-3">Esercizio 3</h2><p>Il <strong>fattoriale</strong> di un numero naturale <code>n</code> è <code>n! = n * (n-1) * (n-2) * ... * 1</code>, con <code>0! = 1</code>. Si può scrivere come formula <strong>ricorsiva</strong>:</p><ul><li><code>0! = 1</code> (caso base)</li><li><code>n! = n * (n-1)!</code> se <code>n &gt; 0</code> (passo ricorsivo)</li></ul><p><strong>A.</strong> Calcolate a mano <code>3!</code> usando la formula ricorsiva: scrivete <code>3! = 3 * 2! = ...</code> fino al caso base, poi tornate indietro sostituendo i valori.</p><p><strong>B.</strong> Scrivere la funzione <code>fattoriale(n)</code> che <strong>restituisce</strong> <code>n!</code> usando la ricorsione. Provarla con <code>0</code>, <code>1</code>, <code>5</code>, <code>10</code>.</p><p><strong>C.</strong> Per il codice qui sotto compilate la tabella con le chiamate che si fanno, <strong>dalla prima all&#x27;ultima</strong>, e con il valore che ognuna <strong>restituisce</strong> una volta finita.</p><pre><code class="language-js">function fattoriale(n) {
+  if (n == 0) {
+    return 1;
+  }
+  return n * fattoriale(n - 1);
+}
+console.log(fattoriale(3));</code></pre><table><thead><tr><th>Chiamata</th><th>Cosa calcola</th><th>Restituisce</th></tr></thead><tbody><tr><td><code>fattoriale(3)</code></td><td><code>3 * fattoriale(2)</code></td><td></td></tr><tr><td><code>fattoriale(2)</code></td><td></td><td></td></tr><tr><td><code>fattoriale(1)</code></td><td></td><td></td></tr><tr><td><code>fattoriale(0)</code></td><td></td><td></td></tr></tbody></table><p><strong>D.</strong> Scrivere anche una versione <strong>con un ciclo</strong> <code>for</code>, <code>fattoriale_ciclo(n)</code>, e confrontare i risultati delle due versioni.</p><h2 id="recap-2-come-si-scrive-una-funzione-ricorsiva">Recap 2 · Come si scrive una funzione ricorsiva</h2><p>Per scrivere una funzione ricorsiva ci si pongono sempre le stesse domande:</p><ol><li><strong>Caso base:</strong> qual è il caso più semplice, in cui so già la risposta senza fare calcoli?</li><li><strong>Passo ricorsivo:</strong> se conosco la risposta per un problema <strong>più piccolo</strong> (ad esempio <code>n - 1</code>), come la uso per ottenere la risposta per <code>n</code>?</li><li><strong>Fidarsi:</strong> nel passo ricorsivo si <strong>assume</strong> che la chiamata ricorsiva funzioni già. Non serve seguire tutte le chiamate col pensiero, basta che caso base e passo siano giusti.</li></ol><p>Un esempio, la somma dei numeri da 1 a <code>n</code>:</p><ul><li>caso base: <code>somma(0)</code> vale <code>0</code>;</li><li>passo: <code>somma(n)</code> è <code>n</code> più la somma dei numeri da 1 a <code>n - 1</code>, cioè <code>n + somma(n - 1)</code>.</li></ul><pre><code class="language-js">function somma(n) {
+  if (n == 0) {
+    return 0;
+  }
+  return n + somma(n - 1);
+}</code></pre><p>Spesso la formula del problema è <strong>già</strong> ricorsiva (fattoriale, somma, ...): in questi casi la funzione si scrive &quot;copiando&quot; la formula. Ricordate il <code>return</code> anche nel passo ricorsivo!</p><h2 id="esercizio-4">Esercizio 4</h2><p>La somma dei <strong>quadrati</strong> dei primi <code>n</code> numeri naturali si può definire per ricorrenza:</p><ul><li><code>Q(0) = 0</code></li><li><code>Q(n) = Q(n-1) + n²</code> se <code>n &gt; 0</code></li></ul><p><strong>A.</strong> Scrivere la funzione ricorsiva <code>sommaQuadrati(n)</code> che <strong>restituisce</strong> <code>Q(n)</code>, cioè <code>1² + 2² + ... + n²</code> (non deve stampare). Ad esempio <code>sommaQuadrati(3)</code> restituisce <code>14</code>.</p><p><strong>B.</strong> Nel programma principale, stampare <code>Q(3)</code>, <code>Q(10)</code> e <code>Q(100)</code>. Qual è il caso base? Cosa cambia, rispetto alla funzione <code>somma(n)</code> del Recap 2, nel passo ricorsivo?</p><h2 id="esercizio-5">Esercizio 5</h2><p><strong>A.</strong> Scrivere la funzione ricorsiva <code>sommaTra(a, b)</code> che restituisce la somma di tutti gli interi da <code>a</code> a <code>b</code> (estremi inclusi), e <code>0</code> se <code>a &gt; b</code>. Ad esempio <code>sommaTra(3, 6)</code> restituisce <code>18</code> (<code>3 + 4 + 5 + 6</code>).</p><p><strong>B.</strong> Qual è il caso base? Qui cosa <strong>cambia</strong> a ogni chiamata ricorsiva: <code>a</code>, <code>b</code> o entrambi?</p><p><strong>C.</strong> Usando <code>sommaTra</code>, scrivere una riga che stampa la somma dei numeri da <code>1</code> a <code>100</code>, e una che stampa la somma dei numeri da <code>50</code> a <code>100</code>.</p><h2 id="esercizio-6">Esercizio 6</h2><p>Nel laboratorio 1 (esercizio 1.7) avete scritto un programma che stampa le <strong>unità</strong>, le <strong>decine</strong> e le <strong>centinaia</strong> di un numero a tre cifre:</p><pre><code class="language-js">let numero = Number(prompt(&quot;Inserire il numero intero a 3 cifre: &quot;));
+let unità = numero % 10;
+let decine = ((numero - unità) / 10) % 10;
+let centinaia = ((numero - unità - decine * 10) / 100) % 10;
+console.log(&quot;unità =&quot;, unità);
+console.log(&quot;decine =&quot;, decine);
+console.log(&quot;centinaia =&quot;, centinaia);</code></pre><p><strong>A.</strong> Provatelo con <code>234</code> e <code>571</code>. Poi riflettete: per ottenere le decine si deve prima togliere l&#x27;unità, per le centinaia si devono togliere unità <strong>e</strong> decine, e per le migliaia? La formula diventa sempre più lunga. C&#x27;è un modo più semplice?</p><p><strong>B.</strong> Basta sapere fare <strong>due</strong> cose:</p><ul><li><strong>prendere l&#x27;ultima cifra</strong> di un numero: <code>n % 10</code>;</li><li><strong>togliere l&#x27;ultima cifra</strong>: <code>Math.floor(n / 10)</code> (ad esempio da <code>572</code> si ottiene <code>57</code>).</li></ul><p>La <strong>penultima</strong> cifra di <code>572</code> (la <code>7</code>) sarebbe l&#x27;<strong>ultima</strong> se non ci fosse l&#x27;ultima: è l&#x27;ultima cifra di <code>57</code>. E la <strong>terzultima</strong> (la <code>5</code>) è l&#x27;ultima cifra di <code>5</code>, cioè del numero a cui si sono tolte <strong>due</strong> cifre. Seguite questo schema per <code>45292</code>:</p><table><thead><tr><th>Passo</th><th><code>n</code></th><th>ultima cifra (<code>n % 10</code>)</th><th><code>n</code> senza l&#x27;ultima cifra</th></tr></thead><tbody><tr><td>1</td><td><code>45292</code></td><td></td><td></td></tr><tr><td>2</td><td></td><td></td><td></td></tr><tr><td>3</td><td></td><td></td><td></td></tr><tr><td>4</td><td></td><td></td><td></td></tr><tr><td>5</td><td></td><td></td><td></td></tr></tbody></table><p>Poi riscrivete il programma dell&#x27;esercizio 1.7 <strong>usando solo queste due operazioni</strong>: prendete l&#x27;ultima cifra (unità), togliete l&#x27;ultima cifra, riprendete l&#x27;ultima cifra (decine), e così via. Confrontate con le formule del laboratorio.</p><p><strong>C.</strong> Se sappiamo prendere l&#x27;ultima cifra e ridurre il numero, possiamo ripetere il procedimento <strong>fino alla cifra più a sinistra</strong>. Questo è un problema ricorsivo: la cifra in posizione <code>k</code> di <code>n</code> (<code>k = 0</code> per le unità, <code>1</code> per le decine, <code>2</code> per le centinaia, ...) è la cifra in posizione <code>k - 1</code> del numero <strong>senza l&#x27;ultima cifra</strong>. Scrivere la funzione ricorsiva <code>cifra(n, k)</code>. Qual è il caso base? Poi riscrivere il programma dell&#x27;esercizio 1.7 <strong>usando <code>cifra</code></strong>: dopo aver letto <code>numero</code>, stampare unità, decine e centinaia con tre chiamate a <code>cifra</code>, una per riga.</p><p><strong>D.</strong> Scrivere <code>primaCifra(n)</code>, che restituisce la cifra <strong>più a sinistra</strong> di <code>n</code>: <code>primaCifra(45292)</code> restituisce <code>4</code>. Suggerimento: si tolgono cifre a destra finché ne resta una sola.</p><p><strong>E.</strong> Scrivere <code>numeroCifre(n)</code>, che restituisce <strong>quante cifre</strong> ha <code>n</code>. Ad esempio <code>numeroCifre(472)</code> restituisce <code>3</code>.</p><p><strong>F.</strong> Scrivere <code>sommaCifre(n)</code>, che restituisce la <strong>somma delle cifre</strong> di <code>n</code>. Ad esempio <code>sommaCifre(472)</code> restituisce <code>13</code>.</p><p>In questo esercizio <code>n</code> è un intero <code>&gt;= 0</code>. Un numero con una sola cifra è <code>n &lt; 10</code>.</p><h2 id="recap-3-variabili-locali-e-globali-scope-e-shadowing">Recap 3 · Variabili locali e globali, scope e shadowing</h2><p>Lo <strong>scope</strong> di una variabile è la parte di programma in cui la variabile <strong>esiste</strong> e si può usare.</p><ul><li>una variabile dichiarata <strong>dentro una funzione</strong> (e i suoi <strong>parametri</strong>) è <strong>locale</strong>: esiste solo durante la chiamata, e sparisce quando la funzione finisce. È per questo che ogni chiamata ricorsiva ha il <strong>proprio</strong> <code>n</code>;</li><li>una variabile dichiarata <strong>fuori</strong> da ogni funzione è <strong>globale</strong>: si può leggere e modificare da qualunque punto (ad esempio un contatore dichiarato all&#x27;inizio del programma);</li><li>con <code>let</code>, una variabile esiste solo nel <strong>blocco</strong> <code>{ ... }</code> in cui è dichiarata: anche la <code>i</code> di un <code>for</code> o una variabile dentro un <code>if</code>.</li></ul><p>Se una variabile locale ha <strong>lo stesso nome</strong> di una variabile esterna, la locale <strong>oscura</strong> (in inglese <em>shadowing</em>) quella esterna: dentro la funzione il nome si riferisce alla locale, e la globale non è raggiungibile <strong>e non viene toccata</strong>.</p><pre><code class="language-js">let x = 10;                                     // globale
+
+function f() {
+  let x = 5;                                    // locale a f: oscura la x globale
+  if (x &gt; 0) {
+    let x = 99;                                 // locale al blocco: oscura la x di f
+    console.log(x);                             // 99
+  }
+  console.log(x);                               // 5: il blocco è finito
+}
+
+f();
+console.log(x);                                 // 10: la x globale non è cambiata</code></pre><p>Ogni livello (programma, funzione, blocco) ha le sue variabili. Per trovare il significato di <code>x</code>, JavaScript parte dal livello <strong>più interno</strong> e risale verso l&#x27;esterno, fermandosi alla <strong>prima</strong> <code>x</code> che trova.</p><p><img src="imgs/shadowing.svg" alt="Shadowing a tre livelli: la x del blocco oscura quella di f(), che oscura quella globale"></p><p>Senza il <code>let</code> la situazione è diversa: l&#x27;assegnamento modifica la variabile <strong>globale</strong>.</p><pre><code class="language-js">function g() {
+  x = x + 1;                                    // niente let: usa la x globale
+}
+
+g();
+console.log(x);                                 // 11</code></pre><p>Lo stesso vale per i <strong>parametri</strong>: nella funzione <code>h(x)</code> il parametro <code>x</code> è una variabile locale che oscura la <code>x</code> globale, e cambiarlo non cambia il valore fuori.</p><pre><code class="language-js">function h(x) {
+  x = x * 2;
+  return x;
+}
+
+console.log(h(3), x);                           // 6 11: la x globale è ancora 11</code></pre><p>Regole pratiche:</p><ul><li>si preferiscono le variabili <strong>locali</strong> e i <strong>parametri</strong>: la funzione si capisce da sola, senza guardare il resto del programma;</li><li>evitate di usare per una variabile locale il nome di una globale: funziona, ma è facile confondersi;</li><li>una variabile globale che una funzione modifica &quot;di nascosto&quot; (come <code>g</code>) rende il programma difficile da seguire: se serve un valore, meglio passarlo come parametro e restituire il risultato con <code>return</code>.</li></ul><h2 id="esercizio-7">Esercizio 7</h2><p>Per ogni programma, dite cosa stampa <strong>senza eseguirlo</strong>; se c&#x27;è un errore, dite quale e perché. Poi eseguitelo per controllare.</p><p><strong>A.</strong></p><pre><code class="language-js">let x = 1;
+function f() {
+  let x = 2;
+  console.log(x);
+}
+f();
+console.log(x);</code></pre><p><strong>B.</strong></p><pre><code class="language-js">let x = 1;
+function g() {
+  x = x + 10;
+}
+g();
+g();
+console.log(x);</code></pre><p><strong>C.</strong></p><pre><code class="language-js">function raddoppia(n) {
+  n = n * 2;
+  return n;
+}
+let n = 5;
+let r = raddoppia(n);
+console.log(n, r);</code></pre><p><strong>D.</strong></p><pre><code class="language-js">let x = 10;
+if (x &gt; 5) {
+  let x = 20;
+  x = x + 1;
+  console.log(x);
+}
+console.log(x);</code></pre><p><strong>E.</strong></p><pre><code class="language-js">for (let i = 0; i &lt; 3; i++) {
+  console.log(i);
+}
+console.log(i);</code></pre><h2 id="esercizio-8">Esercizio 8</h2><p><strong>A.</strong> Cosa stampa questo programma? Se c&#x27;è un problema, dite quale e correggetelo in modo da stampare il risultato.</p><pre><code class="language-js">function calcola() {
+  let risultato = 5 * 2;
+}
+calcola();
+console.log(risultato);</code></pre><p><strong>B.</strong> Cosa stampa ciascuno di questi due programmi? Se c&#x27;è un problema, dite quale e perché.</p><pre><code class="language-js">// programma 1
+let y = 3;
+function stampa() {
+  console.log(y);
+}
+stampa();</code></pre><pre><code class="language-js">// programma 2
+function stampa() {
+  console.log(y);
+}
+stampa();
+let y = 3;</code></pre><p><strong>C.</strong> La funzione dovrebbe restituire quanti numeri ci sono da <code>n</code> fino a <code>1</code> (quindi <code>conta(3)</code> dovrebbe dare <code>3</code>). Cosa restituisce davvero? Se non è il valore atteso, dite perché e correggetela.</p><pre><code class="language-js">function conta(n) {
+  let passi = 0;
+  if (n &gt; 0) {
+    passi = passi + 1;
+    conta(n - 1);
+  }
+  return passi;
+}
+console.log(conta(3));</code></pre><p><strong>D.</strong> Questa funzione modifica la variabile <strong>globale</strong> <code>totale</code>. Riscrivetela in modo che <strong>non</strong> tocchi variabili globali: riceva il totale come parametro e <strong>restituisca</strong> il nuovo totale.</p><pre><code class="language-js">let totale = 0;
+function aggiungi(x) {
+  totale = totale + x;
+}
+aggiungi(3);
+aggiungi(4);
+console.log(totale);          // 7</code></pre><h2 id="recap-4-cicli-annidati">Recap 4 · Cicli annidati</h2><p>Un ciclo può contenere un altro ciclo. Il ciclo <strong>interno</strong> viene eseguito <strong>per intero</strong> a ogni giro del ciclo <strong>esterno</strong>. Esempio: le prime cinque righe delle tabelline del 2, del 3 e del 4.</p><pre><code class="language-js">for (let i = 2; i &lt;= 4; i++) {          // esterno: una tabellina per giro (2, 3, 4)
+  let riga = &quot;&quot;;                        // si azzera a ogni giro esterno
+  for (let j = 1; j &lt;= 5; j++) {        // interno: 5 giri, ricomincia ogni volta
+    riga = riga + (i * j) + &quot; &quot;;
+  }
+  console.log(riga);                    // una riga per ogni tabellina
+}</code></pre><pre><code class="language-text">2 4 6 8 10
+3 6 9 12 15
+4 8 12 16 20</code></pre><p>Il ciclo esterno fa 3 giri (<code>i</code> vale <code>2</code>, <code>3</code>, <code>4</code>); a ognuno, il ciclo interno fa <strong>tutti</strong> i suoi 5 giri (<code>j</code> da <code>1</code> a <code>5</code>) e costruisce una riga.</p><ul><li>il corpo del ciclo interno viene eseguito (giri esterni) × (giri interni) volte: qui <code>3 * 5 = 15</code>;</li><li>le variabili dei due cicli (<code>i</code>, <code>j</code>) devono avere <strong>nomi diversi</strong>;</li><li>le variabili che servono &quot;da capo&quot; a ogni giro esterno (come <code>riga</code>) vanno <strong>inizializzate dentro</strong> il ciclo esterno, prima del ciclo interno;</li><li>il numero di giri interni può dipendere dalla variabile del ciclo esterno (ad esempio in un triangolo di asterischi, dove la riga <code>i</code> ne ha <code>i</code>: il ciclo interno va da <code>1</code> a <code>i</code>);</li><li>per <strong>seguire</strong> un programma a mano, si scrive una tabella con i valori di <code>i</code> e <code>j</code> a ogni giro.</li></ul><h2 id="esercizio-9">Esercizio 9</h2><p>Per ogni programma, dite cosa stampa <strong>senza eseguirlo</strong> (aiutatevi con una tabella dei valori di <code>i</code> e <code>j</code>); poi eseguitelo per controllare.</p><p><strong>A.</strong></p><pre><code class="language-js">for (let i = 1; i &lt;= 3; i++) {
+  for (let j = 1; j &lt;= 2; j++) {
+    console.log(i, j);
+  }
+}</code></pre><p><strong>B.</strong></p><pre><code class="language-js">for (let i = 1; i &lt;= 3; i++) {
+  let riga = &quot;&quot;;
+  for (let j = 1; j &lt;= 3; j++) {
+    riga = riga + (i * j) + &quot; &quot;;
+  }
+  console.log(riga);
+}</code></pre><p><strong>C.</strong> Quanto vale <code>conta</code> alla fine? E se i due cicli arrivassero a <code>100</code> invece che a <code>4</code>?</p><pre><code class="language-js">let conta = 0;
+for (let i = 1; i &lt;= 4; i++) {
+  for (let j = 1; j &lt;= i; j++) {
+    conta++;
+  }
+}
+console.log(conta);</code></pre><p><strong>D.</strong> Questo programma doveva stampare un triangolo di asterischi, ma non fa quello che ci si aspetta. Cosa stampa? Come si corregge?</p><pre><code class="language-js">let riga = &quot;&quot;;
+for (let i = 1; i &lt;= 3; i++) {
+  for (let j = 1; j &lt;= i; j++) {
+    riga = riga + &quot;*&quot;;
+  }
+  console.log(riga);
+}</code></pre><h2 id="esercizio-10">Esercizio 10</h2><p>Chiedere all&#x27;utente un intero <code>n &gt;= 1</code> (facendo ripetere la domanda finché non è valido) e stampare le seguenti figure. Per <code>n = 4</code>:</p><p><strong>A.</strong> Un <strong>quadrato</strong> di asterischi, <code>n</code> righe di <code>n</code> asterischi:</p><pre><code class="language-text">****
+****
+****
+****</code></pre><p><strong>B.</strong> Un triangolo <strong>rovesciato</strong>, con <code>n</code> asterischi nella prima riga e uno nell&#x27;ultima:</p><pre><code class="language-text">****
+***
+**
+*</code></pre><p><strong>C.</strong> Un triangolo di <strong>numeri</strong>: nella riga <code>i</code> ci sono i numeri da <code>1</code> a <code>i</code>, separati da uno spazio:</p><pre><code class="language-text">1
+1 2
+1 2 3
+1 2 3 4</code></pre><p><strong>D.</strong> Un triangolo <strong>allineato a destra</strong>, con <code>n</code> righe: nella riga <code>i</code> ci sono <code>n - i</code> spazi seguiti da <code>i</code> asterischi:</p><pre><code class="language-text">   *
+  **
+ ***
+****</code></pre><p>Suggerimento: per ogni figura chiedetevi quanti giri fa il ciclo interno <strong>in funzione di <code>i</code></strong>; poi, se serve, costruite la riga come stringa.</p><h2 id="esercizio-11">Esercizio 11</h2><p>La <strong>tavola pitagorica</strong> mostra i prodotti <code>i * j</code> per <code>i</code> e <code>j</code> da <code>1</code> a <code>n</code>.</p><p><strong>A.</strong> Chiedere <code>n</code> all&#x27;utente e stampare la tavola, una riga per ogni <code>i</code>, con i numeri allineati in colonne. Ad esempio per <code>n = 5</code>:</p><pre><code class="language-text">   1   2   3   4   5
+   2   4   6   8  10
+   3   6   9  12  15
+   4   8  12  16  20
+   5  10  15  20  25</code></pre><p>Suggerimento: <code>String(x).padStart(4)</code> restituisce il numero <code>x</code> come stringa, riempita a sinistra con spazi fino a 4 caratteri.</p><p><strong>B.</strong> Stampare solo la parte &quot;sopra la diagonale&quot; (<code>j &gt;= i</code>), lasciando vuote le caselle sotto. Per <code>n = 5</code>:</p><pre><code class="language-text">   1   2   3   4   5
+       4   6   8  10
+           9  12  15
+              16  20
+                  25</code></pre><p><strong>C.</strong> Calcolare e stampare la <strong>somma di tutti i numeri della tavola</strong> per <code>n = 10</code>. C&#x27;è una formula per ottenerla?</p><h2 id="esercizio-12">Esercizio 12</h2><p>Si lanciano due dadi a sei facce. Ogni risultato è una <strong>coppia</strong> <code>(a, b)</code> con <code>a</code> e <code>b</code> da <code>1</code> a <code>6</code>.</p><p><strong>A.</strong> Stampare <strong>tutte</strong> le coppie la cui somma è <code>7</code>, e dire quante sono. Quante coppie in tutto si controllano?</p><p><strong>B.</strong> Chiedere all&#x27;utente una somma <code>s</code> (facendo ripetere la domanda finché non è un intero tra <code>2</code> e <code>12</code>), e stampare quante coppie danno quella somma. Provate con <code>2</code>, <code>7</code> e <code>12</code>.</p><p><strong>C.</strong> Stampare, per ogni somma da <code>2</code> a <code>12</code>, <strong>quante</strong> coppie la producono. Quale somma è la più frequente?</p><h2 id="esercizio-13">Esercizio 13</h2><p>Un numero <code>n &gt;= 2</code> è <strong>primo</strong> se non ha divisori tra <code>2</code> e <code>n - 1</code>.</p><p><strong>A.</strong> Stampare tutti i numeri primi da <code>2</code> a <code>50</code> e quanti sono. Per ogni <code>n</code> il ciclo interno cerca un divisore, usando una <strong>variabile flag</strong> (come nell&#x27;esercitazione 3).</p><p><strong>B.</strong> Il ciclo interno continua a girare anche dopo aver trovato un divisore, ma non serve più. Aggiungete un <code>break</code> per fermarlo, e verificate con un contatore globale che il numero di giri interni <strong>diminuisce</strong>. Di quanto?</p><h2 id="esercizio-14">Esercizio 14</h2><p><strong>Sfida: le terne pitagoriche.</strong> Una <strong>terna pitagorica</strong> è una terna di interi positivi <code>a &lt; b &lt; c</code> tali che <code>a² + b² = c²</code>, ad esempio <code>3, 4, 5</code> (<code>9 + 16 = 25</code>).</p><p><strong>A.</strong> Stampare tutte le terne pitagoriche con <code>c &lt;= 20</code>, e dire quante sono.</p><p><strong>B.</strong> Quante volte viene controllata la condizione <code>a² + b² == c²</code>? Verificatelo con un contatore. Come cambia se <code>b</code> parte da <code>a + 1</code> e <code>c</code> da <code>b + 1</code>, invece che da <code>1</code>?</p>
+<footer>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license">
+<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0">
+</a>
+Ludovica Pannitto - Università di Pisa -
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>
+</footer>
+</main>
+</body>
+</html>

@@ -63,8 +63,8 @@ def main() -> None:
     for html in sorted(ROOT.glob("esercitazione-*/esercitazione-*.html")):
         if html.name.endswith(".slides.html") or ".tmp-print" in html.name:
             continue
-        # esercitazione 4: per ora solo la versione senza soluzioni
-        if html.stem == "esercitazione-4":
+        # esercitazioni 4 e 5: per ora solo la versione senza soluzioni
+        if html.stem in ("esercitazione-4", "esercitazione-5"):
             continue
         stampa(html, html.with_suffix(".pdf"), apri_soluzioni="senza-soluzioni" not in html.name)
 

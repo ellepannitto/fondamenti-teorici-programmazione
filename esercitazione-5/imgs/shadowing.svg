@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" font-family="Avenir Next,Arial,sans-serif" font-size="15">
+<rect width="960" height="560" fill="#fff"/>
+<defs>
+<marker id="b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4f8fb5"/></marker>
+<marker id="o" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#d9822b"/></marker>
+<marker id="v" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3f9a6b"/></marker>
+</defs>
+<!-- globale -->
+<rect x="20" y="20" width="920" height="520" rx="10" fill="#f4f6f8" stroke="#5d6770" stroke-width="1.5"/>
+<text x="36" y="48" fill="#17212b" font-weight="700">Ambiente globale</text>
+<rect x="44" y="70" width="200" height="56" rx="6" fill="#eef5fa" stroke="#4f8fb5" stroke-width="2"/>
+<text x="60" y="95" font-family="Menlo,Consolas,monospace" font-weight="700" fill="#17212b">let x = 10;</text>
+<text x="60" y="115" font-size="14" fill="#17212b">x globale</text>
+<path d="M 144 126 V 196" stroke="#4f8fb5" stroke-width="2.5" marker-end="url(#b)" fill="none"/>
+<text x="44" y="222" font-family="Menlo,Consolas,monospace" font-size="14" fill="#17212b">console.log(x)</text>
+<text x="44" y="242" font-size="14" fill="#17212b">dopo f(), fuori da tutto</text>
+<text x="44" y="264" font-weight="700" fill="#4f8fb5">stampa 10</text>
+<text x="44" y="330" font-weight="700" fill="#17212b">Come si cerca il nome x</text>
+<text x="44" y="352" font-size="14" fill="#17212b">si parte dall'ambiente più</text>
+<text x="44" y="372" font-size="14" fill="#17212b">interno e si esce verso</text>
+<text x="44" y="392" font-size="14" fill="#17212b">l'esterno: vince la prima x</text>
+<text x="44" y="412" font-size="14" fill="#17212b">trovata. Le altre restano</text>
+<text x="44" y="432" font-size="14" fill="#17212b">oscurate, ma non cambiano.</text>
+<!-- funzione f -->
+<rect x="280" y="60" width="640" height="460" rx="8" fill="#fff" stroke="#5d6770" stroke-width="1.5"/>
+<text x="296" y="86" fill="#17212b" font-weight="700">Dentro function f()</text>
+<rect x="304" y="104" width="220" height="56" rx="6" fill="#fdf1e3" stroke="#d9822b" stroke-width="2"/>
+<text x="320" y="129" font-family="Menlo,Consolas,monospace" font-weight="700" fill="#17212b">let x = 5;</text>
+<text x="320" y="149" font-size="14" fill="#17212b">x locale di f</text>
+<rect x="304" y="170" width="220" height="40" rx="6" fill="#f4f6f8" stroke="#9aa3ab" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="320" y="187" font-family="Menlo,Consolas,monospace" font-size="13" fill="#9aa3ab">x = 10</text>
+<text x="320" y="203" font-size="12" fill="#9aa3ab">globale: oscurata in f</text>
+<path d="M 524 132 H 570" stroke="#d9822b" stroke-width="2.5" marker-end="url(#o)" fill="none"/>
+<text x="580" y="128" font-family="Menlo,Consolas,monospace" font-size="14" fill="#17212b">console.log(x)</text>
+<text x="580" y="148" font-size="14" fill="#17212b">in f(), dopo il blocco</text>
+<text x="580" y="170" font-weight="700" fill="#d9822b">stampa 5</text>
+<!-- blocco if -->
+<rect x="304" y="238" width="592" height="262" rx="8" fill="#f1f8f4" stroke="#3f9a6b" stroke-width="1.5"/>
+<text x="320" y="264" fill="#17212b" font-weight="700">Dentro il blocco  if (x &gt; 0) { ... }</text>
+<rect x="328" y="282" width="220" height="56" rx="6" fill="#e3f3ea" stroke="#3f9a6b" stroke-width="2"/>
+<text x="344" y="307" font-family="Menlo,Consolas,monospace" font-weight="700" fill="#17212b">let x = 99;</text>
+<text x="344" y="327" font-size="14" fill="#17212b">x locale del blocco</text>
+<rect x="328" y="350" width="220" height="40" rx="6" fill="#f4f6f8" stroke="#9aa3ab" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="344" y="367" font-family="Menlo,Consolas,monospace" font-size="13" fill="#9aa3ab">x = 5</text>
+<text x="344" y="383" font-size="12" fill="#9aa3ab">di f: oscurata nel blocco</text>
+<rect x="328" y="398" width="220" height="40" rx="6" fill="#f4f6f8" stroke="#9aa3ab" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="344" y="415" font-family="Menlo,Consolas,monospace" font-size="13" fill="#9aa3ab">x = 10</text>
+<text x="344" y="431" font-size="12" fill="#9aa3ab">globale: oscurata nel blocco</text>
+<path d="M 548 310 H 594" stroke="#3f9a6b" stroke-width="2.5" marker-end="url(#v)" fill="none"/>
+<text x="604" y="306" font-family="Menlo,Consolas,monospace" font-size="14" fill="#17212b">console.log(x)</text>
+<text x="604" y="326" font-size="14" fill="#17212b">dentro il blocco</text>
+<text x="604" y="348" font-weight="700" fill="#3f9a6b">stampa 99</text>
+<text x="604" y="400" font-size="13" fill="#5d6770">Alla chiusura del blocco la x = 99</text>
+<text x="604" y="418" font-size="13" fill="#5d6770">sparisce e torna visibile la x = 5.</text>
+<text x="604" y="450" font-size="13" fill="#5d6770">Alla fine di f() sparisce anche</text>
+<text x="604" y="468" font-size="13" fill="#5d6770">la x = 5: resta solo la globale.</text>
+</svg>

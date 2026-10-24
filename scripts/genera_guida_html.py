@@ -27,6 +27,8 @@ HEADING_RE = re.compile(r"^(#{1,6})\s+(.*)$")
 DETAILS_OPEN_RE = re.compile(r"^<details>\s*$")
 SUMMARY_RE = re.compile(r"^<summary>(.*)</summary>\s*$")
 DETAILS_CLOSE_RE = re.compile(r"^</details>\s*$")
+AFFIANCATI_OPEN_RE = re.compile(r'^<div class="affiancati">\s*$')
+AFFIANCATI_CLOSE_RE = re.compile(r"^</div>\s*$")
 
 
 def slugify(text: str) -> str:
@@ -211,6 +213,22 @@ def parse_details(lines: list[str], start: int) -> tuple[str, int]:
     return f"<details><summary>{render_inline(summary)}</summary>{inner_html}</details>", min(i + 1, len(lines))
 
 
+def parse_affiancati(lines: list[str], start: int) -> tuple[str, int]:
+    """Blocco `<div class="affiancati"> ... </div>`: colonne separate da una riga `|||`."""
+    i = start + 1
+    colonne: list[list[str]] = [[]]
+
+    while i < len(lines) and not AFFIANCATI_CLOSE_RE.fullmatch(lines[i].strip()):
+        if lines[i].strip() == "|||":
+            colonne.append([])
+        else:
+            colonne[-1].append(lines[i])
+        i += 1
+
+    inner = "".join(f'<div class="colonna">{render_body(chr(10).join(c))}</div>' for c in colonne)
+    return f'<div class="affiancati">{inner}</div>', min(i + 1, len(lines))
+
+
 def render_body(text: str) -> str:
     lines = text.splitlines()
     body: list[str] = []
@@ -236,6 +254,11 @@ def render_body(text: str) -> str:
 
         if DETAILS_OPEN_RE.fullmatch(stripped):
             html, i = parse_details(lines, i)
+            body.append(html)
+            continue
+
+        if AFFIANCATI_OPEN_RE.fullmatch(stripped):
+            html, i = parse_affiancati(lines, i)
             body.append(html)
             continue
 
@@ -299,6 +322,9 @@ details {{ margin: 0 0 1rem; border: 1px solid #ddd5ca; border-radius: 10px; bac
 summary {{ cursor: pointer; font-weight: 600; padding: 0.8rem 1rem; background: #f3ece2; }}
 details > :not(summary) {{ padding-left: 1rem; padding-right: 1rem; }}
 pre {{ background: #1f2430; color: #f3f4f6; padding: 1rem; border-radius: 10px; overflow-x: auto; }}
+.affiancati {{ display: flex; gap: 1rem; align-items: flex-start; }}
+.affiancati .colonna {{ flex: 1 1 0; min-width: 0; }}
+@media (max-width: 700px) {{ .affiancati {{ flex-direction: column; }} .affiancati .colonna {{ width: 100%; }} }}
 code {{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95em; }}
 p code, li code, td code, th code, blockquote code {{ background: rgba(28, 42, 57, 0.08); padding: 0.08rem 0.35rem; border-radius: 4px; color: #18212d; }}
 table {{ width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }}
@@ -551,6 +577,9 @@ details {{ margin: 0 0 1rem; border: 1px solid rgba(23, 33, 43, 0.12); border-ra
 summary {{ cursor: pointer; font-weight: 700; padding: 0.75rem 0.95rem; background: rgba(23, 33, 43, 0.06); }}
 details > :not(summary) {{ padding-left: 0.95rem; padding-right: 0.95rem; }}
 pre {{ background: #1f2430; color: #f3f4f6; padding: 1rem; border-radius: 16px; overflow-x: auto; }}
+.affiancati {{ display: flex; gap: 1rem; align-items: flex-start; }}
+.affiancati .colonna {{ flex: 1 1 0; min-width: 0; }}
+@media (max-width: 700px) {{ .affiancati {{ flex-direction: column; }} .affiancati .colonna {{ width: 100%; }} }}
 code {{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; }}
 p code, li code, td code, th code, blockquote code {{ background: rgba(23, 33, 43, 0.07); padding: 0.08rem 0.35rem; border-radius: 4px; }}
 table {{ width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.92); border-radius: 14px; overflow: hidden; }}
