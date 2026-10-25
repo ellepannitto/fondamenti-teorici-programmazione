@@ -132,7 +132,7 @@ a.ex-id:hover { background: rgba(139,63,29,0.18); }
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="indice-degli-esercizi">Indice degli esercizi</h2><table><thead><tr><th>Esercizio</th><th>Argomento</th></tr></thead><tbody><tr><td><a href="#esercizio-1">Esercizio 1</a></td><td>Ricorsione: cosa stampa e in che ordine</td></tr><tr><td><a href="#esercizio-2">Esercizio 2</a></td><td>Ricorsione: trovare l&#x27;errore</td></tr><tr><td><a href="#esercizio-3">Esercizio 3</a></td><td>Fattoriale</td></tr><tr><td><a href="#esercizio-4">Esercizio 4</a></td><td>Somma dei quadrati</td></tr><tr><td><a href="#esercizio-5">Esercizio 5</a></td><td>Somma tra due numeri</td></tr><tr><td><a href="#esercizio-6">Esercizio 6</a></td><td>Le cifre di un numero</td></tr><tr><td><a href="#esercizio-7">Esercizio 7</a></td><td>Variabili locali e globali: cosa stampa</td></tr><tr><td><a href="#esercizio-8">Esercizio 8</a></td><td>Variabili e visibilità: errori e correzioni</td></tr><tr><td><a href="#esercizio-9">Esercizio 9</a></td><td>Cicli annidati: cosa stampa</td></tr><tr><td><a href="#esercizio-10">Esercizio 10</a></td><td>Figure di asterischi e numeri</td></tr><tr><td><a href="#esercizio-11">Esercizio 11</a></td><td>Tavola pitagorica</td></tr><tr><td><a href="#esercizio-12">Esercizio 12</a></td><td>Coppie di dadi</td></tr><tr><td><a href="#esercizio-13">Esercizio 13</a></td><td>Numeri primi</td></tr><tr><td><a href="#esercizio-14">Esercizio 14</a></td><td>Sfida: le terne pitagoriche</td></tr></tbody></table>
+    <h2 id="indice-degli-esercizi">Indice degli esercizi</h2><table><thead><tr><th>Esercizio</th><th>Argomento</th></tr></thead><tbody><tr><td><a href="#esercizio-1">Esercizio 1</a></td><td>Ricorsione: cosa stampa e in che ordine</td></tr><tr><td><a href="#esercizio-2">Esercizio 2</a></td><td>Ricorsione: trovare l&#x27;errore</td></tr><tr><td><a href="#esercizio-3">Esercizio 3</a></td><td>Fattoriale</td></tr><tr><td><a href="#esercizio-4">Esercizio 4</a></td><td>Somma dei quadrati</td></tr><tr><td><a href="#esercizio-5">Esercizio 5</a></td><td>Somma tra due numeri</td></tr><tr><td><a href="#esercizio-6">Esercizio 6</a></td><td>Variabili locali e globali: cosa stampa</td></tr><tr><td><a href="#esercizio-7">Esercizio 7</a></td><td>Variabili e visibilità: errori e correzioni</td></tr><tr><td><a href="#esercizio-8">Esercizio 8</a></td><td>Cicli annidati: cosa stampa</td></tr><tr><td><a href="#esercizio-9">Esercizio 9</a></td><td>Figure di asterischi e numeri</td></tr><tr><td><a href="#esercizio-10">Esercizio 10</a></td><td>Tavola pitagorica</td></tr><tr><td><a href="#esercizio-11">Esercizio 11</a></td><td>Coppie di dadi</td></tr><tr><td><a href="#esercizio-12">Esercizio 12</a></td><td>Numeri primi</td></tr></tbody></table>
     
   </div>
 </section>
@@ -261,19 +261,6 @@ console.log(fattoriale(3));</code></pre><table><thead><tr><th>Chiamata</th><th>C
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-6">Esercizio 6</h2><p>Nel laboratorio 1 (esercizio 1.7) avete scritto un programma che stampa le <strong>unità</strong>, le <strong>decine</strong> e le <strong>centinaia</strong> di un numero a tre cifre:</p><pre><code class="language-js">let numero = Number(prompt(&quot;Inserire il numero intero a 3 cifre: &quot;));
-let unità = numero % 10;
-let decine = ((numero - unità) / 10) % 10;
-let centinaia = ((numero - unità - decine * 10) / 100) % 10;
-console.log(&quot;unità =&quot;, unità);
-console.log(&quot;decine =&quot;, decine);
-console.log(&quot;centinaia =&quot;, centinaia);</code></pre><p><strong>A.</strong> Provatelo con <code>234</code> e <code>571</code>. Poi riflettete: per ottenere le decine si deve prima togliere l&#x27;unità, per le centinaia si devono togliere unità <strong>e</strong> decine, e per le migliaia? La formula diventa sempre più lunga. C&#x27;è un modo più semplice?</p><p><strong>B.</strong> Basta sapere fare <strong>due</strong> cose:</p><ul><li><strong>prendere l&#x27;ultima cifra</strong> di un numero: <code>n % 10</code>;</li><li><strong>togliere l&#x27;ultima cifra</strong>: <code>Math.floor(n / 10)</code> (ad esempio da <code>572</code> si ottiene <code>57</code>).</li></ul><p>La <strong>penultima</strong> cifra di <code>572</code> (la <code>7</code>) sarebbe l&#x27;<strong>ultima</strong> se non ci fosse l&#x27;ultima: è l&#x27;ultima cifra di <code>57</code>. E la <strong>terzultima</strong> (la <code>5</code>) è l&#x27;ultima cifra di <code>5</code>, cioè del numero a cui si sono tolte <strong>due</strong> cifre. Seguite questo schema per <code>45292</code>:</p><table><thead><tr><th>Passo</th><th><code>n</code></th><th>ultima cifra (<code>n % 10</code>)</th><th><code>n</code> senza l&#x27;ultima cifra</th></tr></thead><tbody><tr><td>1</td><td><code>45292</code></td><td></td><td></td></tr><tr><td>2</td><td></td><td></td><td></td></tr><tr><td>3</td><td></td><td></td><td></td></tr><tr><td>4</td><td></td><td></td><td></td></tr><tr><td>5</td><td></td><td></td><td></td></tr></tbody></table><p>Poi riscrivete il programma dell&#x27;esercizio 1.7 <strong>usando solo queste due operazioni</strong>: prendete l&#x27;ultima cifra (unità), togliete l&#x27;ultima cifra, riprendete l&#x27;ultima cifra (decine), e così via. Confrontate con le formule del laboratorio.</p><p><strong>C.</strong> Se sappiamo prendere l&#x27;ultima cifra e ridurre il numero, possiamo ripetere il procedimento <strong>fino alla cifra più a sinistra</strong>. Questo è un problema ricorsivo: la cifra in posizione <code>k</code> di <code>n</code> (<code>k = 0</code> per le unità, <code>1</code> per le decine, <code>2</code> per le centinaia, ...) è la cifra in posizione <code>k - 1</code> del numero <strong>senza l&#x27;ultima cifra</strong>. Scrivere la funzione ricorsiva <code>cifra(n, k)</code>. Qual è il caso base? Poi riscrivere il programma dell&#x27;esercizio 1.7 <strong>usando <code>cifra</code></strong>: dopo aver letto <code>numero</code>, stampare unità, decine e centinaia con tre chiamate a <code>cifra</code>, una per riga.</p><p><strong>D.</strong> Scrivere <code>primaCifra(n)</code>, che restituisce la cifra <strong>più a sinistra</strong> di <code>n</code>: <code>primaCifra(45292)</code> restituisce <code>4</code>. Suggerimento: si tolgono cifre a destra finché ne resta una sola.</p><p><strong>E.</strong> Scrivere <code>numeroCifre(n)</code>, che restituisce <strong>quante cifre</strong> ha <code>n</code>. Ad esempio <code>numeroCifre(472)</code> restituisce <code>3</code>.</p><p><strong>F.</strong> Scrivere <code>sommaCifre(n)</code>, che restituisce la <strong>somma delle cifre</strong> di <code>n</code>. Ad esempio <code>sommaCifre(472)</code> restituisce <code>13</code>.</p><p>In questo esercizio <code>n</code> è un intero <code>&gt;= 0</code>. Un numero con una sola cifra è <code>n &lt; 10</code>.</p>
-    
-  </div>
-</section>
-
-<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
-  <div class="slide-inner">
     <h2 id="recap-3-variabili-locali-e-globali-scope-e-shadowing">Recap 3 · Variabili locali e globali, scope e shadowing</h2><p>Lo <strong>scope</strong> di una variabile è la parte di programma in cui la variabile <strong>esiste</strong> e si può usare.</p><ul><li>una variabile dichiarata <strong>dentro una funzione</strong> (e i suoi <strong>parametri</strong>) è <strong>locale</strong>: esiste solo durante la chiamata, e sparisce quando la funzione finisce. È per questo che ogni chiamata ricorsiva ha il <strong>proprio</strong> <code>n</code>;</li><li>una variabile dichiarata <strong>fuori</strong> da ogni funzione è <strong>globale</strong>: si può leggere e modificare da qualunque punto (ad esempio un contatore dichiarato all&#x27;inizio del programma);</li><li>con <code>let</code>, una variabile esiste solo nel <strong>blocco</strong> <code>{ ... }</code> in cui è dichiarata: anche la <code>i</code> di un <code>for</code> o una variabile dentro un <code>if</code>.</li></ul><p>Se una variabile locale ha <strong>lo stesso nome</strong> di una variabile esterna, la locale <strong>oscura</strong> (in inglese <em>shadowing</em>) quella esterna: dentro la funzione il nome si riferisce alla locale, e la globale non è raggiungibile <strong>e non viene toccata</strong>.</p><pre><code class="language-js">let x = 10;                                     // globale
 
 function f() {
@@ -303,7 +290,7 @@ console.log(h(3), x);                           // 6 11: la x globale è ancora 
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-7">Esercizio 7</h2><p>Per ogni programma, dite cosa stampa <strong>senza eseguirlo</strong>; se c&#x27;è un errore, dite quale e perché. Poi eseguitelo per controllare.</p><p><strong>A.</strong></p><pre><code class="language-js">let x = 1;
+    <h2 id="esercizio-6">Esercizio 6</h2><p>Per ogni programma, dite cosa stampa <strong>senza eseguirlo</strong>; se c&#x27;è un errore, dite quale e perché. Poi eseguitelo per controllare.</p><p><strong>A.</strong></p><pre><code class="language-js">let x = 1;
 function f() {
   let x = 2;
   console.log(x);
@@ -337,7 +324,7 @@ console.log(i);</code></pre>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-8">Esercizio 8</h2><p><strong>A.</strong> Cosa stampa questo programma? Se c&#x27;è un problema, dite quale e correggetelo in modo da stampare il risultato.</p><pre><code class="language-js">function calcola() {
+    <h2 id="esercizio-7">Esercizio 7</h2><p><strong>A.</strong> Cosa stampa questo programma? Se c&#x27;è un problema, dite quale e correggetelo in modo da stampare il risultato.</p><pre><code class="language-js">function calcola() {
   let risultato = 5 * 2;
 }
 calcola();
@@ -387,7 +374,7 @@ console.log(totale);          // 7</code></pre>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-9">Esercizio 9</h2><p>Per ogni programma, dite cosa stampa <strong>senza eseguirlo</strong> (aiutatevi con una tabella dei valori di <code>i</code> e <code>j</code>); poi eseguitelo per controllare.</p><p><strong>A.</strong></p><pre><code class="language-js">for (let i = 1; i &lt;= 3; i++) {
+    <h2 id="esercizio-8">Esercizio 8</h2><p>Per ogni programma, dite cosa stampa <strong>senza eseguirlo</strong> (aiutatevi con una tabella dei valori di <code>i</code> e <code>j</code>); poi eseguitelo per controllare.</p><p><strong>A.</strong></p><pre><code class="language-js">for (let i = 1; i &lt;= 3; i++) {
   for (let j = 1; j &lt;= 2; j++) {
     console.log(i, j);
   }
@@ -416,7 +403,7 @@ for (let i = 1; i &lt;= 3; i++) {
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-10">Esercizio 10</h2><p>Chiedere all&#x27;utente un intero <code>n &gt;= 1</code> (facendo ripetere la domanda finché non è valido) e stampare le seguenti figure. Per <code>n = 4</code>:</p><p><strong>A.</strong> Un <strong>quadrato</strong> di asterischi, <code>n</code> righe di <code>n</code> asterischi:</p><pre><code class="language-text">****
+    <h2 id="esercizio-9">Esercizio 9</h2><p>Chiedere all&#x27;utente un intero <code>n &gt;= 1</code> (facendo ripetere la domanda finché non è valido) e stampare le seguenti figure. Per <code>n = 4</code>:</p><p><strong>A.</strong> Un <strong>quadrato</strong> di asterischi, <code>n</code> righe di <code>n</code> asterischi:</p><pre><code class="language-text">****
 ****
 ****
 ****</code></pre><p><strong>B.</strong> Un triangolo <strong>rovesciato</strong>, con <code>n</code> asterischi nella prima riga e uno nell&#x27;ultima:</p><pre><code class="language-text">****
@@ -435,7 +422,7 @@ for (let i = 1; i &lt;= 3; i++) {
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-11">Esercizio 11</h2><p>La <strong>tavola pitagorica</strong> mostra i prodotti <code>i * j</code> per <code>i</code> e <code>j</code> da <code>1</code> a <code>n</code>.</p><p><strong>A.</strong> Chiedere <code>n</code> all&#x27;utente e stampare la tavola, una riga per ogni <code>i</code>, con i numeri allineati in colonne. Ad esempio per <code>n = 5</code>:</p><pre><code class="language-text">   1   2   3   4   5
+    <h2 id="esercizio-10">Esercizio 10</h2><p>La <strong>tavola pitagorica</strong> mostra i prodotti <code>i * j</code> per <code>i</code> e <code>j</code> da <code>1</code> a <code>n</code>.</p><p><strong>A.</strong> Chiedere <code>n</code> all&#x27;utente e stampare la tavola, una riga per ogni <code>i</code>, con i numeri allineati in colonne. Ad esempio per <code>n = 5</code>:</p><pre><code class="language-text">   1   2   3   4   5
    2   4   6   8  10
    3   6   9  12  15
    4   8  12  16  20
@@ -450,21 +437,14 @@ for (let i = 1; i &lt;= 3; i++) {
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-12">Esercizio 12</h2><p>Si lanciano due dadi a sei facce. Ogni risultato è una <strong>coppia</strong> <code>(a, b)</code> con <code>a</code> e <code>b</code> da <code>1</code> a <code>6</code>.</p><p><strong>A.</strong> Stampare <strong>tutte</strong> le coppie la cui somma è <code>7</code>, e dire quante sono. Quante coppie in tutto si controllano?</p><p><strong>B.</strong> Chiedere all&#x27;utente una somma <code>s</code> (facendo ripetere la domanda finché non è un intero tra <code>2</code> e <code>12</code>), e stampare quante coppie danno quella somma. Provate con <code>2</code>, <code>7</code> e <code>12</code>.</p><p><strong>C.</strong> Stampare, per ogni somma da <code>2</code> a <code>12</code>, <strong>quante</strong> coppie la producono. Quale somma è la più frequente?</p>
+    <h2 id="esercizio-11">Esercizio 11</h2><p>Si lanciano due dadi a sei facce. Ogni risultato è una <strong>coppia</strong> <code>(a, b)</code> con <code>a</code> e <code>b</code> da <code>1</code> a <code>6</code>.</p><p><strong>A.</strong> Stampare <strong>tutte</strong> le coppie la cui somma è <code>7</code>, e dire quante sono. Quante coppie in tutto si controllano?</p><p><strong>B.</strong> Chiedere all&#x27;utente una somma <code>s</code> (facendo ripetere la domanda finché non è un intero tra <code>2</code> e <code>12</code>), e stampare quante coppie danno quella somma. Provate con <code>2</code>, <code>7</code> e <code>12</code>.</p><p><strong>C.</strong> Stampare, per ogni somma da <code>2</code> a <code>12</code>, <strong>quante</strong> coppie la producono. Quale somma è la più frequente?</p>
     
   </div>
 </section>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-13">Esercizio 13</h2><p>Un numero <code>n &gt;= 2</code> è <strong>primo</strong> se non ha divisori tra <code>2</code> e <code>n - 1</code>.</p><p><strong>A.</strong> Stampare tutti i numeri primi da <code>2</code> a <code>50</code> e quanti sono. Per ogni <code>n</code> il ciclo interno cerca un divisore, usando una <strong>variabile flag</strong> (come nell&#x27;esercitazione 3).</p><p><strong>B.</strong> Il ciclo interno continua a girare anche dopo aver trovato un divisore, ma non serve più. Aggiungete un <code>break</code> per fermarlo, e verificate con un contatore globale che il numero di giri interni <strong>diminuisce</strong>. Di quanto?</p>
-    
-  </div>
-</section>
-
-<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
-  <div class="slide-inner">
-    <h2 id="esercizio-14">Esercizio 14</h2><p><strong>Sfida: le terne pitagoriche.</strong> Una <strong>terna pitagorica</strong> è una terna di interi positivi <code>a &lt; b &lt; c</code> tali che <code>a² + b² = c²</code>, ad esempio <code>3, 4, 5</code> (<code>9 + 16 = 25</code>).</p><p><strong>A.</strong> Stampare tutte le terne pitagoriche con <code>c &lt;= 20</code>, e dire quante sono.</p><p><strong>B.</strong> Quante volte viene controllata la condizione <code>a² + b² == c²</code>? Verificatelo con un contatore. Come cambia se <code>b</code> parte da <code>a + 1</code> e <code>c</code> da <code>b + 1</code>, invece che da <code>1</code>?</p>
+    <h2 id="esercizio-12">Esercizio 12</h2><p>Un numero <code>n &gt;= 2</code> è <strong>primo</strong> se non ha divisori tra <code>2</code> e <code>n - 1</code>.</p><p><strong>A.</strong> Stampare tutti i numeri primi da <code>2</code> a <code>50</code> e quanti sono. Per ogni <code>n</code> il ciclo interno cerca un divisore, usando una <strong>variabile flag</strong> (come nell&#x27;esercitazione 3).</p><p><strong>B.</strong> Il ciclo interno continua a girare anche dopo aver trovato un divisore, ma non serve più. Aggiungete un <code>break</code> per fermarlo, e verificate con un contatore globale che il numero di giri interni <strong>diminuisce</strong>. Di quanto?</p>
     
   </div>
 </section>
@@ -477,7 +457,7 @@ for (let i = 1; i &lt;= 3; i++) {
     <button type="button" id="next">Avanti</button>
   </div>
   <div class="progress"><div class="progress-bar" id="progress"></div></div>
-  <div class="counter" id="counter" aria-hidden="true">1 / 22</div>
+  <div class="counter" id="counter" aria-hidden="true">1 / 20</div>
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license" style="display:flex;align-items:center;opacity:0.6;">
     <img src="https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png" alt="CC BY-NC-SA 4.0" style="height:15px;border-radius:0;margin:0;">
   </a>
