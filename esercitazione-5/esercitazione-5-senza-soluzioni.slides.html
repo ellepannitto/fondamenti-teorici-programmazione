@@ -222,13 +222,7 @@ console.log(somma(3));</code></pre>
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
-    <h2 id="esercizio-3">Esercizio 3</h2><p>Il <strong>fattoriale</strong> di un numero naturale <code>n</code> è <code>n! = n * (n-1) * (n-2) * ... * 1</code>, con <code>0! = 1</code>. Si può scrivere come formula <strong>ricorsiva</strong>:</p><ul><li><code>0! = 1</code> (caso base)</li><li><code>n! = n * (n-1)!</code> se <code>n &gt; 0</code> (passo ricorsivo)</li></ul><p><strong>A.</strong> Calcolate a mano <code>3!</code> usando la formula ricorsiva: scrivete <code>3! = 3 * 2! = ...</code> fino al caso base, poi tornate indietro sostituendo i valori.</p><p><strong>B.</strong> Scrivere la funzione <code>fattoriale(n)</code> che <strong>restituisce</strong> <code>n!</code> usando la ricorsione. Provarla con <code>0</code>, <code>1</code>, <code>5</code>, <code>10</code>.</p><p><strong>C.</strong> Per il codice qui sotto compilate la tabella con le chiamate che si fanno, <strong>dalla prima all&#x27;ultima</strong>, e con il valore che ognuna <strong>restituisce</strong> una volta finita.</p><pre><code class="language-js">function fattoriale(n) {
-  if (n == 0) {
-    return 1;
-  }
-  return n * fattoriale(n - 1);
-}
-console.log(fattoriale(3));</code></pre><table><thead><tr><th>Chiamata</th><th>Cosa calcola</th><th>Restituisce</th></tr></thead><tbody><tr><td><code>fattoriale(3)</code></td><td><code>3 * fattoriale(2)</code></td><td></td></tr><tr><td><code>fattoriale(2)</code></td><td></td><td></td></tr><tr><td><code>fattoriale(1)</code></td><td></td><td></td></tr><tr><td><code>fattoriale(0)</code></td><td></td><td></td></tr></tbody></table><p><strong>D.</strong> Scrivere anche una versione <strong>con un ciclo</strong> <code>for</code>, <code>fattoriale_ciclo(n)</code>, e confrontare i risultati delle due versioni.</p>
+    <h2 id="esercizio-3">Esercizio 3</h2><p>Il <strong>fattoriale</strong> di un numero naturale <code>n</code> è <code>n! = n * (n-1) * (n-2) * ... * 1</code>, con <code>0! = 1</code>. Si può scrivere come formula <strong>ricorsiva</strong>:</p><ul><li><code>0! = 1</code> (caso base)</li><li><code>n! = n * (n-1)!</code> se <code>n &gt; 0</code> (passo ricorsivo)</li></ul><p><strong>A.</strong> Calcolate a mano <code>3!</code> usando la formula ricorsiva: scrivete <code>3! = 3 * 2! = ...</code> fino al caso base, poi tornate indietro sostituendo i valori.</p><p><strong>B.</strong> Scrivere la funzione <code>fattoriale(n)</code> che <strong>restituisce</strong> <code>n!</code> usando la ricorsione. Provarla con <code>0</code>, <code>1</code>, <code>5</code>, <code>10</code>.</p><p><strong>C.</strong> Scrivere anche una versione <strong>con un ciclo</strong> <code>for</code>, <code>fattoriale_ciclo(n)</code>, e confrontare i risultati delle due versioni.</p>
     
   </div>
 </section>
