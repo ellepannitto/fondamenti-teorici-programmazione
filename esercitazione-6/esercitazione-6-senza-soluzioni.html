@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esercitazione 6 - 02/11</title>
+<style>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; background: #f6f3ee; color: #1f1f1f; line-height: 1.65; }
+.page { max-width: 900px; margin: 0 auto; padding: 40px 20px 72px; }
+h1, h2, h3, h4 { font-family: "Avenir Next", "Segoe UI", Arial, sans-serif; line-height: 1.2; color: #1c2a39; }
+h1 { font-size: 2.1rem; margin: 0 0 1.5rem; }
+h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; padding-top: 0.25rem; border-top: 1px solid #d8d1c7; }
+h3 { font-size: 1.2rem; margin: 2rem 0 0.8rem; }
+p, ul, ol, blockquote, table, pre { margin: 0 0 1rem; }
+img { max-width: 100%; height: auto; display: block; margin: 1rem auto; border-radius: 12px; }
+ul, ol { padding-left: 1.4rem; }
+li { margin: 0.3rem 0; }
+blockquote { border-top: 3px solid #c97f31; border-bottom: 3px solid #c97f31; padding: 0.75rem 1.5rem; background: #fff8ef; color: #503521; text-align: center; max-width: 82%; margin-left: auto; margin-right: auto; }
+details { margin: 0 0 1rem; border: 1px solid #ddd5ca; border-radius: 10px; background: #fffdfa; overflow: hidden; }
+summary { cursor: pointer; font-weight: 600; padding: 0.8rem 1rem; background: #f3ece2; }
+details > :not(summary) { padding-left: 1rem; padding-right: 1rem; }
+pre { background: #1f2430; color: #f3f4f6; padding: 1rem; border-radius: 10px; overflow-x: auto; }
+.affiancati { display: flex; gap: 1rem; align-items: flex-start; }
+.affiancati .colonna { flex: 1 1 0; min-width: 0; }
+@media (max-width: 700px) { .affiancati { flex-direction: column; } .affiancati .colonna { width: 100%; } }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95em; }
+p code, li code, td code, th code, blockquote code { background: rgba(28, 42, 57, 0.08); padding: 0.08rem 0.35rem; border-radius: 4px; color: #18212d; }
+table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
+th, td { border: 1px solid #ddd5ca; padding: 0.55rem 0.7rem; vertical-align: top; text-align: left; }
+th { background: #efe7db; }
+hr { border: 0; border-top: 1px solid #d8d1c7; margin: 2rem 0; }
+a { color: #8b3f1d; }
+[id] { scroll-margin-top: 20px; }
+ol.exercise-list { list-style: none; padding-left: 0; }
+ol.exercise-list > li { display: flex; align-items: baseline; gap: 0.5em; flex-wrap: wrap; }
+a.ex-id { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82em; font-weight: 600; background: #f3ece2; border: 1px solid #ddd5ca; color: #8b3f1d; padding: 0.05rem 0.4rem; border-radius: 5px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+a.ex-id:hover { background: #e8d9c5; border-color: #c9b89e; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #d8d1c7; font-size: 0.82rem; color: #595959; display: flex; align-items: center; gap: 0.6rem; }
+footer img { margin: 0; border-radius: 0; height: 22px; width: auto; display: inline; }
+@media (max-width: 700px) {
+  .page { padding: 24px 14px 56px; }
+  table { display: block; overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+<h1 id="esercitazione-6---0211">Esercitazione 6 - 02/11</h1><p>Ultima esercitazione prima del compitino: <strong>esercizi di riepilogo</strong> su tutti gli argomenti visti finora.</p><p>Argomenti:</p><ul><li>tipi, operatori, casting, <code>++</code>, valori truthy e falsy</li><li>condizioni: <code>if</code>, operatori logici</li><li>cicli: <code>for</code>, <code>while</code>, <code>do ... while</code>, cicli annidati</li><li>funzioni: parametri, <code>return</code>, variabili locali e globali</li><li>funzioni ricorsive</li></ul><h2 id="mappa-degli-argomenti">Mappa degli argomenti</h2><table><thead><tr><th>Argomento</th><th>Dove l&#x27;abbiamo visto</th><th>Esercizi di oggi</th></tr></thead><tbody><tr><td>Tipi, operatori, casting, <code>++</code>, operatori logici</td><td>Esercitazioni 1, 2, 3</td><td><a href="#esercizio-1">1</a></td></tr><tr><td>Tracciare un ciclo</td><td>Esercitazioni 3, 4</td><td><a href="#esercizio-2">2</a></td></tr><tr><td>Condizioni e operatori logici</td><td>Esercitazione 2</td><td><a href="#esercizio-3">3</a></td></tr><tr><td><code>for</code>, <code>do ... while</code>, accumulatori</td><td>Esercitazioni 2, 3</td><td><a href="#esercizio-4">4</a></td></tr><tr><td><code>while</code> con sentinella</td><td>Esercitazione 2</td><td><a href="#esercizio-5">5</a></td></tr><tr><td>Funzioni: errori tipici</td><td>Esercitazione 4</td><td><a href="#esercizio-6">6</a></td></tr><tr><td>Variabili locali e globali, scope</td><td>Esercitazioni 4, 5</td><td><a href="#esercizio-7">7</a></td></tr><tr><td>Scrivere funzioni</td><td>Esercitazioni 3, 4</td><td><a href="#esercizio-8">8</a></td></tr><tr><td>Ricorsione</td><td>Esercitazione 5</td><td><a href="#esercizio-9">9</a></td></tr><tr><td>Cicli annidati</td><td>Esercitazioni 3, 5</td><td><a href="#esercizio-8">8</a></td></tr></tbody></table><h2 id="indice-degli-esercizi">Indice degli esercizi</h2><table><thead><tr><th>Esercizio</th><th>Argomento</th></tr></thead><tbody><tr><td><a href="#esercizio-1">Esercizio 1</a></td><td>Quiz a risposta multipla</td></tr><tr><td><a href="#esercizio-2">Esercizio 2</a></td><td>Ciclo while: cosa stampa</td></tr><tr><td><a href="#esercizio-3">Esercizio 3</a></td><td>Anno bisestile: scrivere il programma</td></tr><tr><td><a href="#esercizio-4">Esercizio 4</a></td><td>Multipli di 3: completare il programma</td></tr><tr><td><a href="#esercizio-5">Esercizio 5</a></td><td>Numeri fino a zero: positivi e multipli di 2</td></tr><tr><td><a href="#esercizio-6">Esercizio 6</a></td><td>Funzioni: trovare gli errori</td></tr><tr><td><a href="#esercizio-7">Esercizio 7</a></td><td>Variabili locali e globali: cosa stampa</td></tr><tr><td><a href="#esercizio-8">Esercizio 8</a></td><td>Scrivere funzioni: massimo, tavola pitagorica, multipli</td></tr><tr><td><a href="#esercizio-9">Esercizio 9</a></td><td>Ricorsione: scrivere una funzione</td></tr></tbody></table><h2 id="come-si-lavora">Come si lavora</h2><ul><li>Esercizi di tipo diverso: <strong>quiz</strong>, <strong>cosa stampa</strong>, <strong>completa il codice</strong>, <strong>scrivi il programma o la funzione</strong></li><li>Svolgiamo insieme qualche esercizio; gli altri li fate voi in autonomia</li><li>Se un esercizio vi mette in difficoltà, segnatelo sul foglio di avanzamento: è il momento giusto per chiedere</li></ul><p>Le regole sono le stesse delle volte scorse:</p><ul><li><strong>provare</strong> prima di rinunciare</li><li><strong>commenti</strong> dove il codice non parla da solo</li><li>eseguite <strong>sempre</strong> il programma con più valori, compresi i casi &quot;strani&quot; (0, numeri negativi, decimali).</li></ul><p>Per gli esercizi &quot;cosa stampa&quot;: <strong>prima</strong> rispondete a mano (una tabella con le variabili aiuta), <strong>poi</strong> eseguite il codice per controllare.</p><h2 id="esercizio-1">Esercizio 1</h2><p>Dieci domande di ripasso. Rispondete <strong>senza eseguire</strong> il codice.</p><p><strong>1.</strong> Quale di queste righe provoca un errore?</p><ul><li>a) <code>let x = 1; x = 2;</code></li><li>b) <code>const y = 1; y = 2;</code></li><li>c) <code>let z; z = 3;</code></li><li>d) <code>const w = 4; console.log(w);</code></li></ul><p><strong>2.</strong> Quale di questi confronti vale false?</p><ul><li>a) <code>2 == &quot;2&quot;</code></li><li>b) <code>3 &gt;= 3</code></li><li>c) <code>&quot;a&quot; &lt; &quot;b&quot;</code></li><li>d) <code>2 === &quot;2&quot;</code></li></ul><p><strong>3.</strong> &quot;Chiedi un dato finché non è valido, con almeno una richiesta&quot;. Quale ciclo è il più adatto?</p><ul><li>a) for</li><li>b) while</li><li>c) do ... while</li><li>d) Nessuno dei tre</li></ul><p><strong>4.</strong> Perché <code>if (x = 5)</code> è sempre un errore?</p><ul><li>a) Perché <code>=</code> assegna, non confronta</li><li>b) Perché 5 non è un booleano</li><li>c) Perché x dovrebbe essere const</li><li>d) Perché manca l&#x27;else</li></ul><p><strong>5.</strong> Qual è la differenza tra parametro e argomento di una funzione?</p><ul><li>a) Il parametro è il valore restituito</li><li>b) L&#x27;argomento sta nella definizione</li><li>c) Parametro nella definizione, argomento nella chiamata</li><li>d) Il parametro è sempre un numero</li></ul><p><strong>6.</strong> Dove è visibile una variabile dichiarata con let nel corpo di un for?</p><ul><li>a) In tutto il programma</li><li>b) Solo dentro quel blocco</li><li>c) Solo dopo la fine del ciclo</li><li>d) Solo dentro le altre funzioni</li></ul><p><strong>7.</strong> Una funzione ricorsiva non termina mai. Cosa manca quasi certamente?</p><ul><li>a) Un parametro</li><li>b) Il console.log</li><li>c) Il return</li><li>d) Il caso base</li></ul><p><strong>8.</strong> Quale condizione verifica che n sia pari e positivo?</p><ul><li>a) <code>n % 2 == 0 &amp;&amp; n &gt; 0</code></li><li>b) <code>n % 2 &amp;&amp; n &gt; 0</code></li><li>c) <code>n % 2 == 0 || n &gt; 0</code></li><li>d) <code>n / 2 == 0 &amp;&amp; n &gt; 0</code></li></ul><p><strong>9.</strong> while (i &lt; 5) { console.log(i); } con i = 0, mai modificata nel corpo. Cosa succede?</p><ul><li>a) Stampa 0 1 2 3 4</li><li>b) Stampa 0 una volta</li><li>c) Errore di sintassi</li><li>d) Stampa 0 all&#x27;infinito</li></ul><p><strong>10.</strong> Quale espressione dà il numero 42 a partire dalla stringa &quot;42&quot;?</p><ul><li>a) <code>Number(&quot;42&quot;)</code></li><li>b) <code>String(42)</code></li><li>c) <code>typeof &quot;42&quot;</code></li><li>d) <code>&quot;42&quot; + 0</code></li></ul><h2 id="esercizio-2">Esercizio 2</h2><p>Cosa stampa questo programma? Compilate una tabella con i valori di <code>a</code> e <code>b</code> dopo ogni giro per scoprirlo.</p><pre><code class="language-js">let a = 20;
+let b = 1;
+while (a &gt; b) {
+  a = a - b;
+  b = b * 2;
+  console.log(a, b);
+}
+console.log(&quot;fine&quot;, a, b);</code></pre><p><strong>A.</strong> Cosa stampa il programma?</p><p><strong>B.</strong> Quante volte viene eseguito il corpo del ciclo?</p><h2 id="esercizio-3">Esercizio 3</h2><p>Un anno è <strong>bisestile</strong> se è divisibile per 4, <strong>tranne</strong> quelli divisibili per 100, a meno che non siano divisibili anche per 400. Ad esempio il 2024 e il 2000 sono bisestili, il 1900 e il 2023 no.</p><p>Scrivete un programma che legge un anno dall&#x27;input (controllando che sia un numero intero positivo) e stampa se l&#x27;anno inserito è bisestile o meno.</p><h2 id="esercizio-4">Esercizio 4</h2><p>Il programma legge un intero positivo <code>n</code> e stampa la <strong>somma dei multipli di 3</strong> tra 1 e <code>n</code> (ad esempio per <code>n = 10</code>: <code>3 + 6 + 9 = 18</code>).</p><p><strong>A.</strong> Completate gli spazi.</p><pre><code class="language-js">let n;
+do {
+  n = Number(prompt(&quot;Inserire un intero positivo: &quot;));
+} while (__________________________);
+
+let somma = ____;
+for (let i = ____; i &lt;= n; i = i + ____) {
+  somma = somma + i;
+}
+console.log(&quot;Somma dei multipli di 3 fino a&quot;, n, &quot;:&quot;, somma);</code></pre><p><strong>B.</strong> Cosa stampa il programma con <code>n = 10</code>? E con <code>n = 2</code>?</p><p><strong>C.</strong> Cosa succede se l&#x27;utente inserisce <code>0</code>, poi <code>-4</code>, poi <code>2.5</code>, poi <code>9</code>?</p><h2 id="esercizio-5">Esercizio 5</h2><p>Scrivete un programma che legge numeri dall&#x27;utente <strong>finché non viene inserito <code>0</code></strong>. Alla fine stampa:</p><ul><li>quanti numeri <strong>positivi</strong> e quanti <strong>multipli di 2</strong> sono stati inseriti.</li></ul><p>Se il primo numero è <code>0</code>, il programma stampa <code>Nessun numero inserito</code>. Provatelo con <code>3, -2, 8, 0</code> e con <code>-5, -3, 0</code>.</p><h2 id="esercizio-6">Esercizio 6</h2><p>Ciascuna di queste parti contiene un errore. Dite cosa stampa il codice e correggetelo.</p><p><strong>A.</strong></p><pre><code class="language-js">function area(base, altezza) {
+  let a = base * altezza / 2;
+}
+let risultato = area(4, 5);
+console.log(&quot;Area:&quot;, risultato);</code></pre><p><strong>B.</strong></p><pre><code class="language-js">function doppio(x) {
+  return x * 2;
+  console.log(&quot;calcolo finito&quot;);
+}
+console.log(doppio(4));</code></pre><p><strong>C.</strong></p><pre><code class="language-js">function media(a, b) {
+  return (a + b) / 2;
+}
+console.log(media(4));</code></pre><p><strong>D.</strong> Il programma vuole incrementare <code>k</code> di 1.</p><pre><code class="language-js">function incrementa(n) {
+  n = n + 1;
+}
+let k = 5;
+incrementa(k);
+console.log(k);</code></pre><h2 id="esercizio-7">Esercizio 7</h2><p><strong>A.</strong> Cosa stampa questo programma? Tenete traccia del valore della variabile globale <code>x</code>.</p><pre><code class="language-js">let x = 10;
+
+function f(x) {
+  x = x + 1;
+  return x * 2;
+}
+
+function g() {
+  let y = x + 1;
+  x = y;
+  return y;
+}
+
+console.log(f(x));
+console.log(x);
+console.log(g());
+console.log(x);
+console.log(f(x));</code></pre><p><strong>B.</strong> Cosa succede eseguendo questo programma?</p><pre><code class="language-js">function conta() {
+  let c = 0;
+  c++;
+}
+conta();
+console.log(c);</code></pre><p><strong>C.</strong> Cosa succede eseguendo questo programma?</p><pre><code class="language-js">for (let i = 0; i &lt; 3; i++) {
+  console.log(i);
+}
+console.log(&quot;fine:&quot;, i);</code></pre><h2 id="esercizio-8">Esercizio 8</h2><p><strong>A.</strong> Scrivete la funzione <code>massimo3(a, b, c)</code> che <strong>restituisce</strong> il più grande dei tre numeri. Provatela con <code>(3, 9, 4)</code> e <code>(-1, -5, -3)</code>.</p><p><strong>B.</strong> Scrivete la funzione <code>tavola(n)</code> che <strong>stampa</strong> la tavola pitagorica <code>n × n</code>: una riga per ogni numero da 1 a <code>n</code>, con i prodotti separati da uno spazio. Usate <strong>due cicli annidati</strong>. Con <code>tavola(4)</code> stampa:</p><pre><code>1 2 3 4
+2 4 6 8
+3 6 9 12
+4 8 12 16</code></pre><p><strong>C.</strong> Scrivete un programma che chiede un intero positivo <code>N</code> (ripetendo la domanda se non è valido) e stampa <strong>su un&#x27;unica riga</strong> tutti i multipli di 2 o di 3 fino a <code>N</code>. Ad esempio con <code>N = 20</code>:</p><pre><code>2 3 4 6 8 9 10 12 14 15 16 18 20</code></pre><h2 id="esercizio-9">Esercizio 9</h2><p>Scrivete la seguente funzione <strong>ricorsiva</strong>. Prima individuate il <strong>caso base</strong> e il <strong>passo ricorsivo</strong>.</p><p><code>potenza(base, esp)</code> che restituisce <code>base</code> elevato a <code>esp</code>, con <code>esp</code> intero maggiore o uguale a 0. Non usate <code>**</code> né <code>Math.pow</code>. Provatela con <code>potenza(2, 10)</code>, <code>potenza(3, 3)</code>, <code>potenza(5, 0)</code>.</p>
+<footer>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license">
+<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0">
+</a>
+Ludovica Pannitto - Università di Pisa -
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>
+</footer>
+</main>
+</body>
+</html>
