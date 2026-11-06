@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primo compitino - testo per esercitarsi</title>
+<style>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; background: #f6f3ee; color: #1f1f1f; line-height: 1.65; }
+.page { max-width: 900px; margin: 0 auto; padding: 40px 20px 72px; }
+h1, h2, h3, h4 { font-family: "Avenir Next", "Segoe UI", Arial, sans-serif; line-height: 1.2; color: #1c2a39; }
+h1 { font-size: 2.1rem; margin: 0 0 1.5rem; }
+h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; padding-top: 0.25rem; border-top: 1px solid #d8d1c7; }
+h3 { font-size: 1.2rem; margin: 2rem 0 0.8rem; }
+p, ul, ol, blockquote, table, pre { margin: 0 0 1rem; }
+img { max-width: 100%; height: auto; display: block; margin: 1rem auto; border-radius: 12px; }
+ul, ol { padding-left: 1.4rem; }
+li { margin: 0.3rem 0; }
+blockquote { border-top: 3px solid #c97f31; border-bottom: 3px solid #c97f31; padding: 0.75rem 1.5rem; background: #fff8ef; color: #503521; text-align: center; max-width: 82%; margin-left: auto; margin-right: auto; }
+details { margin: 0 0 1rem; border: 1px solid #ddd5ca; border-radius: 10px; background: #fffdfa; overflow: hidden; }
+summary { cursor: pointer; font-weight: 600; padding: 0.8rem 1rem; background: #f3ece2; }
+details > :not(summary) { padding-left: 1rem; padding-right: 1rem; }
+pre { background: #1f2430; color: #f3f4f6; padding: 1rem; border-radius: 10px; overflow-x: auto; }
+.affiancati { display: flex; gap: 1rem; align-items: flex-start; }
+.affiancati .colonna { flex: 1 1 0; min-width: 0; }
+@media (max-width: 700px) { .affiancati { flex-direction: column; } .affiancati .colonna { width: 100%; } }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95em; }
+p code, li code, td code, th code, blockquote code { background: rgba(28, 42, 57, 0.08); padding: 0.08rem 0.35rem; border-radius: 4px; color: #18212d; }
+table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
+th, td { border: 1px solid #ddd5ca; padding: 0.55rem 0.7rem; vertical-align: top; text-align: left; }
+tr.corretta td { background: #d4edda; font-weight: 600; }
+th { background: #efe7db; }
+hr { border: 0; border-top: 1px solid #d8d1c7; margin: 2rem 0; }
+a { color: #8b3f1d; }
+[id] { scroll-margin-top: 20px; }
+ol.exercise-list { list-style: none; padding-left: 0; }
+ol.exercise-list > li { display: flex; align-items: baseline; gap: 0.5em; flex-wrap: wrap; }
+a.ex-id { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82em; font-weight: 600; background: #f3ece2; border: 1px solid #ddd5ca; color: #8b3f1d; padding: 0.05rem 0.4rem; border-radius: 5px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+a.ex-id:hover { background: #e8d9c5; border-color: #c9b89e; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #d8d1c7; font-size: 0.82rem; color: #595959; display: flex; align-items: center; gap: 0.6rem; }
+footer img { margin: 0; border-radius: 0; height: 22px; width: auto; display: inline; }
+@media (max-width: 700px) {
+  .page { padding: 24px 14px 56px; }
+  table { display: block; overflow-x: auto; }
+}
+.ph{background:#ffd54a;color:#111;font-weight:700;border-radius:3px;padding:0 3px;-webkit-print-color-adjust:exact;print-color-adjust:exact}</style>
+</head>
+<body>
+<main class="page">
+<h1 id="primo-compitino---testo-per-esercitarsi">Primo compitino - testo per esercitarsi</h1><h2 id="quiz-di-sbarramento">Quiz di sbarramento</h2><h2 id="domanda-1">Domanda 1</h2><p>Quale delle seguenti istruzioni utilizza correttamente l&#x27;operatore ternario?</p><ul><li>a. <em>Nessuna delle risposte è corretta</em></li><li>b. <code>let risultato = (x&gt;10)? &quot;grande&quot; : &quot;piccolo&quot;;</code></li><li>c. <code>let risultato = (x&gt;10)? &quot;grande&quot; , &quot;piccolo&quot;;</code></li><li>d. <code>let risultato = (x&gt;10): &quot;grande&quot; ? &quot;piccolo&quot;;</code></li></ul><h2 id="domanda-2">Domanda 2</h2><p>Nel ciclo while di JavaScript, quale affermazione è corretta?</p><ul><li>a. <code>L&#x27;incremento/aggiornamento della variabile di controllo è obbligatorio nell&#x27;intestazione del ciclo.</code></li><li>b. <em>Nessuna delle risposte è corretta</em></li><li>c. <code>La condizione è valutata dopo il corpo; perciò il corpo viene eseguito almeno una volta.</code></li><li>d. <code>La condizione è valutata prima di ogni iterazione; se è falsa all&#x27;inizio, il corpo non viene eseguito nemmeno una volta.</code></li></ul><h2 id="domanda-3">Domanda 3</h2><p>Quale affermazione è corretta?</p><ul><li>a. <code>Un interprete esegue le istruzioni una dopo l&#x27;altra nell&#x27;ordine in cui compaiono; un compilatore traduce il programma in linguaggio macchina creando un eseguibile.</code></li><li>b. <em>Nessuna delle risposte è corretta</em></li><li>c. <code>Interprete e compilatore svolgono lo stesso ruolo.</code></li><li>d. <code>Un interprete traduce il programma in linguaggio macchina e lo esegue come file autonomo; un compilatore esegue riga per riga nell&#x27;ordine in cui compaiono.</code></li></ul><h2 id="domanda-4">Domanda 4</h2><p>Che cosa stampa il seguente codice?</p><pre><code class="language-js">console.log(&quot;a&quot; === &quot;A&quot;);</code></pre><ul><li>a. <code>false</code></li><li>b. <code>undefined</code></li><li>c. <code>true</code></li><li>d. <em>Nessuna delle risposte è corretta</em></li></ul><h2 id="domanda-5">Domanda 5</h2><p>In JavaScript, che cosa significa che un valore è «falsy»?</p><ul><li>a. <code>Che, usato in una condizione, viene trattato come false (ad esempio 0, &quot;&quot; o null)</code></li><li>b. <code>Che è sempre uguale a false con l’operatore ===</code></li><li>c. <em>Nessuna delle risposte è corretta</em></li><li>d. <code>Che genera un errore quando viene usato in una condizione</code></li></ul><h2 id="domanda-6">Domanda 6</h2><p>Quanto vale 5 + 3 * 2?</p><ul><li>a. <code>10</code></li><li>b. <code>16</code></li><li>c. <em>Nessuna delle risposte è corretta</em></li><li>d. <code>11</code></li></ul><h2 id="domanda-7">Domanda 7</h2><p>Quale delle seguenti istruzioni rappresenta correttamente un ciclo while?</p><ul><li>a. <code>let i=0; while (i &lt; 10; i++) { }</code></li><li>b. <em>Nessuna delle risposte è corretta</em></li><li>c. <code>let i=0; while (i&lt;10) {i = i + 1;}</code></li><li>d. <code>while (let i=0; i &lt; 10; i++) {i = i + 1;}</code></li></ul><h2 id="domanda-8">Domanda 8</h2><p>Che cosa restituisce una funzione in cui non compare l’istruzione return?</p><ul><li>a. <code>0</code></li><li>b. <code>null</code></li><li>c. <em>Nessuna delle risposte è corretta</em></li><li>d. <code>undefined</code></li></ul><h2 id="domanda-9">Domanda 9</h2><p>Che cosa accade eseguendo questo codice?</p><pre><code class="language-js">var b = 5;
+var b = -1;
+console.log(b);</code></pre><ul><li>a. <code>Viene generato un errore</code></li><li>b. <code>Stampa 5</code></li><li>c. <code>Stampa -1</code></li></ul><h2 id="modulo-a">Modulo A</h2><h2 id="modulo-a---esercizio-1-flag">Modulo A - Esercizio 1: flag</h2><p>Scrivere un programma che chieda all&#x27;utente di inserire una sequenza di 10 numeri, uno alla volta, e poi stampi <code>Sono tutti positivi</code> se tutti i numeri inseriti sono maggiori di 0, altrimenti <code>C&#x27;è almeno un numero non positivo</code>.</p><p>Esempio: con i numeri 4, 7, 2, 3, 9, 1, 8, 2, 6, 5 il programma stampa <code>Sono tutti positivi</code>; se uno dei numeri fosse 0 o negativo stamperebbe il secondo messaggio.</p><pre><code class="language-js">let tuttiPositivi = <span class="ph">[__1__]</span>;
+for (let i = 1; i &lt;= 10; i++) {
+  let numero = Number(prompt(&quot;Inserisci il numero &quot; + i + &quot;: &quot;));
+  if (numero <span class="ph">[__2__]</span> 0) {
+    tuttiPositivi = <span class="ph">[__3__]</span>;
+  }
+}
+if (<span class="ph">[__4__]</span>) {
+  console.log(&quot;Sono tutti positivi&quot;);
+} else {
+  console.log(&quot;C&#x27;è almeno un numero non positivo&quot;);
+}</code></pre><ul><li>Menu 1: <code>false</code>, <code>true</code>, <code>1</code>, <code>0</code></li><li>Menu 2: <code>&lt;</code>, <code>&lt;=</code>, <code>==</code>, <code>&gt;=</code></li><li>Menu 3: <code>0</code>, <code>false</code>, <code>true</code>, <code>numero</code></li><li>Menu 4: <code>!tuttiPositivi</code>, <code>i</code>, <code>numero</code>, <code>tuttiPositivi</code></li></ul><h2 id="modulo-a---esercizio-2-funzioni">Modulo A - Esercizio 2: funzioni</h2><p>Scrivere un programma che chieda due numeri interi <code>A</code> e <code>B</code> (se <code>A &gt; B</code> li scambia) e stampi la somma dei numeri pari e la somma dei numeri dispari compresi tra <code>A</code> e <code>B</code>, estremi inclusi. Le due somme sono calcolate da una funzione <code>sommaPariDisp(A, B)</code> che le restituisce entrambe, in un array.</p><p>Esempio: con A = 4 e B = 8 il programma stampa <code>La somma dei numeri pari e dei numeri dispari tra 4 e 8 è 18,12</code> (pari: 4 + 6 + 8 = 18; dispari: 5 + 7 = 12).</p><pre><code class="language-js">function sommaPariDisp(A, B) {
+  let sd = 0;
+  let sp = <span class="ph">[__1__]</span>;
+  for (let n = A; n <span class="ph">[__2__]</span> B; n++) {
+    if (n % 2 <span class="ph">[__3__]</span> 0) {
+      sd += n;
+    } else {
+      sp += n;
+    }
+  }
+  return <span class="ph">[__4__]</span>;
+}
+
+let A, B;
+do {
+  A = Number(prompt(&quot;Inserisci A: &quot;));
+} while (A - Math.floor(A) != 0);
+do {
+  B = Number(prompt(&quot;Inserisci B: &quot;));
+} while (B - Math.floor(B) != 0);
+
+if (A &gt; B) {
+  let temp = A;
+  A = B;
+  B = temp;
+}
+console.log(&quot;La somma dei numeri pari e dei numeri dispari tra &quot; + A + &quot; e &quot; + B + &quot; è &quot; + sommaPariDisp(A, B));</code></pre><ul><li>Menu 1: <code>1</code>, <code>0</code>, <code>A</code>, <code>B</code></li><li>Menu 2: <code>&gt;=</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&lt;</code></li><li>Menu 3: <code>==</code>, <code>&gt;</code>, <code>!=</code>, <code>&lt;</code></li><li>Menu 4: <code>sp</code>, <code>[sp, sd]</code>, <code>sd</code>, <code>sp + sd</code></li></ul><h2 id="modulo-a---esercizio-3-cicli-annidati">Modulo A - Esercizio 3: cicli annidati</h2><p>Scrivere un programma che chieda all&#x27;utente quanti studenti ci sono, poi, per ogni studente, chieda 3 voti e stampi la <strong>media</strong> dei suoi voti con una cifra decimale.</p><p>Esempio: con 2 studenti, i voti 6, 7, 8 per il primo e 4, 5, 6 per il secondo, il programma stampa <code>Studente 1: media 7.0</code> e <code>Studente 2: media 5.0</code>.</p><pre><code class="language-js">let studenti = Number(prompt(&quot;Quanti studenti? &quot;));
+for (let s = 1; s <span class="ph">[__1__]</span> studenti; s++) {
+  let somma = <span class="ph">[__2__]</span>;
+  for (let v = 1; v &lt;= 3; v++) {
+    let voto = Number(prompt(&quot;Studente &quot; + s + &quot;, voto &quot; + v + &quot;: &quot;));
+    somma <span class="ph">[__3__]</span> voto;
+  }
+  console.log(&quot;Studente &quot; + s + &quot;: media &quot; + <span class="ph">[__4__]</span>.toFixed(1));
+}</code></pre><ul><li>Menu 1: <code>&gt;</code>, <code>==</code>, <code>&lt;</code>, <code>&lt;=</code></li><li>Menu 2: <code>1</code>, <code>s</code>, <code>studenti</code>, <code>0</code></li><li>Menu 3: <code>*=</code>, <code>+=</code>, <code>-=</code>, <code>=</code></li><li>Menu 4: <code>somma</code>, <code>(somma / 3)</code>, <code>somma / s</code>, <code>somma * 3</code></li></ul><h2 id="modulo-a---esercizio-4-numeri-casuali">Modulo A - Esercizio 4: numeri casuali</h2><p>Scrivere un programma che richieda all&#x27;utente di inserire un numero intero <code>X</code>, compreso tra 10 e 50 (estremi inclusi). Una volta inserito un numero valido, il programma deve generare un numero intero casuale <code>Y</code> compreso tra 1 e <code>X</code> (estremi inclusi), stamparne il valore a schermo e controllare se la differenza <code>X-Y</code> è un multiplo di 3. Se lo è, aggiungere il messaggio <code>Estrazione vincente!</code>, altrimenti <code>Estrazione normale</code>.</p><pre><code class="language-js">let <span class="ph">[__1__]</span>;
+
+do {
+    X = Number(prompt(&quot;Inserisci un numero intero tra 10 e 50:&quot;));
+} while (!Number.isInteger(X) || <span class="ph">[__2__]</span>);
+
+let Y = Math.floor(Math.random() * <span class="ph">[__3__]</span>) + 1;
+
+console.log(&quot;Numero scelto X: &quot; + X);
+console.log(&quot;Numero casuale generato Y: &quot; + Y);
+
+if ((X - Y) <span class="ph">[__4__]</span>) {
+    console.log(&quot;Estrazione vincente!&quot;);
+} else {
+    console.log(&quot;Estrazione normale&quot;);
+}</code></pre><ul><li>Menu 1: <code>X-Y</code>, <code>X</code>, <code>Y</code>, <code>3</code></li><li>Menu 2: <code>X &gt; 10 \|\| X &lt; 50</code>, <code>X &lt; 10 &amp;&amp; X &gt; 50</code>, <code>X &lt;= 10 \|\| X &gt;= 50</code>, <code>X &lt; 10 \|\| X &gt; 50</code></li><li>Menu 3: <code>X + 1</code>, <code>1</code>, <code>X - 1</code>, <code>X</code></li><li>Menu 4: <code>% 3 == 3</code>, <code>% 3 === 0</code>, <code>/ 3 === 0</code>, <code>% 3 !== 0</code></li></ul><h2 id="modulo-a---esercizio-5-funzioni">Modulo A - Esercizio 5: funzioni</h2><p>La <strong>pressione</strong> esercitata da una forza su una superficie si calcola dividendo la forza <em>F</em> (in Newton) per l&#x27;area <em>A</em> della superficie (in metri quadrati): <em>P = F / A</em>.</p><p>Scrivere un programma che chieda all&#x27;utente la forza <code>F</code> e l&#x27;area <code>A</code> e stampi la pressione, usando una funzione <code>calcolaPressione(F, A)</code> che restituisce <code>F / A</code>, oppure <code>null</code> se l&#x27;area non è positiva.</p><p>Il programma principale invoca la funzione e:</p><ul><li>se il risultato è <code>null</code>, stampa <code>Errore: l&#x27;area deve essere un valore positivo e diverso da zero</code></li><li>altrimenti stampa <code>La pressione esercitata è: [valore] Pa</code> (con due cifre decimali)</li></ul><p>Esempio: con F = 100 e A = 2 il programma stampa <code>La pressione esercitata è: 50.00 Pa</code>.</p><pre><code class="language-js">function calcolaPressione(F, A) {
+  let <span class="ph">[__1__]</span>;
+  if (A <span class="ph">[__2__]</span> 0) {
+    return null;
+  }
+  p = F / A;
+  return <span class="ph">[__3__]</span>;
+}
+let forza = Number(prompt(&quot;Inserisci la forza applicata (in Newton): &quot;));
+let area = Number(prompt(&quot;Inserisci l&#x27;area della superficie (in metri quadrati): &quot;));
+let pressione = <span class="ph">[__4__]</span>;
+if (pressione === null) {
+  console.log(&quot;Errore: l&#x27;area deve essere un valore positivo e diverso da zero&quot;);
+} else {
+  console.log(&quot;La pressione esercitata è: &quot; + pressione.toFixed(2) + &quot; Pa&quot;);
+}</code></pre><ul><li>Menu 1: <code>null</code>, <code>p</code>, <code>F</code>, <code>A</code></li><li>Menu 2: <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>==</code></li><li>Menu 3: <code>F</code>, <code>A</code>, <code>null</code>, <code>p</code></li><li>Menu 4: <code>calcolaPressione(area)</code>, <code>calcolaPressione(area, forza)</code>, <code>calcolaPressione(forza, area)</code>, <code>calcolaPressione(forza)</code></li></ul><h2 id="modulo-b">Modulo B</h2><h2 id="modulo-b---domanda-1-sistemi-di-numerazione">Modulo B - Domanda 1: sistemi di numerazione</h2><p>Rispondere sulla rappresentazione dei numeri binari senza segno.</p><ul><li>Con 6 bit (numeri binari senza segno) si possono rappresentare <strong>[ 63 | 12 | 64 | 36 ]</strong> valori distinti. Il numero più grande rappresentabile, scritto in decimale, è 63.</li><li>Per rappresentare almeno 100 valori distinti servono almeno <strong>[ 6 | 7 | 8 | 50 ]</strong> bit.</li></ul><h2 id="modulo-b---domanda-2-relazioni">Modulo B - Domanda 2: relazioni</h2><p>Sia A = {a, b, c, d} e sia R = {(a,b), (b,b), (b,c), (a,c), (d,d)} una relazione su A. Completare le affermazioni seguenti.</p><ul><li>La relazione R è né riflessiva né antiriflessiva, non simmetrica, antisimmetrica e <strong>[ non transitiva | transitiva ]</strong>.</li><li>Quindi R <strong>[ è | non è ]</strong> una relazione di equivalenza.</li></ul><h2 id="modulo-b---domanda-3-relazioni">Modulo B - Domanda 3: relazioni</h2><p>Sia A = {a, b, c, d} e sia R la relazione sull&#x27;insieme A il cui grafo è quello riportato nella figura. Completare la descrizione della rappresentazione sagittale di R, cioè dire verso quali elementi partono le frecce da ciascun elemento.</p><p><img src="900130_1.png" alt="Grafo della relazione R sull&#x27;insieme A = {a, b, c, d}"></p><ul><li>Dall&#x27;elemento a partono frecce verso <strong>[ nessun elemento | b e c | a, b e c | b ]</strong>. Dall&#x27;elemento b partono frecce verso b. Dall&#x27;elemento c partono frecce verso d. Dall&#x27;elemento d partono frecce verso d.</li><li>In totale la relazione R contiene <strong>[ 6 | 5 | 4 | 7 ]</strong> coppie.</li></ul><h2 id="modulo-b---domanda-4-insiemi">Modulo B - Domanda 4: insiemi</h2><p>Dati gli insiemi A = {1, 2, 3, 4, 5}, B = {4, 5, 6, 7}, C = {1, 3, 4, 5, 7, 8, 9}, considerare l&#x27;insieme D ottenuto nel seguente modo: D = (A ∪ B) ∩ C. Completare i passaggi seguenti.</p><ul><li>D = <strong>[ {4, 5} | {1, 2, 3, 4, 5, 6, 7} | {1, 3, 4, 5, 7} | {1, 3, 4, 5} ]</strong>.</li><li>Una possibile partizione dell&#x27;insieme D è costituita dal seguente insieme: <strong>[ { {1, 2, 5}, {4, 7} } | { {1}, {3, 5}, {4, 8} } | { {1}, {3, 5}, {4, 7} } | { {1}, {3}, {4}, {6}, {7} } ]</strong>.</li></ul><h2 id="modulo-b---domanda-5-basi-di-numerazione">Modulo B - Domanda 5: basi di numerazione</h2><p>Dato il numero esadecimale <strong>3A</strong>, completare le conversioni.</p><ul><li>Scritto in base 2, senza zeri iniziali, il numero 3A è <strong>[ 1010 | 110101 | 10100011 | 111010 ]</strong>.</li><li>Il suo valore in base 10 è <strong>[ 310 | 13 | 58 | 163 ]</strong>.</li></ul>
+<footer>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license">
+<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0">
+</a>
+Ludovica Pannitto - Università di Pisa -
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>
+</footer>
+</main>
+</body>
+</html>
