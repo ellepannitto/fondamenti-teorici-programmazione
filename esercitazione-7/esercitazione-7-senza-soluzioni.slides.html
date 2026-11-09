@@ -140,6 +140,19 @@ a.ex-id:hover { background: rgba(139,63,29,0.18); }
 
 <section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
   <div class="slide-inner">
+    <h2 id="strumento-aggiuntivo-python-tutor">Strumento aggiuntivo · Python Tutor</h2><p>Per <strong>vedere passo passo</strong> cosa fa un programma (il valore delle variabili a ogni giro di un ciclo) si può usare <strong>Python Tutor</strong>, che supporta anche JavaScript: &lt;https://pythontutor.com/javascript.html&gt;</p><p>Incolla il codice, premi <strong>Visualize Execution</strong> e avanza con <strong>Next</strong>. Prova con questo esempio:</p><pre><code class="language-js">let i = 1;
+let somma = 0;
+while (i &lt;= 4) {
+  somma += i;
+  i++;
+}
+console.log(somma);                             // 10</code></pre><p>Guarda come cambiano <code>i</code> e <code>somma</code> a ogni giro. È utile anche per controllare le tracce degli esercizi.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
     <h2 id="recap-1-gli-array">Recap 1 · Gli array</h2><p>Finora ogni variabile conteneva <strong>un solo valore</strong> (uno scalare). Un <strong>array</strong> è una oggetto che contiene <strong>più valori in fila</strong>, come una scatola con tanti scomparti numerati.</p><pre><code class="language-js">let città = [&quot;Roma&quot;, &quot;Firenze&quot;, &quot;Pisa&quot;, &quot;Lucca&quot;];
 let voti = [28, 30, 25];
 let pippo = [];                                 // array vuoto: nessun elemento</code></pre><p>Ogni elemento ha un <strong>indice</strong>, cioè la sua posizione. <strong>Si parte da zero</strong>:</p><table><thead><tr><th>indice</th><th>0</th><th>1</th><th>2</th><th>3</th></tr></thead><tbody><tr><td><code>città</code></td><td><code>&quot;Roma&quot;</code></td><td><code>&quot;Firenze&quot;</code></td><td><code>&quot;Pisa&quot;</code></td><td><code>&quot;Lucca&quot;</code></td></tr></tbody></table><pre><code class="language-js">console.log(città[0]);                          // Roma: il primo elemento
@@ -157,20 +170,6 @@ console.log(v);                                 // [ 4, 7, 9 ]</code></pre><p>Pe
 for (let i = 0; i &lt; voti.length; i++) {         // i vale 0, 1, 2: si ferma prima di length
   console.log(&quot;voto&quot;, i, &quot;=&quot;, voti[i]);
 }</code></pre>
-    
-  </div>
-</section>
-
-<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
-  <div class="slide-inner">
-    <h2 id="strumento-python-tutor">Strumento · Python Tutor</h2><p>Per <strong>vedere passo passo</strong> cosa fa un programma (variabili, array, valore di <code>i</code> a ogni giro) si può usare <strong>Python Tutor</strong>, che supporta anche JavaScript: &lt;https://pythontutor.com/javascript.html&gt;</p><p>Incolla il codice, premi <strong>Visualize Execution</strong> e avanza con <strong>Next</strong>. Prova con questo esempio:</p><pre><code class="language-js">let voti = [28, 30, 25];
-let somma = 0;
-let i = 0;
-while (i &lt; voti.length) {
-  somma += voti[i];
-  i++;
-}
-console.log(somma);                             // 83</code></pre><p>Guarda come cambiano <code>i</code> e <code>somma</code> a ogni giro del ciclo e come l&#x27;array <code>voti</code> resta invariato. È utile anche per controllare le tracce degli esercizi.</p>
     
   </div>
 </section>
