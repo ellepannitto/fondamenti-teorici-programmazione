@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esercitazione 8 - 16/11</title>
+<style>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; background: #f6f3ee; color: #1f1f1f; line-height: 1.65; }
+.page { max-width: 900px; margin: 0 auto; padding: 40px 20px 72px; }
+h1, h2, h3, h4 { font-family: "Avenir Next", "Segoe UI", Arial, sans-serif; line-height: 1.2; color: #1c2a39; }
+h1 { font-size: 2.1rem; margin: 0 0 1.5rem; }
+h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; padding-top: 0.25rem; border-top: 1px solid #d8d1c7; }
+h3 { font-size: 1.2rem; margin: 2rem 0 0.8rem; }
+p, ul, ol, blockquote, table, pre { margin: 0 0 1rem; }
+img { max-width: 100%; height: auto; display: block; margin: 1rem auto; border-radius: 12px; }
+ul, ol { padding-left: 1.4rem; }
+li { margin: 0.3rem 0; }
+blockquote { border-top: 3px solid #c97f31; border-bottom: 3px solid #c97f31; padding: 0.75rem 1.5rem; background: #fff8ef; color: #503521; text-align: center; max-width: 82%; margin-left: auto; margin-right: auto; }
+details { margin: 0 0 1rem; border: 1px solid #ddd5ca; border-radius: 10px; background: #fffdfa; overflow: hidden; }
+summary { cursor: pointer; font-weight: 600; padding: 0.8rem 1rem; background: #f3ece2; }
+details > :not(summary) { padding-left: 1rem; padding-right: 1rem; }
+pre { background: #1f2430; color: #f3f4f6; padding: 1rem; border-radius: 10px; overflow-x: auto; }
+.affiancati { display: flex; gap: 1rem; align-items: flex-start; }
+.affiancati .colonna { flex: 1 1 0; min-width: 0; }
+@media (max-width: 700px) { .affiancati { flex-direction: column; } .affiancati .colonna { width: 100%; } }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95em; }
+p code, li code, td code, th code, blockquote code { background: rgba(28, 42, 57, 0.08); padding: 0.08rem 0.35rem; border-radius: 4px; color: #18212d; }
+table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
+th, td { border: 1px solid #ddd5ca; padding: 0.55rem 0.7rem; vertical-align: top; text-align: left; }
+tr.corretta td { background: #d4edda; font-weight: 600; }
+th { background: #efe7db; }
+hr { border: 0; border-top: 1px solid #d8d1c7; margin: 2rem 0; }
+a { color: #8b3f1d; }
+[id] { scroll-margin-top: 20px; }
+ol.exercise-list { list-style: none; padding-left: 0; }
+ol.exercise-list > li { display: flex; align-items: baseline; gap: 0.5em; flex-wrap: wrap; }
+a.ex-id { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82em; font-weight: 600; background: #f3ece2; border: 1px solid #ddd5ca; color: #8b3f1d; padding: 0.05rem 0.4rem; border-radius: 5px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+a.ex-id:hover { background: #e8d9c5; border-color: #c9b89e; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #d8d1c7; font-size: 0.82rem; color: #595959; display: flex; align-items: center; gap: 0.6rem; }
+footer img { margin: 0; border-radius: 0; height: 22px; width: auto; display: inline; }
+@media (max-width: 700px) {
+  .page { padding: 24px 14px 56px; }
+  table { display: block; overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+<h1 id="esercitazione-8---1611">Esercitazione 8 - 16/11</h1><p>Pochi esercizi, scelti per consolidare gli array prima di passare alle stringhe: ciascuno allena <strong>una</strong> idea precisa.</p><p>Argomenti:</p><ul><li><strong>invertire</strong> un array, in tutto o solo in certe posizioni</li><li>verificare una proprietà <strong>sulle coppie di elementi vicini</strong></li><li><strong>riempire</strong> un array: con numeri casuali che rispettano una regola, e con numeri chiesti all&#x27;utente</li></ul><p>Per ripassare array, <code>length</code>, scorrimento con <code>for</code> e la regola «le funzioni restituiscono un nuovo array» vedi i recap dell&#x27;esercitazione 7: <a href="../esercitazione-7/esercitazione-7-senza-soluzioni.html#recap-1-gli-array">Recap 1 · Gli array</a> e <a href="../esercitazione-7/esercitazione-7-senza-soluzioni.html#recap-2-array-e-funzioni">Recap 2 · Array e funzioni</a>.</p><p>Negli esercizi 1 e 2 scriviamo <strong>programmi</strong> (non funzioni) che lavorano sull&#x27;array <code>v</code>; negli esercizi 3 e 4 scriviamo <strong>funzioni</strong> che, come sempre, non modificano nulla e <strong>restituiscono un nuovo array</strong>. Nell&#x27;esercizio 1 anche il programma non modifica <code>v</code>: costruisce un array nuovo.</p><h2 id="indice-degli-esercizi">Indice degli esercizi</h2><table><thead><tr><th>Esercizio</th><th>Argomento</th></tr></thead><tbody><tr><td><a href="#esercizio-1">Esercizio 1</a></td><td>Inversione di un array</td></tr><tr><td><a href="#esercizio-2">Esercizio 2</a></td><td>Ogni 2 è seguito da un 3</td></tr><tr><td><a href="#esercizio-3">Esercizio 3</a></td><td>Riempire un array con numeri casuali</td></tr><tr><td><a href="#esercizio-4">Esercizio 4</a></td><td>Riempire un array con numeri chiesti all&#x27;utente</td></tr><tr><td><a href="#esercizio-5">Esercizio 5</a></td><td>Copiare un array: perché non basta <code>b = a</code></td></tr></tbody></table><h2 id="esercizio-1">Esercizio 1</h2><p>Dato un array <code>v</code>, scrivere un programma che costruisca un <strong>nuovo array</strong> <code>risultato</code> (senza modificare <code>v</code>) e lo stampi.</p><p><strong>A.</strong> <code>risultato</code> contiene gli stessi elementi di <code>v</code> in ordine <strong>inverso</strong>. Ad esempio con <code>v = [1, 2, 3, 4]</code> si stampa <code>[4, 3, 2, 1]</code>.</p><p><strong>B.</strong> In <code>risultato</code> gli elementi che si trovano in <strong>posizione pari</strong> (indici <code>0, 2, 4, ...</code>) sono presi in ordine inverso, mentre quelli in posizione dispari <strong>restano dove sono</strong>. Ad esempio:</p><ul><li>con <code>v = [1, 2, 3, 4, 5]</code> si stampa <code>[5, 2, 3, 4, 1]</code></li><li>con <code>v = [10, 11, 12, 13, 14, 15]</code> si stampa <code>[14, 11, 12, 13, 10, 15]</code></li></ul><p>Provate i programmi anche con un array di un solo elemento e con l&#x27;array vuoto.</p><h2 id="esercizio-2">Esercizio 2</h2><p>Dato un array <code>v</code>, scrivere un programma che stampi <code>true</code> se <strong>ogni</strong> <code>2</code> presente nell&#x27;array è <strong>immediatamente seguito</strong> da un <code>3</code>, <code>false</code> altrimenti. Se non ci sono <code>2</code> la risposta è <code>true</code>; un <code>2</code> in ultima posizione non è seguito da niente, quindi dà <code>false</code>.</p><p>Provate il programma con questi array:</p><table><thead><tr><th><code>v</code></th><th>cosa stampa</th></tr></thead><tbody><tr><td><code>[1, 2, 3, 5, 2, 3]</code></td><td><code>true</code></td></tr><tr><td><code>[2, 4, 3]</code></td><td><code>false</code></td></tr><tr><td><code>[5, 2, 3, 2]</code></td><td><code>false</code></td></tr><tr><td><code>[1, 5, 7]</code></td><td><code>true</code></td></tr><tr><td><code>[2, 2, 3]</code></td><td><code>false</code></td></tr><tr><td><code>[]</code></td><td><code>true</code></td></tr></tbody></table><h2 id="esercizio-3">Esercizio 3</h2><p>Funzioni che <strong>costruiscono</strong> un array di numeri casuali rispettando una regola. Ricordate che un intero casuale tra <code>min</code> e <code>max</code> (estremi inclusi) è <code>Math.floor(Math.random() * (max - min + 1)) + min</code>.</p><p><strong>A.</strong> Scrivere la funzione <code>casualiPari(n, min, max)</code> che restituisce un array di <code>n</code> numeri casuali <strong>pari</strong> compresi tra <code>min</code> e <code>max</code>.</p><p><strong>B.</strong> Scrivere la funzione <code>casualiDistinti(n, min, max)</code> che restituisce un array di <code>n</code> numeri casuali compresi tra <code>min</code> e <code>max</code> <strong>tutti diversi tra loro</strong>. Suggerimento: estraete un numero con un <code>do ... while</code> finché non ne trovate uno che non è già nell&#x27;array.</p><p>Provatele, ad esempio, con <code>casualiPari(8, 1, 20)</code> e <code>casualiDistinti(5, 1, 10)</code>.</p><h2 id="esercizio-4">Esercizio 4</h2><p>Funzioni che <strong>costruiscono</strong> un array con numeri <strong>chiesti all&#x27;utente</strong>. Si legge con <code>prompt</code> e si converte con <code>Number</code>, come negli esercizi precedenti.</p><p><strong>A.</strong> Scrivere la funzione <code>leggiArray(n)</code> che chiede all&#x27;utente <code>n</code> numeri e restituisce l&#x27;array che li contiene, nell&#x27;ordine in cui sono stati inseriti.</p><p><strong>B.</strong> Scrivere la funzione <code>leggiFinoAZero()</code> che chiede numeri <strong>finché l&#x27;utente non inserisce <code>0</code></strong> e restituisce l&#x27;array dei numeri inseriti, <strong>senza</strong> lo zero finale. Non si sa in anticipo quanti saranno.</p><p><strong>C.</strong> Scrivere la funzione <code>leggiPositivi(n)</code> che chiede all&#x27;utente <code>n</code> numeri <strong>positivi</strong>: se l&#x27;utente ne inserisce uno non positivo, il programma lo richiede finché non è valido.</p><p>Per ciascuna scrivete poi un breve programma che la usa e stampa l&#x27;array letto.</p><h2 id="esercizio-5">Esercizio 5</h2><p>Un array <strong>non si copia</strong> con l&#x27;assegnazione. Vediamo perché e come si fa.</p><p><strong>A.</strong> Dite cosa stampa questo programma, <strong>senza eseguirlo</strong>. Poi spiegate con le vostre parole perché <code>a</code> è cambiato anche se abbiamo modificato solo <code>b</code>.</p><pre><code class="language-js">let a = [1, 2, 3];
+let b = a;
+b[0] = 99;
+console.log(a);
+console.log(b);
+console.log(a == b);</code></pre><p><strong>B.</strong> Volevamo <strong>conservare</strong> <code>a</code> e lavorare su una copia. Scrivere la funzione <code>copia(v)</code> che restituisce un <strong>nuovo array</strong> con gli stessi elementi di <code>v</code>, e usarla per correggere il programma di A: dopo la modifica di <code>b</code>, <code>a</code> deve essere ancora <code>[1, 2, 3]</code>.</p>
+<footer>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license">
+<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0">
+</a>
+Ludovica Pannitto - Università di Pisa -
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>
+</footer>
+</main>
+</body>
+</html>
