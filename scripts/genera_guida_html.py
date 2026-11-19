@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import re
 from html import escape
 from pathlib import Path
@@ -28,6 +29,7 @@ DETAILS_OPEN_RE = re.compile(r"^<details>\s*$")
 SUMMARY_RE = re.compile(r"^<summary>(.*)</summary>\s*$")
 DETAILS_CLOSE_RE = re.compile(r"^</details>\s*$")
 AFFIANCATI_OPEN_RE = re.compile(r'^<div class="affiancati">\s*$')
+CORRETTA_MARK = "{corretta}"
 AFFIANCATI_CLOSE_RE = re.compile(r"^</div>\s*$")
 
 
@@ -165,8 +167,11 @@ def parse_table(lines: list[str], start: int) -> tuple[str, int]:
     thead = "".join(f"<th>{render_inline(cell)}</th>" for cell in header)
     tbody_rows = []
     for row in body:
+        corretta = bool(row) and row[0].endswith(CORRETTA_MARK)
+        if corretta:
+            row = [row[0][: -len(CORRETTA_MARK)].rstrip(), *row[1:]]
         cells = "".join(f"<td>{render_inline(cell)}</td>" for cell in row)
-        tbody_rows.append(f"<tr>{cells}</tr>")
+        tbody_rows.append(f'<tr class="corretta">{cells}</tr>' if corretta else f"<tr>{cells}</tr>")
 
     return f"<table><thead><tr>{thead}</tr></thead><tbody>{''.join(tbody_rows)}</tbody></table>", i
 
@@ -297,53 +302,14 @@ def render_body(text: str) -> str:
     return "".join(body)
 
 
-def render_document_html(title: str, body: str) -> str:
+def render_document_html(title: str, body: str, asset_prefix: str = "../assets/") -> str:
     return f"""<!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(title)}</title>
-<style>
-* {{ box-sizing: border-box; }}
-html {{ scroll-behavior: smooth; }}
-body {{ margin: 0; font-family: Georgia, "Times New Roman", serif; background: #f6f3ee; color: #1f1f1f; line-height: 1.65; }}
-.page {{ max-width: 900px; margin: 0 auto; padding: 40px 20px 72px; }}
-h1, h2, h3, h4 {{ font-family: "Avenir Next", "Segoe UI", Arial, sans-serif; line-height: 1.2; color: #1c2a39; }}
-h1 {{ font-size: 2.1rem; margin: 0 0 1.5rem; }}
-h2 {{ font-size: 1.5rem; margin: 2.5rem 0 1rem; padding-top: 0.25rem; border-top: 1px solid #d8d1c7; }}
-h3 {{ font-size: 1.2rem; margin: 2rem 0 0.8rem; }}
-p, ul, ol, blockquote, table, pre {{ margin: 0 0 1rem; }}
-img {{ max-width: 100%; height: auto; display: block; margin: 1rem auto; border-radius: 12px; }}
-ul, ol {{ padding-left: 1.4rem; }}
-li {{ margin: 0.3rem 0; }}
-blockquote {{ border-top: 3px solid #c97f31; border-bottom: 3px solid #c97f31; padding: 0.75rem 1.5rem; background: #fff8ef; color: #503521; text-align: center; max-width: 82%; margin-left: auto; margin-right: auto; }}
-details {{ margin: 0 0 1rem; border: 1px solid #ddd5ca; border-radius: 10px; background: #fffdfa; overflow: hidden; }}
-summary {{ cursor: pointer; font-weight: 600; padding: 0.8rem 1rem; background: #f3ece2; }}
-details > :not(summary) {{ padding-left: 1rem; padding-right: 1rem; }}
-pre {{ background: #1f2430; color: #f3f4f6; padding: 1rem; border-radius: 10px; overflow-x: auto; }}
-.affiancati {{ display: flex; gap: 1rem; align-items: flex-start; }}
-.affiancati .colonna {{ flex: 1 1 0; min-width: 0; }}
-@media (max-width: 700px) {{ .affiancati {{ flex-direction: column; }} .affiancati .colonna {{ width: 100%; }} }}
-code {{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95em; }}
-p code, li code, td code, th code, blockquote code {{ background: rgba(28, 42, 57, 0.08); padding: 0.08rem 0.35rem; border-radius: 4px; color: #18212d; }}
-table {{ width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }}
-th, td {{ border: 1px solid #ddd5ca; padding: 0.55rem 0.7rem; vertical-align: top; text-align: left; }}
-th {{ background: #efe7db; }}
-hr {{ border: 0; border-top: 1px solid #d8d1c7; margin: 2rem 0; }}
-a {{ color: #8b3f1d; }}
-[id] {{ scroll-margin-top: 20px; }}
-ol.exercise-list {{ list-style: none; padding-left: 0; }}
-ol.exercise-list > li {{ display: flex; align-items: baseline; gap: 0.5em; flex-wrap: wrap; }}
-a.ex-id {{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82em; font-weight: 600; background: #f3ece2; border: 1px solid #ddd5ca; color: #8b3f1d; padding: 0.05rem 0.4rem; border-radius: 5px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }}
-a.ex-id:hover {{ background: #e8d9c5; border-color: #c9b89e; }}
-footer {{ margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #d8d1c7; font-size: 0.82rem; color: #595959; display: flex; align-items: center; gap: 0.6rem; }}
-footer img {{ margin: 0; border-radius: 0; height: 22px; width: auto; display: inline; }}
-@media (max-width: 700px) {{
-  .page {{ padding: 24px 14px 56px; }}
-  table {{ display: block; overflow-x: auto; }}
-}}
-</style>
+<link rel="stylesheet" href="{asset_prefix}documento.css">
 </head>
 <body>
 <main class="page">
@@ -470,7 +436,7 @@ def load_programma_table_html(module_stem: str) -> str:
 _FINE_LEZIONE_RE = re.compile(r"<h2[^>]*>\s*A fine lezione", re.IGNORECASE)
 
 
-def render_slides_html(text: str, title: str, epilogue_html: str = "") -> str:
+def render_slides_html(text: str, title: str, epilogue_html: str = "", asset_prefix: str = "../assets/") -> str:
     slides = split_slides(text)
 
     sections = [
@@ -522,113 +488,7 @@ def render_slides_html(text: str, title: str, epilogue_html: str = "") -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(title)} - Slides</title>
-<style>
-* {{ box-sizing: border-box; }}
-html, body {{ margin: 0; height: 100%; overflow: hidden; }}
-body {{ font-family: "Avenir Next", "Segoe UI", Arial, sans-serif; background:
-radial-gradient(circle at top left, #f4ead8 0%, #efe3d0 28%, #d9d7dd 58%, #bcc9d1 100%);
-color: #17212b; }}
-.deck {{ position: relative; width: 100vw; height: 100vh; }}
-.slide {{ display: none; width: 100vw; height: 100vh; padding: 40px; }}
-.slide.active {{ display: block; }}
-.slide:focus {{ outline: none; }}
-.slide:focus-visible {{ outline: 3px solid #7a9aaa; outline-offset: -3px; }}
-.sr-only {{
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}}
-.slide-inner {{
-  width: min(1180px, calc(100vw - 80px));
-  height: calc(100vh - 110px);
-  margin: 0 auto;
-  overflow: auto;
-  background: rgba(255,255,255,0.86);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(23, 33, 43, 0.12);
-  border-radius: 28px;
-  box-shadow: 0 24px 80px rgba(35, 40, 46, 0.16);
-  padding: 38px 46px 44px;
-}}
-.title-slide .slide-inner {{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background:
-  linear-gradient(135deg, rgba(255,255,255,0.9), rgba(250,245,238,0.86)),
-  radial-gradient(circle at right top, rgba(201,127,49,0.14), transparent 35%);
-}}
-.eyebrow {{ text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.82rem; color: #8b3f1d; margin: 0 0 1rem; }}
-.instructions {{ color: #5d6770; margin-top: 1.5rem; font-size: 1rem; }}
-h1, h2, h3, h4 {{ line-height: 1.08; color: #1a2834; margin: 0 0 0.8rem; }}
-h1 {{ font-size: clamp(2.4rem, 4.6vw, 4.8rem); max-width: 12ch; }}
-h2 {{ font-size: clamp(2rem, 3.4vw, 3.4rem); border-bottom: 2px solid rgba(139,63,29,0.2); padding-bottom: 0.5rem; margin-bottom: 1.4rem; }}
-h3 {{ font-size: clamp(1.4rem, 2.2vw, 2.1rem); margin-top: 1.8rem; margin-bottom: 0.6rem; }}
-p, ul, ol, blockquote, table, pre {{ margin: 0 0 1.1rem; font-size: clamp(1.08rem, 1.6vw, 1.32rem); line-height: 1.55; }}
-img {{ max-width: 100%; height: auto; display: block; margin: 1rem auto; border-radius: 18px; box-shadow: 0 14px 42px rgba(35, 40, 46, 0.18); }}
-ul, ol {{ padding-left: 1.35rem; }}
-li {{ margin: 0.38rem 0; }}
-blockquote {{ border-top: 4px solid #c97f31; border-bottom: 4px solid #c97f31; padding: 0.8rem 1.5rem; background: #fff6ea; border-radius: 14px; text-align: center; max-width: 80%; margin-left: auto; margin-right: auto; }}
-details {{ margin: 0 0 1rem; border: 1px solid rgba(23, 33, 43, 0.12); border-radius: 14px; background: rgba(255,255,255,0.72); overflow: hidden; }}
-summary {{ cursor: pointer; font-weight: 700; padding: 0.75rem 0.95rem; background: rgba(23, 33, 43, 0.06); }}
-details > :not(summary) {{ padding-left: 0.95rem; padding-right: 0.95rem; }}
-pre {{ background: #1f2430; color: #f3f4f6; padding: 1rem; border-radius: 16px; overflow-x: auto; }}
-.affiancati {{ display: flex; gap: 1rem; align-items: flex-start; }}
-.affiancati .colonna {{ flex: 1 1 0; min-width: 0; }}
-@media (max-width: 700px) {{ .affiancati {{ flex-direction: column; }} .affiancati .colonna {{ width: 100%; }} }}
-code {{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; }}
-p code, li code, td code, th code, blockquote code {{ background: rgba(23, 33, 43, 0.07); padding: 0.08rem 0.35rem; border-radius: 4px; }}
-table {{ width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.92); border-radius: 14px; overflow: hidden; }}
-th, td {{ border: 1px solid rgba(23, 33, 43, 0.12); padding: 0.55rem 0.7rem; vertical-align: top; text-align: left; }}
-th {{ background: #f2e7d7; }}
-hr {{ border: 0; border-top: 1px solid rgba(23, 33, 43, 0.12); margin: 1.2rem 0; }}
-a {{ color: #8b3f1d; }}
-ol.exercise-list {{ list-style: none; padding-left: 0; }}
-ol.exercise-list > li {{ display: flex; align-items: baseline; gap: 0.5em; flex-wrap: wrap; }}
-a.ex-id {{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.78em; font-weight: 600; background: rgba(139,63,29,0.1); border: 1px solid rgba(139,63,29,0.25); color: #8b3f1d; padding: 0.05rem 0.4rem; border-radius: 5px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }}
-a.ex-id:hover {{ background: rgba(139,63,29,0.18); }}
-.controls {{
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 24px 18px;
-  color: #213242;
-}}
-.progress {{
-  flex: 1;
-  height: 6px;
-  background: rgba(23, 33, 43, 0.12);
-  border-radius: 999px;
-  overflow: hidden;
-}}
-.progress-bar {{ height: 100%; width: 0; background: linear-gradient(90deg, #c97f31, #7a9aaa); }}
-.counter {{ min-width: 70px; text-align: right; font-size: 0.95rem; }}
-.nav button {{
-  border: 0;
-  background: rgba(255,255,255,0.82);
-  color: #213242;
-  border-radius: 999px;
-  padding: 0.72rem 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(35, 40, 46, 0.12);
-}}
-.nav {{ display: flex; gap: 10px; }}
-@media (max-width: 820px) {{
-  .slide {{ padding: 18px 14px 78px; }}
-  .slide-inner {{ width: 100%; height: calc(100vh - 96px); padding: 24px 22px 30px; border-radius: 20px; }}
-  p, ul, ol, blockquote, table, pre {{ font-size: 1rem; }}
-}}
-</style>
+<link rel="stylesheet" href="{asset_prefix}slides.css">
 </head>
 <body>
 <div class="deck" role="region" aria-label="Diapositive">
@@ -646,77 +506,15 @@ a.ex-id:hover {{ background: rgba(139,63,29,0.18); }}
     <img src="https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png" alt="CC BY-NC-SA 4.0" style="height:15px;border-radius:0;margin:0;">
   </a>
 </div>
-<script>
-const slides = Array.from(document.querySelectorAll(".slide"));
-const counter = document.getElementById("counter");
-const progress = document.getElementById("progress");
-const announcer = document.getElementById("slide-announcer");
-let current = 0;
-
-function slideLabel(slide, index) {{
-  const heading = slide.querySelector("h1, h2, h3");
-  const title = heading ? heading.textContent.trim() : "";
-  const position = `Diapositiva ${{index + 1}} di ${{slides.length}}`;
-  return title ? `${{position}}: ${{title}}` : position;
-}}
-
-function updateSlide(index, options) {{
-  const opts = options || {{}};
-  current = Math.max(0, Math.min(index, slides.length - 1));
-  slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
-  counter.textContent = `${{current + 1}} / ${{slides.length}}`;
-  progress.style.width = `${{((current + 1) / slides.length) * 100}}%`;
-
-  const activeSlide = slides[current];
-  const label = slideLabel(activeSlide, current);
-  activeSlide.setAttribute("aria-label", label);
-  announcer.textContent = label;
-
-  if (opts.moveFocus) {{
-    activeSlide.focus({{ preventScroll: true }});
-  }}
-
-  const anchor = activeSlide.querySelector("[id]");
-  if (anchor) {{
-    history.replaceState(null, "", `#${{anchor.id}}`);
-  }}
-}}
-
-document.getElementById("prev").addEventListener("click", () => updateSlide(current - 1, {{ moveFocus: true }}));
-document.getElementById("next").addEventListener("click", () => updateSlide(current + 1, {{ moveFocus: true }}));
-
-document.addEventListener("keydown", (event) => {{
-  if (["ArrowRight", "PageDown", " "].includes(event.key)) {{
-    event.preventDefault();
-    updateSlide(current + 1, {{ moveFocus: true }});
-  }}
-  if (["ArrowLeft", "PageUp"].includes(event.key)) {{
-    event.preventDefault();
-    updateSlide(current - 1, {{ moveFocus: true }});
-  }}
-  if (event.key === "Home") updateSlide(0, {{ moveFocus: true }});
-  if (event.key === "End") updateSlide(slides.length - 1, {{ moveFocus: true }});
-}});
-
-function slideFromHash() {{
-  const id = decodeURIComponent(location.hash.slice(1));
-  const target = id ? document.getElementById(id) : null;
-  const slide = target ? target.closest(".slide") : null;
-  const index = slide ? slides.indexOf(slide) : -1;
-  return index;
-}}
-
-window.addEventListener("hashchange", () => {{
-  const index = slideFromHash();
-  if (index >= 0 && index !== current) updateSlide(index, {{ moveFocus: true }});
-}});
-
-const startIndex = slideFromHash();
-updateSlide(startIndex >= 0 ? startIndex : 0);
-</script>
+<script src="{asset_prefix}slides.js"></script>
 </body>
 </html>
 """
+
+
+def asset_prefix_for(output: Path) -> str:
+    """Percorso relativo da `output` alla cartella condivisa assets/ (CSS e JS comuni)."""
+    return os.path.relpath(ROOT / "assets", output.parent).replace(os.sep, "/") + "/"
 
 
 def gather_sources(args: argparse.Namespace) -> list[Path]:
@@ -747,15 +545,15 @@ def generate_outputs(source: Path, slides: bool, document: bool, senza_soluzioni
     outputs: list[Path] = []
 
     if document:
-        html = render_document_html(title, render_body(text))
         output = source.with_name(f"{source.stem}{suffix}.html")
+        html = render_document_html(title, render_body(text), asset_prefix_for(output))
         output.write_text(html, encoding="utf-8")
         outputs.append(output)
 
     if slides:
         epilogue = load_programma_table_html(source.stem)
-        slides_html = render_slides_html(text, title, epilogue)
         output = source.with_name(f"{source.stem}{suffix}.slides.html")
+        slides_html = render_slides_html(text, title, epilogue, asset_prefix_for(output))
         output.write_text(slides_html, encoding="utf-8")
         outputs.append(output)
 

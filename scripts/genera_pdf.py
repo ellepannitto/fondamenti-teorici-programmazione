@@ -28,6 +28,8 @@ CSS_STAMPA = """
   table { background: #fff; border-radius: 0; break-inside: avoid; }
   th, td { border-color: #999; }
   th { background: #eee; }
+  tr.corretta td { background: #d4edda; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .affiancati { break-inside: avoid; }
   blockquote { background: #fff; color: #000; border-color: #999; }
   details { background: #fff; border-color: #999; border-radius: 4px; }
   summary { background: #eee; }
@@ -39,7 +41,7 @@ CSS_STAMPA = """
 
 def stampa(html: Path, pdf: Path, apri_soluzioni: bool) -> None:
     # copia temporanea (nella stessa cartella, per le immagini relative) con lo stile di stampa
-    testo = html.read_text().replace("</style>", CSS_STAMPA + "</style>", 1)
+    testo = html.read_text().replace("</head>", "<style>" + CSS_STAMPA + "</style></head>", 1)
     # la sezione "Come si lavora" riguarda la lezione in aula: non serve nel PDF
     testo = re.sub(r'<h2 id="come-si-lavora">.*?(?=<h2 )', "", testo, count=1, flags=re.S)
     if apri_soluzioni:
@@ -62,9 +64,6 @@ def stampa(html: Path, pdf: Path, apri_soluzioni: bool) -> None:
 def main() -> None:
     for html in sorted(ROOT.glob("esercitazione-*/esercitazione-*.html")):
         if html.name.endswith(".slides.html") or ".tmp-print" in html.name:
-            continue
-        # esercitazione 5: per ora solo la versione senza soluzioni
-        if html.stem == "esercitazione-5":
             continue
         stampa(html, html.with_suffix(".pdf"), apri_soluzioni="senza-soluzioni" not in html.name)
 
