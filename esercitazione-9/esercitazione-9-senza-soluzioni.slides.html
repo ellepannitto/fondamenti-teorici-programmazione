@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esercitazione 9 - 23/11 - Slides</title>
+<link rel="stylesheet" href="../assets/slides.css">
+</head>
+<body>
+<div class="deck" role="region" aria-label="Diapositive">
+  
+<section class="slide title-slide active" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <p class="eyebrow">Fondamenti Teorici e Programmazione</p>
+    <h1>Esercitazione 9 - 23/11</h1>
+    <p class="instructions">Freccia destra o spazio per avanzare, freccia sinistra per tornare indietro — oppure i pulsanti "Indietro" e "Avanti" in fondo alla pagina.</p>
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <p>Argomenti:</p><ul><li><strong>passaggio per valore e per riferimento</strong>: cosa riceve davvero una funzione</li><li><strong>modificare</strong> un array o <strong>riassegnare</strong> una variabile: due operazioni diverse</li><li><strong>invertire un array sul posto</strong>, senza array di appoggio</li><li><strong>stringhe</strong>: indici, <code>length</code>, cicli; sono <strong>immutabili</strong>, gli array no; invertire una stringa</li><li><strong>matrici</strong> (array di array): <code>m[i][j]</code> e somma della diagonale</li></ul>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="indice-degli-esercizi">Indice degli esercizi</h2><table><thead><tr><th>Esercizio</th><th>Argomento</th></tr></thead><tbody><tr><td><a href="#esercizio-1">Esercizio 1</a></td><td>Numeri e array passati a una funzione: cosa stampa</td></tr><tr><td><a href="#esercizio-2">Esercizio 2</a></td><td>Inversione di un array senza array di appoggio</td></tr><tr><td><a href="#esercizio-3">Esercizio 3</a></td><td>Stringhe: introduzione</td></tr><tr><td><a href="#esercizio-4">Esercizio 4</a></td><td>Inversione di una stringa e palindromi</td></tr><tr><td><a href="#esercizio-5">Esercizio 5</a></td><td>Matrici: accesso agli elementi</td></tr><tr><td><a href="#esercizio-6">Esercizio 6</a></td><td>Somma delle diagonali di una matrice</td></tr></tbody></table>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-1-valore-e-riferimento">Recap 1 · Valore e riferimento</h2><p>Ogni variabile contiene <strong>una sola cosa</strong>, ma questa cosa può essere di due tipi.</p><ul><li>Con <strong>numeri, booleani e stringhe</strong> la variabile contiene <strong>direttamente il valore</strong>. Con <code>let y = x;</code> si <strong>copia il valore</strong>: da quel momento <code>x</code> e <code>y</code> sono indipendenti.</li><li>Con <strong>array e oggetti</strong> la variabile contiene un <strong>riferimento</strong>, cioè l&#x27;«indirizzo» in memoria dell&#x27;array. Con <code>let b = a;</code> si copia <strong>solo l&#x27;indirizzo</strong>: <code>a</code> e <code>b</code> sono due nomi per lo <strong>stesso</strong> array.</li></ul><p>Numeri: la variabile <strong>contiene</strong> il valore, e <code>let y = x;</code> ne fa una copia.</p><pre><code>let x = 5;
+let y = x;
+
+   x ┌───┐        y ┌───┐
+     │ 5 │          │ 5 │         due scatole, ciascuna col suo 5
+     └───┘          └───┘</code></pre><p>Array: la variabile contiene solo l&#x27;<strong>indirizzo</strong> dell&#x27;array, e <code>let b = a;</code> copia l&#x27;indirizzo, non l&#x27;array.</p><pre><code>let a = [1, 2];
+let b = a;
+
+   a ┌───┐
+     │ ● │────┐
+     └───┘    │      ┌───┬───┐
+              ├────► │ 1 │ 2 │      un solo array
+   b ┌───┐    │      └───┴───┘
+     │ ● │────┘
+     └───┘</code></pre><p><strong>Passare un argomento a una funzione equivale a un&#x27;assegnazione</strong>: il parametro è una nuova variabile che riceve una copia di ciò che c&#x27;è nella variabile di chi chiama. Quindi:</p><ul><li>se l&#x27;argomento è un <strong>numero</strong>, la funzione riceve una copia del valore: qualunque cosa faccia, l&#x27;originale non cambia;</li><li>se l&#x27;argomento è un <strong>array</strong>, la funzione riceve una copia del <strong>riferimento</strong>: ha a disposizione lo <strong>stesso array</strong> di chi chiama.</li></ul><p>Con un array bisogna quindi distinguere due operazioni molto diverse: <strong>modificare</strong> l&#x27;array (<code>v[0] = 99</code>) e <strong>riassegnare</strong> la variabile (<code>v = [99, 99]</code>). Qui le vediamo per capire cosa succede; <strong>le funzioni che scriverete voi non modificheranno mai gli array che ricevono</strong>: se serve un risultato lo <strong>restituiranno</strong>, costruendo un array nuovo.</p><pre><code class="language-js">function modifica(v) {
+  v[0] = 99;                                    // MODIFICA l&#x27;array: si vede anche fuori
+}
+
+function riassegna(v) {
+  v = [99, 99];                                 // RIASSEGNA la variabile v: ora v indica un altro array
+}                                               // l&#x27;array di chi chiama non è toccato
+
+let a = [1, 2, 3];
+modifica(a);
+console.log(a);                                 // [ 99, 2, 3 ]
+
+let b = [1, 2, 3];
+riassegna(b);
+console.log(b);                                 // [ 1, 2, 3 ]</code></pre><p>In <code>riassegna</code> il parametro <code>v</code> è una variabile <strong>locale</strong> che per un attimo indicava lo stesso array di <code>b</code>; scrivendo <code>v = ...</code> la si fa indicare un array nuovo, ma <code>b</code> continua a indicare il vecchio.</p><p>Il confronto <code>==</code> tra due array confronta i <strong>riferimenti</strong>, non il contenuto: è <code>true</code> solo se sono <strong>lo stesso array</strong>.</p><pre><code class="language-js">let a = [1, 2];
+let b = a;
+let c = [1, 2];
+console.log(a == b);                            // true: stesso array
+console.log(a == c);                            // false: due array diversi, anche se con gli stessi elementi</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-1">Esercizio 1</h2><p><em>Ripasso:</em> <a href="#recap-1-valore-e-riferimento">Recap 1 · Valore e riferimento</a>.</p><p>Dite cosa stampa ciascun programma, <strong>senza eseguirlo</strong>, e spiegate il perché.</p><p><strong>A.</strong></p><pre><code class="language-js">function incrementa(x) {
+  x = x + 1;
+  return x;
+}
+
+let n = 5;
+let m = incrementa(n);
+console.log(n, m);</code></pre><p><strong>B.</strong></p><pre><code class="language-js">function incrementaTutti(v) {
+  for (let i = 0; i &lt; v.length; i++) {
+    v[i] = v[i] + 1;
+  }
+}
+
+let a = [1, 2, 3];
+incrementaTutti(a);
+console.log(a);</code></pre><p><strong>C.</strong></p><pre><code class="language-js">function azzera(v) {
+  v = [0, 0, 0];
+}
+
+let a = [1, 2, 3];
+azzera(a);
+console.log(a);</code></pre><p><strong>D.</strong> Cosa cambierebbe in C se, al posto di <code>v = [0, 0, 0];</code>, la funzione contenesse un ciclo <code>for</code> che scrive <code>0</code> in ogni posizione di <code>v</code>?</p><p><strong>E.</strong> Scrivere una funzione <code>zeri(v)</code> che <strong>restituisce un nuovo array</strong> di zeri della stessa lunghezza di <code>v</code>, <strong>senza modificare</strong> <code>v</code>. Poi dite cosa stampa</p><pre><code class="language-js">let a = [1, 2, 3];
+let z = zeri(a);
+console.log(a, z);</code></pre>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-2">Esercizio 2</h2><p><em>Ripasso:</em> <a href="#recap-1-valore-e-riferimento">Recap 1 · Valore e riferimento</a> (un array è modificabile).</p><p>Nell&#x27;Esercitazione 8 abbiamo costruito un <strong>nuovo array</strong> con gli elementi di <code>v</code> in ordine inverso. Qui invece vogliamo <strong>invertire l&#x27;array stesso</strong>, senza usare nessun array di appoggio: niente <code>[]</code>, niente copie.</p><p>Dato un array <code>v</code>, scrivere un <strong>programma</strong> che <strong>modifica</strong> <code>v</code> in modo che i suoi elementi siano in ordine inverso, e poi lo stampa. Ad esempio con <code>v = [1, 2, 3, 4, 5]</code> si stampa <code>[ 5, 4, 3, 2, 1 ]</code>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-2-le-stringhe">Recap 2 · Le stringhe</h2><p>Una <strong>stringa</strong> è una sequenza di caratteri, scritta tra apici (<code>&quot;ciao&quot;</code> o <code>&#x27;ciao&#x27;</code>). Come per gli array, i caratteri hanno un <strong>indice</strong> che parte da <code>0</code>:</p><pre><code class="language-js">let s = &quot;ciao&quot;;
+console.log(s.length);                          // 4
+console.log(s[0]);                              // c: il primo carattere
+console.log(s[s.length - 1]);                   // o: l&#x27;ultimo carattere
+console.log(s[4]);                              // undefined: oltre la fine</code></pre><p>Ogni carattere è a sua volta una stringa di lunghezza 1. Per scorrere una stringa si usa un ciclo <code>for</code> sugli indici, come per un array:</p><pre><code class="language-js">for (let i = 0; i &lt; s.length; i++) {
+  console.log(i, s[i]);
+}</code></pre><p>Le stringhe si <strong>concatenano</strong> con <code>+</code> e si confrontano con <code>==</code> (che confronta il <strong>contenuto</strong>). La stringa vuota è <code>&quot;&quot;</code>.</p><pre><code class="language-js">let saluto = &quot;ciao&quot; + &quot; &quot; + &quot;mondo&quot;;             // ciao mondo
+console.log(&quot;ciao&quot; == &quot;ciao&quot;);                  // true</code></pre><p>Due metodi permettono di passare da una stringa a un array e viceversa:</p><ul><li><code>s.split(separatore)</code> <strong>spezza</strong> la stringa in corrispondenza del separatore e restituisce l&#x27;<strong>array</strong> dei pezzi;</li><li><code>v.join(separatore)</code> <strong>unisce</strong> gli elementi dell&#x27;array in una <strong>stringa</strong>, mettendo il separatore tra uno e l&#x27;altro.</li></ul><pre><code class="language-js">let frase = &quot;il gatto nero&quot;;
+let parole = frase.split(&quot; &quot;);                  // [ &#x27;il&#x27;, &#x27;gatto&#x27;, &#x27;nero&#x27; ]
+console.log(parole.length);                     // 3
+console.log(parole[1]);                         // gatto
+console.log(parole.join(&quot;-&quot;));                  // il-gatto-nero
+console.log(&quot;ciao&quot;.split(&quot;&quot;));                  // [ &#x27;c&#x27;, &#x27;i&#x27;, &#x27;a&#x27;, &#x27;o&#x27; ]: un elemento per carattere</code></pre><h3 id="le-stringhe-sono-immutabili">Le stringhe sono immutabili</h3><p>Ricordiamo che un valore è <strong>mutabile</strong> se si può modificare «sul posto», <strong>immutabile</strong> se non si può: per ottenere un valore diverso se ne deve creare uno nuovo.</p><ul><li>gli <strong>array</strong> (e gli oggetti) sono <strong>mutabili</strong>: <code>v[0] = 99</code> cambia l&#x27;array;</li><li><strong>numeri, booleani e stringhe</strong> sono <strong>immutabili</strong>.</li></ul><p>Le stringhe somigliano agli array (hanno <code>length</code>, si legge <code>s[0]</code>), ma <strong>non si possono modificare</strong>:</p><pre><code class="language-js">let s = &quot;ciao&quot;;
+s[0] = &quot;M&quot;;                                     // non fa niente (in alcuni ambienti dà errore)
+console.log(s);                                 // ciao</code></pre><p>Anche i metodi delle stringhe <strong>non modificano</strong> <code>s</code>: restituiscono un valore nuovo.</p><pre><code class="language-js">let lettere = s.split(&quot;&quot;);
+console.log(s, lettere);                        // ciao [ &#x27;c&#x27;, &#x27;i&#x27;, &#x27;a&#x27;, &#x27;o&#x27; ]</code></pre><p>Per «cambiare» una stringa si costruisce quindi <strong>una nuova stringa</strong>, per esempio con la concatenazione:</p><pre><code class="language-js">s = s + &quot;!&quot;;                                    // crea &quot;ciao!&quot; e la assegna a s: la stringa &quot;ciao&quot; non è stata toccata</code></pre><p>Visto che sono immutabili, le stringhe passate a una funzione si comportano come i numeri: la funzione non può modificare l&#x27;originale, può solo <strong>restituire una stringa nuova</strong>. È la stessa regola che seguiamo per gli array.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-3">Esercizio 3</h2><p><em>Ripasso:</em> <a href="#recap-2-le-stringhe">Recap 2 · Le stringhe</a>.</p><p>Sia <code>s = &quot;Programmazione&quot;</code>.</p><p><strong>A.</strong> Quanto valgono <code>s.length</code>, <code>s[0]</code>, <code>s[3]</code>, <code>s[s.length - 1]</code> e <code>s[14]</code>?</p><p><strong>B.</strong> Scrivere un programma che stampi la stringa <strong>un carattere per riga</strong>, preceduto dal suo indice: <code>0 P</code>, <code>1 r</code>, ...</p><p><strong>C.</strong> Scrivere una funzione <code>contaVocali(s)</code> che restituisce quante vocali minuscole (<code>a</code>, <code>e</code>, <code>i</code>, <code>o</code>, <code>u</code>) ci sono in <code>s</code>. Calcolare <code>contaVocali(s)</code>.</p><p><strong>D.</strong> Cosa stampa questo programma, <strong>senza eseguirlo</strong>?</p><pre><code class="language-js">let t = &quot;ciao mondo&quot;;
+t[0] = &quot;M&quot;;
+console.log(t);
+
+let parole = t.split(&quot; &quot;);
+console.log(t, parole);
+
+t = t + &quot;!&quot;;
+console.log(t);</code></pre><p><strong>E.</strong> Data la stringa <code>frase = &quot;il gatto nero&quot;</code>, scrivere un programma che stampi il <strong>numero di parole</strong> e poi la frase con le parole separate da un trattino (<code>il-gatto-nero</code>), usando <code>split</code> e <code>join</code>. Poi la stessa frase <strong>al contrario</strong>, parola per parola (<code>nero gatto il</code>), senza usare metodi per invertire.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-4">Esercizio 4</h2><p><em>Ripasso:</em> <a href="#recap-2-le-stringhe">Recap 2 · Le stringhe</a> (l&#x27;ultima parte: costruire una nuova stringa).</p><p>Visto che le stringhe non si possono modificare, scriviamo funzioni che <strong>restituiscono una stringa nuova</strong>. Senza usare metodi delle stringhe (solo <code>length</code>, <code>s[i]</code> e <code>+</code>).</p><p><strong>A.</strong> <code>sostituisci(s, i, c)</code>: restituisce una stringa uguale a <code>s</code> ma con il carattere in posizione <code>i</code> sostituito da <code>c</code>. Ad esempio <code>sostituisci(&quot;ciao&quot;, 0, &quot;M&quot;)</code> restituisce <code>&quot;Miao&quot;</code>. Verificare che <code>s</code> sia rimasta com&#x27;era.</p><p><strong>B.</strong> <code>inverti(s)</code>: restituisce la stringa con i caratteri in ordine inverso. Ad esempio <code>inverti(&quot;ciao&quot;)</code> restituisce <code>&quot;oaic&quot;</code>.</p><p><strong>C.</strong> Usando <code>inverti</code>, scrivere <code>palindroma(s)</code> che restituisce <code>true</code> se <code>s</code> si legge uguale da sinistra a destra e da destra a sinistra (per esempio <code>&quot;anna&quot;</code>), <code>false</code> altrimenti.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="recap-3-le-matrici">Recap 3 · Le matrici</h2><p>Una <strong>matrice</strong> è un <strong>array di array</strong>: ogni elemento dell&#x27;array esterno è una <strong>riga</strong>, che a sua volta è un array.</p><pre><code class="language-js">let m = [
+  [1, 2, 3],
+  [4, 5, 6]
+];
+
+console.log(m.length);                          // 2: il numero di righe
+console.log(m[0].length);                       // 3: il numero di colonne (lunghezza di una riga)
+console.log(m[1]);                              // [ 4, 5, 6 ]: la riga 1
+console.log(m[1][2]);                           // 6: riga 1, colonna 2</code></pre><p><code>m[i][j]</code> si legge «nella riga <code>i</code>, l&#x27;elemento in colonna <code>j</code>»: prima si sceglie la riga, <code>m[i]</code>, che è un array, poi l&#x27;elemento di quell&#x27;array. Gli indici partono da <code>0</code> sia per le righe sia per le colonne. Una matrice è un array, quindi è <strong>mutabile</strong>: <code>m[0][1] = 20;</code> modifica l&#x27;elemento.</p><p>Per scorrerla servono <strong>due cicli annidati</strong>: quello esterno sulle righe, quello interno sulle colonne.</p><pre><code class="language-js">for (let i = 0; i &lt; m.length; i++) {
+  for (let j = 0; j &lt; m[i].length; j++) {
+    console.log(i, j, m[i][j]);
+  }
+}</code></pre><p>Una matrice si dice <strong>quadrata</strong> se ha tante righe quante colonne (<code>n × n</code>).</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-5">Esercizio 5</h2><p><em>Ripasso:</em> <a href="#recap-3-le-matrici">Recap 3 · Le matrici</a>.</p><p>Data la matrice</p><pre><code class="language-js">let m = [
+  [2, 7, 1],
+  [9, 4, 6]
+];</code></pre><p><strong>A.</strong> Quanto valgono <code>m.length</code>, <code>m[0].length</code>, <code>m[1]</code>, <code>m[1][0]</code> e <code>m[0][2]</code>? Cosa succede con <code>m[2][0]</code>?</p><p><strong>B.</strong> Scrivere un programma che stampi tutti gli elementi nel formato <code>riga 0, colonna 0: 2</code>, <code>riga 0, colonna 1: 7</code>, ...</p><p><strong>C.</strong> Scrivere un programma che <strong>modifichi</strong> <code>m</code> sostituendo ogni elemento con il suo doppio, e poi stampi <code>m</code>.</p>
+    
+  </div>
+</section>
+
+<section class="slide" role="group" aria-roledescription="diapositiva" tabindex="-1">
+  <div class="slide-inner">
+    <h2 id="esercizio-6">Esercizio 6</h2><p><em>Ripasso:</em> <a href="#recap-3-le-matrici">Recap 3 · Le matrici</a> (matrice quadrata).</p><p>Sia <code>m</code> una matrice <strong>quadrata</strong> <code>n × n</code>, ad esempio</p><pre><code class="language-js">let m = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];</code></pre><p>La <strong>diagonale principale</strong> è formata dagli elementi <code>m[0][0]</code>, <code>m[1][1]</code>, ..., <code>m[n-1][n-1]</code> (nell&#x27;esempio <code>1, 5, 9</code>); la <strong>diagonale secondaria</strong> da quelli che vanno dall&#x27;angolo in alto a destra a quello in basso a sinistra (<code>3, 5, 7</code>).</p><p><strong>A.</strong> Scrivere una funzione <code>sommaDiagonale(m)</code> che restituisce la somma degli elementi della diagonale principale.</p><p><strong>B.</strong> Scrivere una funzione <code>sommaAntidiagonale(m)</code> che restituisce la somma degli elementi della diagonale secondaria.</p><p><strong>C.</strong> Scrivere una funzione <code>sommaDiagonali(m)</code> che restituisce la somma degli elementi che stanno <strong>su almeno una</strong> delle due diagonali. Attenzione: se <code>n</code> è dispari l&#x27;elemento centrale appartiene a entrambe, e va contato <strong>una volta sola</strong>.</p>
+    
+  </div>
+</section>
+
+</div>
+<div class="sr-only" id="slide-announcer" aria-live="polite" aria-atomic="true"></div>
+<div class="controls">
+  <div class="nav">
+    <button type="button" id="prev">Indietro</button>
+    <button type="button" id="next">Avanti</button>
+  </div>
+  <div class="progress"><div class="progress-bar" id="progress"></div></div>
+  <div class="counter" id="counter" aria-hidden="true">1 / 12</div>
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license" style="display:flex;align-items:center;opacity:0.6;">
+    <img src="https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png" alt="CC BY-NC-SA 4.0" style="height:15px;border-radius:0;margin:0;">
+  </a>
+</div>
+<script src="../assets/slides.js"></script>
+</body>
+</html>
